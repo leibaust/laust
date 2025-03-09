@@ -35,11 +35,11 @@ function NameCard() {
           <p>visual storytelling and web development</p>
         </div>
         <cite
-          className={`text-xl transition-all duration-300 ${
+          className={`text-3xl transition-all duration-300 ${
             isHovered ? "text-primary" : "text-white"
           } ${isClicked ? "mt-4" : ""}`}
         >
-          Web Developer & Digital Creator
+          web developer & digital creator
         </cite>
       </div>
     </div>

@@ -1,5 +1,35 @@
+@font-face {
+  font-family: Bebas;
+  src: url(./assets/fonts/BebasNeue-Regular.ttf);
+}
+@font-face {
+  font-family: Modernline;
+  src: url(./assets/fonts/Modernline.ttf);
+}
+@font-face {
+  font-family: Editorial;
+  src: url(./assets/fonts/editorial/PPEditorialNew-Ultralight-BF644b21500d0c0.otf);
+}
 @import "tailwindcss";
 
 @theme {
   --color-primary: #e0ff4f;
+  --font-display: Bebas, "sans-serif";
+  --font-subtext: Modernline, "sans-serif";
+  --font-body: Editorial, "sans-serif";
+  --text-4xl: 4rem; /* Customize this value as needed */
+}
+
+@layer base {
+  h2 {
+    font-family: var(--font-display);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  cite {
+    font-family: var(--font-subtext);
+  }
+  p {
+    font-family: var(--font-body);
+    font-size: 24px;
+  }
 }
