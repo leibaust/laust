@@ -1,7 +1,10 @@
+import NameCard from "../components/ui/NameCard";
+
 function HomePage() {
   return (
     <>
-      <h1>Portfolio</h1>
+      <h1>Homepage</h1>
+      <NameCard />
     </>
   );
 }
