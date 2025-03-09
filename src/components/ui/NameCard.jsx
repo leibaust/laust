@@ -10,12 +10,15 @@ function NameCard() {
 
   return (
     <div
-      className="fixed top-50% left-50% flex items-center justify-center text-white cursor-pointer"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      onClick={handleClick}
+      className="flex items-center justify-center h-screen text-white"
+      style={{ paddingBottom: "20vh" }}
     >
-      <div className="text-center">
+      <div
+        className="text-center cursor-pointer"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        onClick={handleClick}
+      >
         <h2
           className={`text-4xl font-bold mb-2 transition-all duration-300 ${
             isHovered ? "text-primary" : "text-white"

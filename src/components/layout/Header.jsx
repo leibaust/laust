@@ -51,7 +51,7 @@ function Header({ toggleVideoPlayback, isPlaying }) {
             aria-label="Stop background video"
             onClick={toggleVideoPlayback}
           >
-            {isPlaying ? "Stop Train" : "Play Train"}
+            {isPlaying ? "Stop Train" : "Start Train"}
           </button>
         </div>
       </header>
