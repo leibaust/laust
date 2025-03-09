@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import backgroundVideo from "../../assets/bg.mp4";
 import overlayImage from "../../assets/overlay.jpg";
+import Footer from "./Footer";
 
 function Layout() {
   const [isPlaying, setIsPlaying] = useState(true);
@@ -39,6 +40,7 @@ function Layout() {
         <main className="p-4">
           <Outlet />
         </main>
+        <Footer />
       </div>
     </div>
   );

@@ -3,7 +3,7 @@ import headerLogo from "../../assets/la-logo.svg";
 
 function Header({ toggleVideoPlayback, isPlaying }) {
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col">
       {/* Top header with contact info and train button - always at top */}
       <header className="flex items-center justify-between p-4 text-white">
         {/* Left side: Contact info - always visible */}
@@ -55,21 +55,6 @@ function Header({ toggleVideoPlayback, isPlaying }) {
           </button>
         </div>
       </header>
-
-      {/* Mobile Navigation - Only visible on small screens at the bottom */}
-      <nav className="md:hidden flex justify-center mt-auto p-4 text-white">
-        <div className="flex items-center">
-          <Link to="/about" className="text-white m-3">
-            About
-          </Link>
-          <Link to="/">
-            <img src={headerLogo} alt="Site Logo" className="h-12" />
-          </Link>
-          <Link to="/works" className="text-white m-3">
-            Works
-          </Link>
-        </div>
-      </nav>
     </div>
   );
 }
