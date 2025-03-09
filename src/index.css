@@ -23,7 +23,6 @@
 @layer base {
   h2 {
     font-family: var(--font-display);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
   }
   cite {
     font-family: var(--font-subtext);

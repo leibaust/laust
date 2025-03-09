@@ -20,24 +20,28 @@ function NameCard() {
         onClick={handleClick}
       >
         <h2
-          className={`text-4xl font-bold mb-2 transition-all duration-300 ${
+          className={`text-4xl tracking-wider font-bold transition-all duration-500 ease-in-out ${
             isHovered ? "text-primary" : "text-white"
-          } ${isClicked ? "mb-4" : ""}`}
+          } ${isClicked ? "transform -translate-y-4" : ""}`}
         >
           Leibrandt Austria
         </h2>
         <div
-          className={`transition-all duration-300 ${
-            isClicked ? "opacity-100 max-h-full" : "opacity-0 max-h-0"
+          className={`overflow-hidden transition-all duration-500 ease-in-out ${
+            isClicked ? "opacity-100 max-h-32 my-4" : "opacity-0 max-h-0 my-0"
           }`}
         >
-          <p>designing unique user experiences through</p>
-          <p>visual storytelling and web development</p>
+          <p className="transition-opacity duration-500 ease-in-out">
+            designing unique user experiences through
+          </p>
+          <p className="transition-opacity duration-500 ease-in-out">
+            visual storytelling and web development
+          </p>
         </div>
         <cite
-          className={`text-3xl transition-all duration-300 ${
+          className={`text-3xl block transition-all duration-500 ease-in-out ${
             isHovered ? "text-primary" : "text-white"
-          } ${isClicked ? "mt-4" : ""}`}
+          } ${isClicked ? "transform translate-y-4" : ""}`}
         >
           web developer & digital creator
         </cite>
