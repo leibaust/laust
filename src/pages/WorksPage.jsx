@@ -1,4 +1,4 @@
-import WorkCard from "../components/ui/workCard";
+import WorkCard from "../components/ui/WorkCard";
 
 function WorksPage() {
   return (

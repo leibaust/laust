@@ -22,7 +22,7 @@ function Layout() {
     <div className="relative h-screen w-screen overflow-hidden">
       <video
         ref={videoRef}
-        className="absolute top-0 left-0 w-full h-full object-cover"
+        className="absolute top-0 left-0 w-full h-full object-cover filter brightness-40"
         src={backgroundVideo}
         autoPlay
         loop
@@ -30,7 +30,7 @@ function Layout() {
       />
       <div
         className="absolute top-0 left-0 w-full h-full pointer-events-none"
-        style={{ backgroundImage: `url(${overlayImage})`, opacity: 0.3 }}
+        style={{ backgroundImage: `url(${overlayImage})`, opacity: 0.4 }}
       />
       <div className="relative z-10">
         <Header
