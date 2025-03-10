@@ -47,7 +47,7 @@ function Header({ toggleVideoPlayback, isPlaying }) {
         {/* Right side: Stop/Start button - always visible */}
         <div className="flex items-center gap-4">
           <button
-            className="text-white px-4 py-2 rounded w-36"
+            className="text-white px-4 py-2 rounded w-36 cursor-pointer"
             aria-label="Stop background video"
             onClick={toggleVideoPlayback}
           >
