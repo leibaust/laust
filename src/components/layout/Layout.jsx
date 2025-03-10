@@ -56,11 +56,11 @@ function Layout() {
             toggleVideoPlayback={toggleVideoPlayback}
             isPlaying={isPlaying}
           />
+          <Cursor />
           <main className="p-4">
             <Outlet />
           </main>
           <Footer />
-          <Cursor />
         </div>
       </div>
     </>
