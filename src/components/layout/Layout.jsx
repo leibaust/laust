@@ -5,6 +5,7 @@ import backgroundVideo from "../../assets/bg.mp4";
 import overlayImage from "../../assets/overlay.jpg";
 import Footer from "./Footer";
 import Noise from "../ui/Noise";
+import Cursor from "../ui/Cursor";
 
 function Layout() {
   const [isPlaying, setIsPlaying] = useState(true);
@@ -59,6 +60,7 @@ function Layout() {
             <Outlet />
           </main>
           <Footer />
+          <Cursor />
         </div>
       </div>
     </>
