@@ -3,7 +3,7 @@ import gsap from "gsap";
 
 function Cursor() {
   // circle size
-  const size = 100;
+  const size = 75;
   const circle = useRef();
   const mouse = useRef({
     x: 0,
@@ -51,7 +51,7 @@ function Cursor() {
   return (
     <div
       ref={circle}
-      className="fixed top-0 left-0 bg-primary rounded-full pointer-events-none mix-blend-difference hidden md:block"
+      className="fixed top-0 left-0 bg-primary rounded-full pointer-events-none mix-blend-difference z-50 hidden md:block"
       style={{
         width: size,
         height: size,

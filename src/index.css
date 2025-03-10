@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 @font-face {
   font-family: Bebas;
   src: url(./assets/fonts/BebasNeue-Regular.ttf);
@@ -10,10 +12,10 @@
   font-family: Editorial;
   src: url(./assets/fonts/editorial/PPEditorialNew-Ultralight-BF644b21500d0c0.otf);
 }
-@import "tailwindcss";
 
 @theme {
   --color-primary: #e0ff4f;
+  --color-secondary: #cacaca;
   --font-display: Bebas, "sans-serif";
   --font-subtext: Modernline, "sans-serif";
   --font-body: Editorial, "sans-serif";
