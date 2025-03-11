@@ -17,7 +17,7 @@ export const projects = [
   {
     id: "project-two",
     title: "Project Two",
-    // More project data...
+    // Add more project data
   },
   // Add more projects
 ];

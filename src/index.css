@@ -33,4 +33,7 @@
     font-family: var(--font-body);
     font-size: 24px;
   }
+  a {
+    font-family: var(--font-body);
+  }
 }
