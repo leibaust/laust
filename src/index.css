@@ -16,10 +16,11 @@
 @theme {
   --color-primary: #e0ff4f;
   --color-secondary: #cacaca;
+  --color-tertiary: #d9d9d9;
   --font-display: Bebas, "sans-serif";
   --font-subtext: Modernline, "sans-serif";
   --font-body: Editorial, "sans-serif";
-  --text-4xl: 4rem; /* Customize this value as needed */
+  --text-4xl: 4rem; /* Overwrite Default */
 }
 
 @layer base {
@@ -29,7 +30,8 @@
   cite {
     font-family: var(--font-subtext);
   }
-  p {
+  p,
+  h3 {
     font-family: var(--font-body);
     font-size: 24px;
   }
