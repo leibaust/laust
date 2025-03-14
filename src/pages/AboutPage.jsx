@@ -7,7 +7,7 @@ function AboutPage() {
   return (
     <>
       <motion.div
-        initial={{ y: 300, opacity: 0 }}
+        initial={{ y: 800, opacity: 1 }}
         animate={{ y: 0, opacity: 1 }}
         exit={{ y: -300, opacity: 0 }}
         transition={{ duration: 1, ease: "easeInOut" }}

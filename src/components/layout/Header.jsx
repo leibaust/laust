@@ -31,7 +31,9 @@ function Header({ toggleVideoPlayback, isPlaying }) {
         </div>
 
         {/* Desktop Navigation - Only visible on medium screens and up */}
-        <Navigation />
+        <div className="hidden sm:block">
+          <Navigation />
+        </div>
 
         {/* Right side: Stop/Start button - always visible */}
         <div className="flex items-center gap-4">
