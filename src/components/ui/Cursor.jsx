@@ -3,7 +3,7 @@ import gsap from "gsap";
 
 function Cursor() {
   // circle size
-  const size = 100;
+  const size = 80;
   const circle = useRef();
   const mouse = useRef({
     x: 0,
