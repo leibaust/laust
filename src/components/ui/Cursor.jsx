@@ -3,7 +3,7 @@ import gsap from "gsap";
 
 function Cursor() {
   // circle size
-  const size = 75;
+  const size = 100;
   const circle = useRef();
   const mouse = useRef({
     x: 0,
@@ -34,8 +34,8 @@ function Cursor() {
     const { x, y } = delayedMouse.current;
     // Delay animation configuration
     delayedMouse.current = {
-      x: lerp(x, mouse.current.x, 0.05),
-      y: lerp(y, mouse.current.y, 0.05),
+      x: lerp(x, mouse.current.x, 0.04),
+      y: lerp(y, mouse.current.y, 0.04),
     };
 
     moveCircle(delayedMouse.current.x, delayedMouse.current.y);

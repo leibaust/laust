@@ -1,5 +1,4 @@
-import { Link } from "react-router-dom";
-import headerLogo from "../../assets/la-logo.svg";
+import Navigation from "./Navigation";
 
 function Header({ toggleVideoPlayback, isPlaying }) {
   return (
@@ -7,7 +6,7 @@ function Header({ toggleVideoPlayback, isPlaying }) {
       {/* Top header with contact info and train button - always at top */}
       <header className="flex items-center justify-between p-4 text-white">
         {/* Left side: Contact info - always visible */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 tracking-wide">
           <div className="flex flex-col gap-1 text-sm">
             <a href="mailto:leibaustria@gmail.com" aria-label="Email">
               leibaustria@gmail.com
@@ -32,17 +31,7 @@ function Header({ toggleVideoPlayback, isPlaying }) {
         </div>
 
         {/* Desktop Navigation - Only visible on medium screens and up */}
-        <div className="hidden md:flex items-center">
-          <Link to="/about" className="text-white m-3">
-            About
-          </Link>
-          <Link to="/">
-            <img src={headerLogo} alt="Site Logo" className="h-12" />
-          </Link>
-          <Link to="/works" className="text-white m-3">
-            Works
-          </Link>
-        </div>
+        <Navigation />
 
         {/* Right side: Stop/Start button - always visible */}
         <div className="flex items-center gap-4">

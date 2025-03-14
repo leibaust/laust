@@ -65,7 +65,7 @@ function WorkDetailCard() {
             {project.images.gallery.map((image, index) => (
               <div
                 key={index}
-                className="aspect-video bg-tertiary rounded overflow-hidden"
+                className="aspect-video bg-tertiary rounded overflow-hidden drop-shadow-sm"
               >
                 <img
                   src={image}
