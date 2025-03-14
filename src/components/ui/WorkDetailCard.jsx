@@ -53,7 +53,17 @@ function WorkDetailCard() {
             rel="noopener noreferrer"
             className="bg-primary text-black px-4 py-2 rounded inline-block hover:bg-opacity-90 transition-all"
           >
-            View Project
+            View Live
+          </a>
+        )}
+        {project.github && (
+          <a
+            href={project.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-primary text-black px-4 py-2 rounded inline-block hover:bg-opacity-90 transition-all mx-4"
+          >
+            View GitHub
           </a>
         )}
       </div>

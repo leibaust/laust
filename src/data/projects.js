@@ -11,6 +11,7 @@ export const projects = [
       gallery: ["/src/assets/work/ss1.png", "/src/assets/work/ss2.png"],
     },
     link: "https://laust.ca/projects/sunsetshowdown/",
+    github: "https://github.com/leibaust/js-game",
   },
   {
     id: "moov",
