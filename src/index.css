@@ -17,6 +17,7 @@
   --color-primary: #e0ff4f;
   --color-secondary: #cacaca;
   --color-tertiary: #d9d9d9;
+  --color-darkbg: #333333;
   --font-display: Bebas, "sans-serif";
   --font-subtext: Modernline, "sans-serif";
   --font-body: Editorial, "sans-serif";
@@ -37,5 +38,12 @@
   }
   a {
     font-family: var(--font-body);
+  }
+}
+
+/* Hide Scrollbar */
+@layer components {
+  ::-webkit-scrollbar {
+    display: none;
   }
 }

@@ -11,7 +11,7 @@ function WorksPage() {
         transition={{ duration: 1, ease: "easeInOut" }}
       >
         <div className="flex items-center justify-center min-h-screen p-0">
-          <div className="w-full min-h-screen sm:max-w-4/5 max-w-3xl bg-secondary flex items-start justify-center ">
+          <div className="w-full min-h-screen sm:max-w-1/3 max-w-3xl bg-secondary flex items-start justify-center ">
             <WorkCard />
           </div>
         </div>

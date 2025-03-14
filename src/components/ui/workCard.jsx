@@ -43,7 +43,7 @@ function WorkCard() {
 
   return (
     <>
-      <div className="grid grid-cols-1 w-80 sm:grid-cols-2 gap-0 p-4 sm:w-2/5">
+      <div className="grid grid-cols-1 w-80 sm:grid-cols-2 gap-0 p-4 sm:w-full">
         {projects.map((project) => (
           <Link
             key={project.id}
@@ -74,7 +74,7 @@ function WorkCard() {
       {hoveredProject && (
         <div
           ref={tooltipRef}
-          className="fixed pointer-events-none z-50 bg-black bg-opacity-90 p-4 border border-tertiary shadow-lg w-64 h-64"
+          className="fixed pointer-events-none z-50 bg-darkbg bg-opacity-90 p-4 border border-tertiary shadow-lg w-64 h-64"
           style={{
             left: `${tooltipPosition.x}px`,
             top: `${tooltipPosition.y}px`,
