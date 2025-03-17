@@ -1,8 +1,8 @@
 function AboutInfo() {
   return (
     <div>
-      <h1>Description Blurb</h1>
-      <p>Blah Blah Blah</p>
+      <h1>About Me Title</h1>
+      <p>About Me Content</p>
     </div>
   );
 }
