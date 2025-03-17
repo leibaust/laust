@@ -8,8 +8,8 @@ function Header({ toggleVideoPlayback, isPlaying }) {
         {/* Left side: Contact info - always visible */}
         <div className="flex items-center gap-4 tracking-wide">
           <div className="flex flex-col gap-1 text-sm">
-            <a href="mailto:leibaustria@gmail.com" aria-label="Email">
-              leibaustria@gmail.com
+            <a href="mailto:hello@laust.ca" aria-label="Email">
+              hello@laust.ca
             </a>
             <a
               href="https://linkedin.com/in/laaustria"
@@ -17,7 +17,7 @@ function Header({ toggleVideoPlayback, isPlaying }) {
               rel="noopener noreferrer"
               aria-label="LinkedIn"
             >
-              linkedin.com/in/laaustria
+              linkedin.com/in/leibaust
             </a>
             <a
               href="https://github.com/leibaust"
@@ -31,7 +31,9 @@ function Header({ toggleVideoPlayback, isPlaying }) {
         </div>
 
         {/* Desktop Navigation - Only visible on medium screens and up */}
-        <Navigation />
+        <div className="hidden sm:block">
+          <Navigation />
+        </div>
 
         {/* Right side: Stop/Start button - always visible */}
         <div className="flex items-center gap-4">
