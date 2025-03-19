@@ -24,7 +24,7 @@ function NameCard() {
             isHovered ? "text-primary" : "text-white"
           } ${isClicked ? "transform -translate-y-4" : ""}`}
         >
-          Leibrandt Austria
+          LEIBRANDT AUSTRIA
         </h2>
         <div
           className={`overflow-hidden transition-all duration-500 ease-in-out ${
