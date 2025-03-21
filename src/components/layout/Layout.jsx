@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import { Outlet } from "react-router-dom";
+import { motion } from "framer-motion";
 import Header from "./Header";
 import backgroundVideo from "../../assets/bg.mp4";
 import overlayImage from "../../assets/overlay.jpg";
@@ -8,6 +9,7 @@ import Noise from "../ui/Noise";
 import Cursor from "../ui/Cursor";
 
 function Layout() {
+  // Basic state
   const [isPlaying, setIsPlaying] = useState(true);
   const videoRef = useRef(null);
 
@@ -20,9 +22,15 @@ function Layout() {
     setIsPlaying(!isPlaying);
   };
 
+  const pageVariants = {
+    initial: { opacity: 0, y: 300 },
+    animate: { opacity: 1, y: 0 },
+    exit: { opacity: 0, y: -100 },
+  };
+
   return (
     <>
-      <div className="relative h-screen w-screen overflow-hidden">
+      <div className="relative h-screen w-screen overflow-hidden bg-darkbg">
         {/* Background video */}
         <video
           ref={videoRef}
@@ -58,7 +66,20 @@ function Layout() {
           />
           <Cursor />
           <main className="p-4">
-            <Outlet />
+            <div className="h-full w-full">
+              <motion.div
+                variants={pageVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                transition={{
+                  duration: 0.5,
+                  ease: "easeInOut",
+                }}
+              >
+                <Outlet />
+              </motion.div>
+            </div>
           </main>
           <Footer />
         </div>
