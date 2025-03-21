@@ -88,7 +88,7 @@ function WorkCard() {
           <p className="text-white text-sm">
             {hoveredProject.shortDescription}
           </p>
-          <div className="mt-auto flex flex-wrap gap-1 mt-3">
+          <div className="mt-auto flex flex-wrap gap-1">
             {hoveredProject.technologies?.slice(0, 3).map((tech, index) => (
               <span
                 key={index}
