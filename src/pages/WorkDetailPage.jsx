@@ -11,7 +11,7 @@ function WorkDetailPage() {
         transition={{ duration: 1, ease: "easeInOut" }}
       >
         <div className="flex flex-col h-[calc(100vh-8rem)] overflow-auto">
-          <div className="w-full sm:max-w-4/5 max-w-3xl mx-auto bg-secondary">
+          <div className="w-full sm:max-w-4/5 max-w-3xl mx-auto bg-secondary p-4">
             <WorkDetailCard />
           </div>
         </div>
