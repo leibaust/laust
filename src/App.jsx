@@ -65,17 +65,6 @@ function PersistentBackground() {
         className="absolute top-0 left-0 w-full h-full pointer-events-none"
         style={{ backgroundImage: `url(${overlayImage})`, opacity: 0.1 }}
       />
-
-      {/* Noise overlay */}
-      <div className="absolute top-0 left-0 w-full h-full pointer-events-none z-20">
-        <Noise
-          patternSize={250}
-          patternScaleX={1}
-          patternScaleY={1}
-          patternRefreshInterval={2}
-          patternAlpha={15}
-        />
-      </div>
     </div>
   );
 }
@@ -102,6 +91,16 @@ function AnimatedRoutes() {
           </Route>
         </Routes>
       </AnimatePresence>
+      {/* Noise overlay */}
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none z-20">
+        <Noise
+          patternSize={250}
+          patternScaleX={1}
+          patternScaleY={1}
+          patternRefreshInterval={2}
+          patternAlpha={15}
+        />
+      </div>
     </>
   );
 }
