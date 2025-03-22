@@ -1,25 +1,33 @@
-import { useState, useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import { motion } from "framer-motion";
 import Header from "./Header";
-import backgroundVideo from "../../assets/bg.mp4";
-import overlayImage from "../../assets/overlay.jpg";
 import Footer from "./Footer";
-import Noise from "../ui/Noise";
-import Cursor from "../ui/Cursor";
 
+// Simplified Layout without background elements
 function Layout() {
-  // Basic state
-  const [isPlaying, setIsPlaying] = useState(true);
-  const videoRef = useRef(null);
+  // State to track video playback status from global controller
+  const [isVideoPlaying, setIsVideoPlaying] = useState(
+    window.__videoController?.isPlaying ?? true
+  );
+
+  // Update local state when global state changes
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      if (window.__videoController?.isPlaying !== undefined) {
+        setIsVideoPlaying(window.__videoController.isPlaying);
+      }
+    }, 500); // Check every half second
+
+    return () => clearInterval(intervalId);
+  }, []);
 
   const toggleVideoPlayback = () => {
-    if (isPlaying) {
-      videoRef.current.pause();
-    } else {
-      videoRef.current.play();
+    // Call the global toggle function
+    if (window.__videoController?.toggle) {
+      window.__videoController.toggle();
+      // Local state will be updated via the effect above
     }
-    setIsPlaying(!isPlaying);
   };
 
   const pageVariants = {
@@ -29,62 +37,29 @@ function Layout() {
   };
 
   return (
-    <>
-      <div className="relative h-screen w-screen overflow-hidden bg-darkbg">
-        {/* Background video */}
-        <video
-          ref={videoRef}
-          className="absolute top-0 left-0 w-full h-full object-cover filter brightness-40"
-          src={backgroundVideo}
-          autoPlay
-          loop
-          muted
-        />
-
-        {/* Image overlay */}
-        <div
-          className="absolute top-0 left-0 w-full h-full pointer-events-none"
-          style={{ backgroundImage: `url(${overlayImage})`, opacity: 0.1 }}
-        />
-
-        {/* Noise overlay */}
-        <div className="absolute top-0 left-0 w-full h-full pointer-events-none z-20">
-          <Noise
-            patternSize={250}
-            patternScaleX={1}
-            patternScaleY={1}
-            patternRefreshInterval={2}
-            patternAlpha={15}
-          />
+    <div className="relative min-h-screen z-10">
+      <Header
+        toggleVideoPlayback={toggleVideoPlayback}
+        isPlaying={isVideoPlaying}
+      />
+      <main className="p-4">
+        <div className="h-full w-full">
+          <motion.div
+            variants={pageVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            transition={{
+              duration: 0.5,
+              ease: "easeInOut",
+            }}
+          >
+            <Outlet />
+          </motion.div>
         </div>
-
-        {/* Content */}
-        <div className="relative z-10">
-          <Header
-            toggleVideoPlayback={toggleVideoPlayback}
-            isPlaying={isPlaying}
-          />
-          <Cursor />
-          <main className="p-4">
-            <div className="h-full w-full">
-              <motion.div
-                variants={pageVariants}
-                initial="initial"
-                animate="animate"
-                exit="exit"
-                transition={{
-                  duration: 0.5,
-                  ease: "easeInOut",
-                }}
-              >
-                <Outlet />
-              </motion.div>
-            </div>
-          </main>
-          <Footer />
-        </div>
-      </div>
-    </>
+      </main>
+      <Footer />
+    </div>
   );
 }
 
