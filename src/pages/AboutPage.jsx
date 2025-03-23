@@ -25,7 +25,7 @@ function AboutPage() {
         <div className="space-y-6">
           {/* Profile image */}
           <figure
-            className="w-full h-[300px] bg-primary shadow-xl"
+            className="w-full md:max-w-md h-[300px] bg-primary shadow-xl"
             style={{
               backgroundImage: `url(${profileImage})`,
               backgroundSize: "cover",

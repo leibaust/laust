@@ -2,7 +2,7 @@ export const projects = [
   {
     id: "sunset-showdown",
     title: "Sunset Showdown",
-    shortDescription: "A responsive web application",
+    shortDescription: "A simple HTML5 Canvas/Javascript retro shooter game",
     concept:
       "Out of scope it's a simple lift and shift job, yet cta, for bake it in. You better eat a reality sandwich before you walk back in that boardroom if you could do that, that would be great. Big data. Zeitgeist knowledge process outsourcing, but killing it.",
     design:
@@ -15,7 +15,7 @@ export const projects = [
     images: {
       thumbnail: "/src/assets/work/sunset.png",
       gallery: ["/src/assets/work/ss1.png", "/src/assets/work/ss2.png"],
-      previewgif: "/src/assets/work/sunset.png",
+      previewgif: "/src/assets/work/sunsetpreview.gif",
     },
     link: "https://laust.ca/projects/sunsetshowdown/",
     github: "https://github.com/leibaust/js-game",
