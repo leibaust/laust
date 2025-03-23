@@ -2,11 +2,11 @@ import WorkDetailCard from "../components/ui/WorkDetailCard";
 
 function WorkDetailPage() {
   return (
-    <div className="flex flex-col h-[calc(100vh-8rem)] overflow-auto">
-      <div className="w-full sm:max-w-4/5 max-w-3xl mx-auto bg-secondary p-4">
+    <section className="flex justify-center items-center py-6 sm:py-0 sm:min-h-[calc(100vh-128px)]">
+      <div className="w-full max-w-5xl mx-auto bg-secondary p-4">
         <WorkDetailCard />
       </div>
-    </div>
+    </section>
   );
 }
 

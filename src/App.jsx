@@ -81,6 +81,17 @@ function AnimatedRoutes() {
       {/* Cursor also stays outside for persistence */}
       <Cursor />
 
+      {/* Noise overlay - changed to fixed positioning */}
+      <div className="fixed inset-0 pointer-events-none z-20">
+        <Noise
+          patternSize={250}
+          patternScaleX={1}
+          patternScaleY={1}
+          patternRefreshInterval={2}
+          patternAlpha={15}
+        />
+      </div>
+
       <AnimatePresence mode="wait" initial={false}>
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<Layout />}>
@@ -91,16 +102,6 @@ function AnimatedRoutes() {
           </Route>
         </Routes>
       </AnimatePresence>
-      {/* Noise overlay */}
-      <div className="absolute top-0 left-0 w-full h-full pointer-events-none z-20">
-        <Noise
-          patternSize={250}
-          patternScaleX={1}
-          patternScaleY={1}
-          patternRefreshInterval={2}
-          patternAlpha={15}
-        />
-      </div>
     </>
   );
 }
