@@ -108,7 +108,7 @@ function WorkDetailCard() {
         <h1 className="text-3xl font-bold mb-4">{project.title}</h1>
 
         <div className="mb-6">
-          <div>
+          <div className="max-h-[400px] overflow-y-auto pr-4 custom-scrollbar">
             {project.concept && (
               <>
                 <h2>Concept & Vision</h2>

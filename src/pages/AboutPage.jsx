@@ -13,10 +13,11 @@ function AboutPage() {
         bg-secondary 
         p-4 sm:p-8 
         my-4 sm:my-0
+        relative
       "
       >
         {/* Left column */}
-        <div className="space-y-6">
+        <div className="space-y-6 z-10">
           <TechStack />
           <AboutInfo />
         </div>
@@ -25,7 +26,7 @@ function AboutPage() {
         <div className="space-y-6">
           {/* Profile image */}
           <figure
-            className="w-full md:max-w-md h-[300px] bg-primary shadow-xl"
+            className="w-full md:max-w-md h-[300px] bg-primary shadow-xl relative"
             style={{
               backgroundImage: `url(${profileImage})`,
               backgroundSize: "cover",
