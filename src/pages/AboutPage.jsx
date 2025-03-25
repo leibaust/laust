@@ -1,7 +1,7 @@
 import AboutInfo from "../components/ui/AboutInfo.jsx";
 import Faq from "../components/ui/Faq.jsx";
 import TechStack from "../components/ui/TechStack.jsx";
-import profileImage from "../assets/img/profile2.png";
+import profileImage from "../assets/img/profilewide.jpg";
 
 function AboutPage() {
   return (
