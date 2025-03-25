@@ -13,9 +13,9 @@ export const projects = [
       "Out of scope it's a simple lift and shift job, yet cta, for bake it in. You better eat a reality sandwich before you walk back in that boardroom if you could do that, that would be great. Big data. Zeitgeist knowledge process outsourcing, but killing it.",
     technologies: ["HTML", "CSS", "JavaScript", "PHP"],
     images: {
-      thumbnail: "/src/assets/work/sunset.png",
-      gallery: ["/src/assets/work/ss1.png", "/src/assets/work/ss2.png"],
-      previewgif: "/src/assets/work/sunsetpreview.gif",
+      thumbnail: "/work/sunset.png",
+      gallery: ["/work/ss1.png", "/work/ss2.png"],
+      previewgif: "/work/sunsetpreview.gif",
     },
     link: "https://laust.ca/projects/sunsetshowdown/",
     github: "https://github.com/leibaust/js-game",
@@ -27,11 +27,8 @@ export const projects = [
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
     technologies: ["HTML", "CSS", "JavaScript", "PHP"],
     images: {
-      thumbnail: "/src/assets/work/movie.png",
-      gallery: [
-        "/assets/projects/sunset-showdown/image1.jpg",
-        "/assets/projects/sunset-showdown/image2.jpg",
-      ],
+      thumbnail: "/work/movie.png",
+      gallery: ["/work/movie.png"],
     },
     link: "https://example.com/sunset-showdown",
   },
@@ -42,11 +39,8 @@ export const projects = [
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
     technologies: ["HTML", "CSS", "JavaScript", "PHP"],
     images: {
-      thumbnail: "/src/assets/work/figma.png",
-      gallery: [
-        "/assets/projects/sunset-showdown/image1.jpg",
-        "/assets/projects/sunset-showdown/image2.jpg",
-      ],
+      thumbnail: "/work/figma.png",
+      gallery: ["/work/figma.png"],
     },
     link: "https://example.com/sunset-showdown",
   },
@@ -57,11 +51,8 @@ export const projects = [
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
     technologies: ["HTML", "CSS", "JavaScript", "PHP"],
     images: {
-      thumbnail: "/src/assets/work/shinjuku.jpg",
-      gallery: [
-        "/assets/projects/sunset-showdown/image1.jpg",
-        "/assets/projects/sunset-showdown/image2.jpg",
-      ],
+      thumbnail: "/work/shinjuku.jpg",
+      gallery: ["/work/shinjuku.jpg"],
     },
     link: "https://example.com/sunset-showdown",
   },

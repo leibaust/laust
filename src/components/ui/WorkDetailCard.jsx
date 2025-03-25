@@ -89,13 +89,7 @@ function WorkDetailCard() {
   }
 
   return (
-    <div
-      className="
-    grid grid-cols-1 sm:grid-cols-2 gap-6 
-    w-full sm:max-w-5xl
-    bg-secondary 
-  "
-    >
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full sm:max-w-5xl bg-secondary">
       {/* left column  */}
       <div>
         <Link
@@ -181,7 +175,7 @@ function WorkDetailCard() {
                   onClick={() => openLightbox(index)}
                 >
                   <img
-                    src={image}
+                    src={image} // Vite will handle this
                     alt={`${project.title} screenshot ${index + 1}`}
                     className="w-full h-full object-cover"
                   />
@@ -233,7 +227,7 @@ function WorkDetailCard() {
             onClick={(e) => e.stopPropagation()}
           >
             <img
-              src={project.images.gallery[lightbox.currentImage]}
+              src={project.images.gallery[lightbox.currentImage]} // Vite will handle this
               alt={`${project.title} screenshot ${lightbox.currentImage + 1}`}
               className="max-w-full max-h-[90vh] object-contain"
             />
