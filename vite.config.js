@@ -16,6 +16,6 @@ export default defineConfig({
       "/@assets/": resolve(__dirname, "src/assets"),
     },
   },
-  // Add a base path if deploying to a subdirectory
-  // base: '/',
+  // Use this if you're deploying to the root of your domain:
+  base: "/",
 });

@@ -160,6 +160,16 @@ function WorkDetailCard() {
               View GitHub
             </a>
           )}
+          {project.figma && (
+            <a
+              href={project.figma}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-primary text-black px-4 py-2 rounded inline-block hover:bg-opacity-90 transition-all mx-4"
+            >
+              View Figma
+            </a>
+          )}
         </div>
       </div>
       {/* right column  */}

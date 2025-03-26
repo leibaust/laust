@@ -186,7 +186,7 @@ function WorkCard() {
               {hoveredProject.shortDescription}
             </p>
             <div className="flex flex-wrap justify-center gap-1">
-              {hoveredProject.technologies?.slice(0, 3).map((tech, index) => (
+              {hoveredProject.technologies?.slice(0, 8).map((tech, index) => (
                 <span
                   key={index}
                   className="text-xs bg-tertiary px-2 py-1 rounded"
