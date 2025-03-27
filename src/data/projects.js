@@ -47,25 +47,40 @@ export const projects = [
     id: "portfolio",
     title: "Portfolio",
     shortDescription: "A React core, Tailwind styled portfolio website",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
+    concept:
+      "My portfolio website was conceptualized as a digital expression of my design philosophy and technical capabilities. Starting with a focused Figma prototype, I aimed to create an experience that prioritizes essential content while eliminating unnecessary navigation elements like a dedicated contact page. The site serves as both a showcase of my work and a demonstration of my approach to creating intuitive, visually distinct web experiences that balance form and function.",
+    design:
+      "Drawing heavy inspiration from 1980s avant-garde magazine layouts, the design employs typography as a primary visual element, creating a distinct visual hierarchy that guides users through the content. The body text is set in a newspaper-style font (Editorial) to evoke a sense of classic journalism, while display text uses more dramatic typefaces (Bebas Neue and Modernline) for impact. Visual texture comes from strategic noise overlays that add depth and tactile quality to the digital space. Square block elements throughout the interface deliberately reference old-school print publications, creating a bridge between analog design traditions and modern digital execution. The floating work cards create visual interest through asymmetry and motion, encouraging exploration.",
+    development:
+      "Built with React as the core framework and styled with Tailwind CSS for efficient development, the site combines modern development practices with creative visual execution. Key technical implementations include: (1) Custom cursor tracking with GSAP for smooth animations, (2) Background video integration with controls to start/stop playback, (3) Dynamic card positioning with pseudo-random placement algorithms for visual interest, (4) Responsive layouts that transform completely between mobile and desktop rather than simply repositioning elements, (5) Framer Motion transitions between pages for seamless navigation, and (6) Reusable component architecture for maintainable code. The entire codebase follows component-based architecture principles, separating UI elements from layout structures and page definitions.",
+    challenges:
+      "Developing this portfolio presented several interesting technical challenges. Creating fluid animations across various screen sizes required careful consideration of viewport dimensions and position calculations. The floating cards system needed precise mathematics to prevent overlap while maintaining a natural, seemingly random arrangement. Implementing the custom cursor required deep understanding of event handling and animation timing to achieve smooth, lag-free movement. Another significant challenge was optimizing the background video and noise textures for performance, especially on mobile devices. Finding the right balance between visual richness and loading speed demanded multiple iterations and performance testing. Finally, ensuring cross-browser compatibility for some of the more experimental CSS features required additional fallback solutions and progressive enhancement techniques.",
     technologies: [
-      "HTML/Javascript",
       "React.js",
-      "Figma",
+      "Tailwind CSS",
       "Framer Motion",
-      "Tailwind",
+      "GSAP",
+      "Figma",
+      "Vite",
     ],
     images: {
       thumbnail: "/work/figma.png",
-      gallery: ["/work/figma.png"],
+      gallery: ["/work/figma.png", "/work/port1.png"],
+      previewgif: "/work/port.gif",
     },
     link: "https://www.laust.ca",
+    github: "https://github.com/leibaust/laust",
+    figma:
+      "https://www.figma.com/design/tnjguW3FP2VJvXkK9se9dV/Portfolio-Wireframe-V2-2025?node-id=27-278&t=RVbwpZR0IUX7hOMZ-1",
   },
   {
     id: "paws",
     title: "Paws & Relax Website",
     shortDescription: "A Wordpress website for a pet massage business",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
+    concept: "In Development",
+    design: "In Development",
+    development: "In Development",
+    challenges: "In Development",
     technologies: ["HTML/CSS/Javascript", "Wordpress", "Figma"],
     images: {
       thumbnail: "/work/paws.png",
@@ -75,6 +90,7 @@ export const projects = [
     link: "https://pawsandrelax.bcitwebdeveloper.ca/",
     figma:
       "https://www.figma.com/design/3fuxzvbt7udzKRtGkIiFxW/Paws-%26-Relax-Wireframe?node-id=0-1&t=MoGVUZZXB47uiLc8-1",
+    github: "https://github.com/htpwebdesign/paws-relax-theme",
   },
   // Add more projects
 ];

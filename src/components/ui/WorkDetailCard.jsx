@@ -89,7 +89,7 @@ function WorkDetailCard() {
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full sm:max-w-5xl bg-secondary">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full sm:max-w-5xl bg-secondary selection:bg-primary">
       {/* left column  */}
       <div>
         <Link
@@ -129,7 +129,7 @@ function WorkDetailCard() {
               </>
             )}
           </div>
-          <div className="mb-4">
+          <div className="my-4">
             <h2 className="text-xl mb-2">Technologies Used</h2>
             <div className="flex flex-wrap gap-2">
               {project.technologies.map((tech, index) => (
@@ -140,43 +140,45 @@ function WorkDetailCard() {
             </div>
           </div>
 
-          {project.link && (
-            <a
-              href={project.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-primary text-black px-4 py-2 rounded inline-block hover:bg-opacity-90 transition-all"
-            >
-              View Live
-            </a>
-          )}
-          {project.github && (
-            <a
-              href={project.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-primary text-black px-4 py-2 rounded inline-block hover:bg-opacity-90 transition-all mx-4"
-            >
-              View GitHub
-            </a>
-          )}
-          {project.figma && (
-            <a
-              href={project.figma}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-primary text-black px-4 py-2 rounded inline-block hover:bg-opacity-90 transition-all mx-4"
-            >
-              View Figma
-            </a>
-          )}
+          <div>
+            {project.link && (
+              <a
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-primary text-black px-4 py-2 rounded inline-block hover:bg-opacity-90 transition-all"
+              >
+                View Live
+              </a>
+            )}
+            {project.github && (
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-primary text-black px-4 py-2 rounded inline-block hover:bg-opacity-90 transition-all mx-4"
+              >
+                View GitHub
+              </a>
+            )}
+            {project.figma && (
+              <a
+                href={project.figma}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-primary text-black px-4 py-2 rounded inline-block hover:bg-opacity-90 transition-all mx-4"
+              >
+                View Figma
+              </a>
+            )}
+          </div>
         </div>
       </div>
       {/* right column  */}
       <div>
         {project.images && project.images.gallery && (
           <div className="mt-8">
-            <h1 className="text-2xl mb-4">Gallery</h1>
+            <h1 className="font-display text-2xl mb-4">Gallery</h1>
             <div className="grid grid-cols-1 gap-4">
               {project.images.gallery.map((image, index) => (
                 <div

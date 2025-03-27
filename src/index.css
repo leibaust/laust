@@ -42,14 +42,7 @@
   }
 }
 
-/* Hide Scrollbar */
-@layer components {
-  ::-webkit-scrollbar {
-    display: none;
-  }
-}
-
-/* Add this to your CSS for custom scrollbar */
+/* Custom Scrollbar */
 .custom-scrollbar::-webkit-scrollbar {
   width: 6px;
 }
