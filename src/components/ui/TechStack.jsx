@@ -24,8 +24,8 @@ function TechStack() {
   return (
     <div className="flex items-center justify-center">
       <div className="flex flex-col items-center justify-center">
-        <h2 className="hidden lg:block text-4xl rotate-270 sm:rotate-0">
-          STACK
+        <h2 className="hidden lg:block text-2xl rotate-270 sm:rotate-0 font-body">
+          stack.
         </h2>
       </div>
       <div className="grid grid-cols-6 lg:grid-cols-9 gap-4 sm:ml-4 my-auto">
