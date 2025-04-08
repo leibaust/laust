@@ -2,13 +2,35 @@ export const projects = [
   {
     id: "sunset-showdown",
     title: "Sunset Showdown",
-    shortDescription: "A responsive web application",
-    description:
-      "Out of scope it's a simple lift and shift job, yet cta, for bake it in. You better eat a reality sandwich before you walk back in that boardroom if you could do that, that would be great. Big data. Zeitgeist knowledge process outsourcing, but killing it. Upstream selling. Going forward. Sorry i was triple muted value-added, yet you gotta smoke test your hypothesis three-martini lunch, so scope creep, yet best practices, or get all your ducks in a row. Show pony we just need to put these last issues to bed, nor net net. We're building the plane while we're flying it. Optimize the fireball back to the drawing-board, for screw the pooch let's pressure test this. Can you slack it to me? productize. Don't over think it. Push back i have a hard stop in an hour and half technologically savvy scope creep. We need to aspirationalise our offerings re-inventing the wheel, and looks great, can we try it a different way they have downloaded gmail and seems to be working for now, for it just needs more cowbell digital literacy. Prioritize these line items best practices. We can't hear you nail it down. Bottleneck mice can I just chime in on that one, circle back around, for translating our vision of having a market leading platfrom. Time to open the kimono no need to talk to users, just base it on the space calculator through the lens of i called the it department about that ransomware because of the old antivirus, but he said that we were using avast 2021 gain traction, so let's circle back tomorrow, but lean into that problem . Loop back.Knowledge is power. Draft policy ppml proposal first-order optimal strategies my grasp on reality right now is tenuous downselect, so run it up the flagpole. Can you send me an invite?. Turd polishing. Obviously value prop define the underlying principles that drive decisions and strategy for your design language increase the pipelines. Introduccion hire the best, nor scope creep rock Star/Ninja, for offline this discussion, yet rock Star/Ninja. Price point scope creep, so we need to socialize the comms with the wider stakeholder community, and cross-pollination innovation is hot right now, my grasp on reality right now is tenuous. Post launch if you could do that, that would be great circle back around, or horsehead offer note for the previous submit: the devil should be on the left shoulder. Nail jelly to the hothouse wall. We need to touch base off-line before we fire the new ux experience nail jelly to the hothouse wall quarterly sales are at an all-time low, yet service as core &innovations as power makes our brand. Not enough bandwidth. The closest elephant is the most dangerous code, nor can you put it on my calendar?. Introduccion game-plan tread it daily win-win. Personal development three-martini lunch, but drill down, nor helicopter view critical mass. Touch base we can't hear you , nor nail it down, for mobile friendl",
-    technologies: ["HTML", "CSS", "JavaScript", "PHP"],
+    shortDescription: "A simple HTML5 Canvas/Javascript retro shooter game",
+    concept: `<p>A React-based movie discovery platform designed to break away from traditional movie-library aesthetics, emphasizing minimalism and visual engagement.<br /><br />
+  <li><b>Vision: </b>Minimal, visually-driven interface prioritizing movies themselves</li>
+  <li><b>Approach: </b>Reduce information overload with intuitive, progressive content reveal</li></p>`,
+
+    design: `<p>Responsive UI/UX design emphasizing minimalism, usability, and interactivity.<br /><br />
+  <li><b>Process: </b>Iterative Figma designs with user feedback</li>
+  <li><b>Aesthetics: </b>Clean style, neutral palette with brown accents</li>
+  <li><b>Typography: </b>Modern sans-serif headings, readable body fonts</li>
+  <li><b>Interactivity: </b>Interactive movie cards with progressive hover/tap reveals</li>
+  <li><b>Consistency: </b>Comprehensive component library for design uniformity</li></p>`,
+
+    development: `<p>Collaborative React app integrating TMDb API for interactive movie browsing.<br /><br />
+  <li><b>Role: </b>Developed interactive movie cards, real-time search, and favorites management with React Context</li>
+  <li><b>Technologies: </b>React, React Router, localStorage, CSS Grid/Flexbox, React Transition Groups</li>
+  <li><b>Features: </b>Responsive layouts, keyboard navigation, smooth transitions, custom pagination</li>
+  <li><b>Best Practices: </b>Clean, maintainable code with clear documentation for future collaboration</li></p>`,
+
+    challenges: `<p>Valuable React and API integration challenges overcome through the project:<br /><br />
+  <li><b>Responsive Components: </b>Consistent behavior across devices and screen sizes</li>
+  <li><b>API Integration: </b>Managed asynchronous API calls, search debouncing, error handling, and loading states</li>
+  <li><b>State Management: </b>Complex global states managed effectively using React Context</li>
+  <li><b>Performance Optimization: </b>Improved performance via conditional rendering and useEffect cleanup</li>
+  <li><b>Key Learnings: </b>React Hooks, responsive design practices, and effective API integration patterns</li></p>`,
+    technologies: ["HTML", "CSS", "JavaScript", "Canvas"],
     images: {
-      thumbnail: "/src/assets/work/sunset.png",
-      gallery: ["/src/assets/work/ss1.png", "/src/assets/work/ss2.png"],
+      thumbnail: "/work/sunset.png",
+      gallery: ["/work/ss1.png", "/work/ss2.png"],
+      previewgif: "/work/sunsetpreview.gif",
     },
     link: "https://laust.ca/projects/sunsetshowdown/",
     github: "https://github.com/leibaust/js-game",
@@ -16,47 +38,130 @@ export const projects = [
   {
     id: "moov",
     title: "moo.v",
-    shortDescription: "A responsive web application",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
-    technologies: ["HTML", "CSS", "JavaScript", "PHP"],
+    shortDescription: "A responsive React web application",
+    concept: `<p>A React-based movie discovery platform designed to break away from traditional movie-library aesthetics, emphasizing minimalism and visual engagement.<br /><br />
+  <li><b>Vision: </b>Minimal, visually-driven interface prioritizing movies themselves</li>
+  <li><b>Approach: </b>Reduce information overload with intuitive, progressive content reveal</li></p>`,
+
+    design: `<p>Responsive UI/UX design emphasizing minimalism, usability, and interactivity.<br /><br />
+  <li><b>Process: </b>Iterative Figma designs with user feedback</li>
+  <li><b>Aesthetics: </b>Clean style, neutral palette with brown accents</li>
+  <li><b>Typography: </b>Modern sans-serif headings, readable body fonts</li>
+  <li><b>Interactivity: </b>Interactive movie cards with progressive hover/tap reveals</li>
+  <li><b>Consistency: </b>Comprehensive component library for design uniformity</li></p>`,
+
+    development: `<p>Collaborative React app integrating TMDb API for interactive movie browsing.<br /><br />
+  <li><b>Role: </b>Developed interactive movie cards, real-time search, and favorites management with React Context</li>
+  <li><b>Technologies: </b>React, React Router, localStorage, CSS Grid/Flexbox, React Transition Groups</li>
+  <li><b>Features: </b>Responsive layouts, keyboard navigation, smooth transitions, custom pagination</li>
+  <li><b>Best Practices: </b>Clean, maintainable code with clear documentation for future collaboration</li></p>`,
+
+    challenges: `<p>Valuable React and API integration challenges overcome through the project:<br /><br />
+  <li><b>Responsive Components: </b>Consistent behavior across devices and screen sizes</li>
+  <li><b>API Integration: </b>Managed asynchronous API calls, search debouncing, error handling, and loading states</li>
+  <li><b>State Management: </b>Complex global states managed effectively using React Context</li>
+  <li><b>Performance Optimization: </b>Improved performance via conditional rendering and useEffect cleanup</li>
+  <li><b>Key Learnings: </b>React Hooks, responsive design practices, and effective API integration patterns</li></p>`,
+    technologies: ["HTML/CSS/Javascript", "API", "PHP", "React.js", "Figma"],
     images: {
-      thumbnail: "/src/assets/work/movie.png",
-      gallery: [
-        "/assets/projects/sunset-showdown/image1.jpg",
-        "/assets/projects/sunset-showdown/image2.jpg",
-      ],
+      thumbnail: "/work/movie.png",
+      gallery: ["/work/figma1.png", "/work/movie.png"],
+      previewgif: "/work/moov.gif",
     },
     link: "https://example.com/sunset-showdown",
+    github: "https://github.com/dfelices/danielle-leibrandt-ian-movie-app",
+    figma:
+      "https://www.figma.com/design/6SLr74GDyhZiLtIZ9X01ee/Movie-Database-Prototype-2024?node-id=0-1&t=QayONoX1pMVZaFGG-1",
   },
   {
-    id: "figma",
-    title: "Figma Prototype",
-    shortDescription: "A responsive web application",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
-    technologies: ["HTML", "CSS", "JavaScript", "PHP"],
+    id: "portfolio",
+    title: "Portfolio",
+    shortDescription: "A React core, Tailwind styled portfolio website",
+    concept: `<p>A digital showcase reflecting my design philosophy and technical skills, emphasizing essential content and streamlined navigation.<br /><br />
+    <li><b>Purpose: </b>Showcase projects and demonstrate design and technical capabilities</li>
+    <li><b>Approach: </b>Minimalist navigation, removing unnecessary elements like dedicated contact pages</li></p>`,
+
+    design: `<p>A visually striking interface inspired by 1980s avant-garde magazine layouts, emphasizing typography and analog design influences.<br /><br />
+    <li><b>Typography: </b>Editorial body font paired with impactful display fonts (Bebas Neue, Modernline)</li>
+    <li><b>Visual Texture: </b>Strategic noise overlays adding depth and tactile feel</li>
+    <li><b>Layout Inspiration: </b>Square block elements referencing traditional print media design</li>
+    <li><b>Interactivity: </b>Floating, asymmetrical work cards encouraging exploration</li></p>`,
+
+    development: `<p>Built using React and styled with Tailwind CSS, combining modern technical practices and creative visual execution.<br /><br />
+    <li><b>Animations: </b>Custom cursor tracking with GSAP, Framer Motion transitions for seamless navigation</li>
+    <li><b>Visual Elements: </b>Background video with playback controls, dynamic pseudo-random card positioning</li>
+    <li><b>Responsiveness: </b>Fully responsive layouts transforming entirely between mobile and desktop views</li>
+    <li><b>Architecture: </b>Reusable, component-based code structure separating UI from layout logic</li></p>`,
+
+    challenges: `<p>Technical challenges encountered and solved during development:<br /><br />
+    <li><b>Fluid Animations: </b>Managed viewport-based calculations for smooth animations across screen sizes</li>
+    <li><b>Floating Cards: </b>Precise mathematical positioning to prevent overlap and maintain natural arrangement</li>
+    <li><b>Custom Cursor: </b>Event handling and animation timing to ensure smooth, responsive interactions</li>
+    <li><b>Performance Optimization: </b>Balanced rich visuals (video/noise textures) with loading speed, especially on mobile</li>
+    <li><b>Cross-Browser Compatibility: </b>Implemented fallbacks and progressive enhancement for experimental CSS features</li></p>`,
+    technologies: [
+      "React.js",
+      "Tailwind CSS",
+      "Framer Motion",
+      "GSAP",
+      "Figma",
+      "Vite",
+    ],
     images: {
-      thumbnail: "/src/assets/work/figma.png",
-      gallery: [
-        "/assets/projects/sunset-showdown/image1.jpg",
-        "/assets/projects/sunset-showdown/image2.jpg",
-      ],
+      thumbnail: "/work/figma.png",
+      gallery: ["/work/figma.png", "/work/port1.png"],
+      previewgif: "/work/port.gif",
     },
-    link: "https://example.com/sunset-showdown",
+    link: "https://www.laust.ca",
+    github: "https://github.com/leibaust/laust",
+    figma:
+      "https://www.figma.com/design/tnjguW3FP2VJvXkK9se9dV/Portfolio-Wireframe-V2-2025?node-id=27-278&t=RVbwpZR0IUX7hOMZ-1",
   },
   {
-    id: "shinjuku",
-    title: "View Transitions Website",
-    shortDescription: "A responsive web application",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
-    technologies: ["HTML", "CSS", "JavaScript", "PHP"],
+    id: "paws",
+    title: "Paws & Relax",
+    shortDescription: "A Wordpress website for a pet massage business",
+    concept: `<p>A fully custom WordPress theme designed from scratch for a dog massage business, aimed at creating a warm and inviting digital experience reflective of the spa's nurturing physical atmosphere. As the lead UI/UX designer, I carefully curated a soothing and professional aesthetic.<br /><br />
+    <li><b>Vision: </b>A calming, welcoming online presence emphasizing a seamless journey from discovering services to booking appointments.</li>
+    <li><b>Color Palette: </b>Earthy tones including terracotta, sage green, and soft neutral backgrounds to evoke tranquility and natural wellness.</li></p>`,
+
+    design: `<p>As the primary UI/UX designer, I led the comprehensive design process starting from initial research through detailed Figma wireframes and mockups. The design prioritized usability, modularity, and consistency across the website.<br /><br />
+    <li><b>Typography: </b>Montserrat for clarity and readability paired with Grown for distinctive, stylish headings.</li>
+    <li><b>Responsive Design: </b>Ensured seamless user experiences across all devices, from mobile to desktop.</li>
+    <li><b>Brand Identity: </b>Developed a custom SVG logo capturing the nurturing spirit of the brand.</li>
+    <li><b>Information Architecture: </b>Structured content intuitively, guiding users effortlessly from service discovery to booking.</li>
+    <li><b>Visual Hierarchy: </b>Strategically placed elements and clear call-to-action points to maximize engagement and conversions.</li>
+    <li><b>Block-Based Design: </b>Custom modular blocks that enabled easy content updates while maintaining consistent aesthetics.</li></p>`,
+
+    development: `<p>My dual role as designer and developer enabled informed design choices that aligned with practical development considerations. In development, I contributed directly to building key functional elements.<br /><br />
+    <li><b>Custom Blocks: </b>Created custom WordPress blocks for displaying critical company details such as address, email, and phone number using the Block API.</li>
+    <li><b>Interactive Animations: </b>Implemented the Animate On Scroll (AOS) library to enhance user engagement subtly.</li>
+    <li><b>Front Page Template: </b>Developed strategically arranged content blocks to promote user engagement and drive conversions.</li>
+    <li><b>Specialized Templates: </b>Crafted templates for diverse content types, including services, team profiles, and testimonials.</li>
+    <li><b>Maintainability: </b>Followed WordPress best practices to ensure clean, modular, and maintainable code structure.</li></p>`,
+
+    challenges: `<p>This project presented several significant technical and design challenges that enhanced my professional growth:<br /><br />
+    <li><b>Font Optimization: </b>Addressed font loading inconsistencies through optimization techniques, including selecting proper web formats and caching strategies.</li>
+    <li><b>Block Editor Customization: </b>Gained deep expertise in WordPress Block API to balance customization flexibility and design integrity.</li>
+    <li><b>Responsive Navigation: </b>Developed intuitive navigation systems suitable for all screen sizes, leveraging progressive enhancement techniques.</li>
+    <li><b>WooCommerce Integration: </b>Customized the booking system to align with specific business needs, ensuring consistent branding throughout the booking process.</li>
+    <li><b>Cross-Discipline Insight: </b>Strengthened my understanding of the vital intersection between design considerations and development feasibility.</li></p>`,
+    technologies: [
+      "HTML/CSS/Javascript",
+      "Wordpress",
+      "Figma",
+      "WooCommerce",
+      "Google API",
+    ],
     images: {
-      thumbnail: "/src/assets/work/shinjuku.jpg",
-      gallery: [
-        "/assets/projects/sunset-showdown/image1.jpg",
-        "/assets/projects/sunset-showdown/image2.jpg",
-      ],
+      thumbnail: "/work/paws.png",
+      gallery: ["/work/paws1.png", "/work/paws2.png"],
+      previewgif: "/work/paws.gif",
     },
-    link: "https://example.com/sunset-showdown",
+    link: "https://pawsandrelax.bcitwebdeveloper.ca/",
+    figma:
+      "https://www.figma.com/design/3fuxzvbt7udzKRtGkIiFxW/Paws-%26-Relax-Wireframe?node-id=0-1&t=MoGVUZZXB47uiLc8-1",
+    github: "https://github.com/htpwebdesign/paws-relax-theme",
   },
   // Add more projects
 ];

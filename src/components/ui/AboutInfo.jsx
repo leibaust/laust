@@ -1,7 +1,7 @@
 function AboutInfo() {
   return (
-    <div className="max-w-lg mx-auto p-4 bg-secondary shadow-lg h-100 sm:h-135 overflow-y-auto ">
-      <h2 className="text-4xl">HI, I'M LEIBRANDT,</h2>
+    <div className="max-w-lg mx-auto p-4 bg-secondary h-100 sm:h-135 overflow-y-auto selection:bg-primary">
+      <h2 className="text-3xl">HI, I'M LEIBRANDT,</h2>
       <p>
         a web developer based out of Vancouver, BC, Canada. I have a passion for
         crafting intuitive and visually appealing interfaces that stand out. My

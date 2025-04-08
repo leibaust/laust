@@ -10,12 +10,12 @@ function Faq() {
 
   return (
     <>
-      <div className="w-full md:max-w-md mx-auto p-2 bg-tertiary shadow-xl mr-5">
+      <div className="w-full md:max-w-md mx-auto p-2 bg-tertiary shadow-xl mr-5 selection:bg-primary">
         <h2 className="text-3xl">Not so frequently asked questions</h2>
         {faqData.map((item, index) => (
           <div key={index}>
             <button
-              className="w-full text-left py-2 flex justify-between items-center"
+              className="w-full text-left py-2 flex justify-between items-center cursor-pointer"
               onClick={() => toggleFaq(index)}
             >
               <h3>{item.question}</h3>

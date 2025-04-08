@@ -10,7 +10,7 @@ function NameCard() {
 
   return (
     <div
-      className="flex items-center justify-center h-screen text-white"
+      className="flex items-center justify-center h-screen text-white selection:bg-primary"
       style={{ paddingBottom: "20vh" }}
     >
       <div
@@ -19,13 +19,13 @@ function NameCard() {
         onMouseLeave={handleMouseLeave}
         onClick={handleClick}
       >
-        <h2
-          className={`text-4xl tracking-wider font-bold transition-all duration-500 ease-in-out ${
+        <h1
+          className={`font-display text-4xl tracking-wider font-bold transition-all duration-500 ease-in-out ${
             isHovered ? "text-primary" : "text-white"
           } ${isClicked ? "transform -translate-y-4" : ""}`}
         >
           LEIBRANDT AUSTRIA
-        </h2>
+        </h1>
         <div
           className={`overflow-hidden transition-all duration-500 ease-in-out ${
             isClicked ? "opacity-100 max-h-32 my-4" : "opacity-0 max-h-0 my-0"

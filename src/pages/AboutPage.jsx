@@ -1,43 +1,46 @@
 import AboutInfo from "../components/ui/AboutInfo.jsx";
 import Faq from "../components/ui/Faq.jsx";
 import TechStack from "../components/ui/TechStack.jsx";
-import { motion } from "framer-motion";
-import profileImage from "../assets/img/profile2.png"; // Import the image
+import profileImage from "../assets/img/profilewide.jpg";
+// import { Helmet } from "react-helmet";
 
 function AboutPage() {
   return (
     <>
-      <motion.div
-        initial={{ y: 1200, opacity: 1 }}
-        animate={{ y: 0, opacity: 1 }}
-        exit={{ y: -300, opacity: 0 }}
-        transition={{ duration: 1, ease: "easeInOut" }}
-      >
-        <div className="flex items-center justify-center min-h-screen p-0">
-          <div className="w-full min-h-screen sm:max-w-3/5 max-w-3xl bg-secondary sm:p-8">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="flex flex-col space-y-4">
-                <TechStack />
-                <AboutInfo />
-              </div>
-              <div>
-                <div
-                  className="w-full md:max-w-md mx-auto p-2 bg-primary shadow-xl mr-5 mb-4"
-                  style={{
-                    backgroundImage: `url(${profileImage})`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                    height: "300px", // Adjust height as needed
-                  }}
-                >
-                  {/* Content inside the div, if any */}
-                </div>
-                <Faq />
-              </div>
-            </div>
+      <section className="flex justify-center items-center py-6 sm:py-0 sm:min-h-[calc(100vh-128px)]">
+        <div
+          className="
+          grid grid-cols-1 sm:grid-cols-2 gap-6 
+          w-full sm:max-w-5xl
+          bg-secondary 
+          p-4 sm:p-8 
+          my-4 sm:my-0
+          relative
+        "
+        >
+          {/* Left column */}
+          <div className="space-y-6 z-10">
+            <TechStack />
+            <AboutInfo />
+          </div>
+
+          {/* Right column */}
+          <div className="space-y-6">
+            {/* Profile image */}
+            <figure
+              className="w-full md:max-w-md h-[300px] bg-primary shadow-xl relative"
+              style={{
+                backgroundImage: `url(${profileImage})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }}
+              aria-label="Profile picture"
+            />
+
+            <Faq />
           </div>
         </div>
-      </motion.div>
+      </section>
     </>
   );
 }
