@@ -2,11 +2,12 @@
 
 @font-face {
   font-family: Bebas;
+  /* src: url(./assets/fonts/helvetica/Helvetica.ttf); */
   src: url(./assets/fonts/BebasNeue-Regular.ttf);
 }
 @font-face {
   font-family: Modernline;
-  src: url(./assets/fonts/Modernline.ttf);
+  src: url(./assets/fonts/modernline.otf);
 }
 @font-face {
   font-family: Editorial;
@@ -25,8 +26,14 @@
 }
 
 @layer base {
+  h1 {
+    font-family: var(--font-body);
+    font-size: 3.5rem;
+  }
   h2 {
-    font-family: var(--font-display);
+    font-family: var(--font-body);
+    font-size: 1.5rem;
+    font-weight: bold;
   }
   cite {
     font-family: var(--font-subtext);
@@ -39,11 +46,26 @@
   a {
     font-family: var(--font-body);
   }
+  li {
+    font-family: var(--font-body);
+  }
 }
 
-/* Hide Scrollbar */
-@layer components {
-  ::-webkit-scrollbar {
-    display: none;
-  }
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
 }
