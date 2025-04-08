@@ -99,33 +99,45 @@ function WorkDetailCard() {
           ← Back to Projects
         </Link>
 
-        <h1 className="text-3xl font-bold mb-4">{project.title}</h1>
+        <h1>{project.title}</h1>
 
         <div className="mb-6">
           <div className="max-h-[400px] overflow-y-auto pr-4 custom-scrollbar">
             {project.concept && (
               <>
                 <h2>Concept & Vision</h2>
-                <p className="text-lg mb-4">{project.concept}</p>
+                <div
+                  className="text-lg mb-4 list-none"
+                  dangerouslySetInnerHTML={{ __html: project.concept }}
+                />
               </>
             )}
 
             {project.design && (
               <>
                 <h2>Design & Planning</h2>
-                <p className="text-lg mb-4">{project.design}</p>
+                <div
+                  className="text-lg mb-4 list-none"
+                  dangerouslySetInnerHTML={{ __html: project.design }}
+                />
               </>
             )}
             {project.development && (
               <>
                 <h2>Development & Implementation</h2>
-                <p className="text-lg mb-4">{project.development}</p>
+                <div
+                  className="text-lg mb-4 list-none"
+                  dangerouslySetInnerHTML={{ __html: project.development }}
+                />
               </>
             )}
             {project.challenges && (
               <>
                 <h2>Challenges & Learnings</h2>
-                <p className="text-lg mb-4">{project.challenges}</p>
+                <div
+                  className="text-lg mb-4 list-none"
+                  dangerouslySetInnerHTML={{ __html: project.challenges }}
+                />
               </>
             )}
           </div>
@@ -133,7 +145,10 @@ function WorkDetailCard() {
             <h2 className="text-xl mb-2">Technologies Used</h2>
             <div className="flex flex-wrap gap-2">
               {project.technologies.map((tech, index) => (
-                <span key={index} className="bg-tertiary px-3 py-1 rounded">
+                <span
+                  key={index}
+                  className="bg-tertiary px-3 py-1 rounded font-body"
+                >
                   {tech}
                 </span>
               ))}
@@ -178,7 +193,7 @@ function WorkDetailCard() {
       <div>
         {project.images && project.images.gallery && (
           <div className="mt-8">
-            <h1 className="font-display text-2xl mb-4">Gallery</h1>
+            <h2 className="text-xl mb-4">Gallery</h2>
             <div className="grid grid-cols-1 gap-4">
               {project.images.gallery.map((image, index) => (
                 <div

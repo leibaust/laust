@@ -26,8 +26,14 @@
 }
 
 @layer base {
+  h1 {
+    font-family: var(--font-body);
+    font-size: 3.5rem;
+  }
   h2 {
-    font-family: var(--font-display);
+    font-family: var(--font-body);
+    font-size: 1.5rem;
+    font-weight: bold;
   }
   cite {
     font-family: var(--font-subtext);
@@ -38,6 +44,9 @@
     font-size: 18px;
   }
   a {
+    font-family: var(--font-body);
+  }
+  li {
     font-family: var(--font-body);
   }
 }

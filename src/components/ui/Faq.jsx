@@ -10,7 +10,7 @@ function Faq() {
 
   return (
     <>
-      <div className="w-full md:max-w-md mx-auto p-2 bg-tertiary shadow-xl mr-5">
+      <div className="w-full md:max-w-md mx-auto p-2 bg-tertiary shadow-xl mr-5 selection:bg-primary">
         <h2 className="text-3xl">Not so frequently asked questions</h2>
         {faqData.map((item, index) => (
           <div key={index}>
