@@ -94,7 +94,7 @@ function WorkDetailCard() {
       <div>
         <Link
           to="/works"
-          className="text-darkbg hover:underline mb-8 inline-block"
+          className="text-darkbg hover:underline mb-1 inline-block"
         >
           ← Back to Projects
         </Link>
