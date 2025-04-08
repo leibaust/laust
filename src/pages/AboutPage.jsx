@@ -7,6 +7,16 @@ import profileImage from "../assets/img/profilewide.jpg";
 function AboutPage() {
   return (
     <>
+      {/* Meta Tags */}
+      <title>About Me | Front-End Developer Portfolio</title>
+      <meta
+        name="description"
+        content="Learn a little about me and my journey as a web developer"
+      />
+      <meta
+        name="keywords"
+        content="Leibrandt, Austria, front-end developer, web developer, portfolio, creative coding, UI developer, UI/UX, UX Developer, React.js, personal site, developer portfolio, design-focused dev"
+      />
       <section className="flex justify-center items-center py-6 sm:py-0 sm:min-h-[calc(100vh-128px)]">
         <div
           className="
