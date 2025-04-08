@@ -119,13 +119,40 @@ export const projects = [
   },
   {
     id: "paws",
-    title: "Paws & Relax Website",
+    title: "Paws & Relax",
     shortDescription: "A Wordpress website for a pet massage business",
-    concept: "In Development",
-    design: "In Development",
-    development: "In Development",
-    challenges: "In Development",
-    technologies: ["HTML/CSS/Javascript", "Wordpress", "Figma"],
+    concept: `<p>A fully custom WordPress theme designed from scratch for a dog massage business, aimed at creating a warm and inviting digital experience reflective of the spa's nurturing physical atmosphere. As the lead UI/UX designer, I carefully curated a soothing and professional aesthetic.<br /><br />
+    <li><b>Vision: </b>A calming, welcoming online presence emphasizing a seamless journey from discovering services to booking appointments.</li>
+    <li><b>Color Palette: </b>Earthy tones including terracotta, sage green, and soft neutral backgrounds to evoke tranquility and natural wellness.</li></p>`,
+
+    design: `<p>As the primary UI/UX designer, I led the comprehensive design process starting from initial research through detailed Figma wireframes and mockups. The design prioritized usability, modularity, and consistency across the website.<br /><br />
+    <li><b>Typography: </b>Montserrat for clarity and readability paired with Grown for distinctive, stylish headings.</li>
+    <li><b>Responsive Design: </b>Ensured seamless user experiences across all devices, from mobile to desktop.</li>
+    <li><b>Brand Identity: </b>Developed a custom SVG logo capturing the nurturing spirit of the brand.</li>
+    <li><b>Information Architecture: </b>Structured content intuitively, guiding users effortlessly from service discovery to booking.</li>
+    <li><b>Visual Hierarchy: </b>Strategically placed elements and clear call-to-action points to maximize engagement and conversions.</li>
+    <li><b>Block-Based Design: </b>Custom modular blocks that enabled easy content updates while maintaining consistent aesthetics.</li></p>`,
+
+    development: `<p>My dual role as designer and developer enabled informed design choices that aligned with practical development considerations. In development, I contributed directly to building key functional elements.<br /><br />
+    <li><b>Custom Blocks: </b>Created custom WordPress blocks for displaying critical company details such as address, email, and phone number using the Block API.</li>
+    <li><b>Interactive Animations: </b>Implemented the Animate On Scroll (AOS) library to enhance user engagement subtly.</li>
+    <li><b>Front Page Template: </b>Developed strategically arranged content blocks to promote user engagement and drive conversions.</li>
+    <li><b>Specialized Templates: </b>Crafted templates for diverse content types, including services, team profiles, and testimonials.</li>
+    <li><b>Maintainability: </b>Followed WordPress best practices to ensure clean, modular, and maintainable code structure.</li></p>`,
+
+    challenges: `<p>This project presented several significant technical and design challenges that enhanced my professional growth:<br /><br />
+    <li><b>Font Optimization: </b>Addressed font loading inconsistencies through optimization techniques, including selecting proper web formats and caching strategies.</li>
+    <li><b>Block Editor Customization: </b>Gained deep expertise in WordPress Block API to balance customization flexibility and design integrity.</li>
+    <li><b>Responsive Navigation: </b>Developed intuitive navigation systems suitable for all screen sizes, leveraging progressive enhancement techniques.</li>
+    <li><b>WooCommerce Integration: </b>Customized the booking system to align with specific business needs, ensuring consistent branding throughout the booking process.</li>
+    <li><b>Cross-Discipline Insight: </b>Strengthened my understanding of the vital intersection between design considerations and development feasibility.</li></p>`,
+    technologies: [
+      "HTML/CSS/Javascript",
+      "Wordpress",
+      "Figma",
+      "WooCommerce",
+      "Google API",
+    ],
     images: {
       thumbnail: "/work/paws.png",
       gallery: ["/work/paws1.png", "/work/paws2.png"],
