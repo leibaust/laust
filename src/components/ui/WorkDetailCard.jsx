@@ -161,7 +161,7 @@ function WorkDetailCard() {
                 href={project.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-primary text-black px-4 py-2 rounded inline-block hover:bg-opacity-90 transition-all"
+                className="bg-primary text-black px-4 py-2 rounded inline-block hover:bg-opacity-80 hover:scale-105 transition-transform duration-300 mx-2"
               >
                 View Live
               </a>
@@ -171,7 +171,7 @@ function WorkDetailCard() {
                 href={project.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-primary text-black px-4 py-2 rounded inline-block hover:bg-opacity-90 transition-all mx-4"
+                className="bg-primary text-black px-4 py-2 rounded inline-block hover:bg-opacity-80 hover:scale-105 transition-transform duration-300 mx-2"
               >
                 View GitHub
               </a>
@@ -181,7 +181,7 @@ function WorkDetailCard() {
                 href={project.figma}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-primary text-black px-4 py-2 rounded inline-block hover:bg-opacity-90 transition-all mx-4"
+                className="bg-primary text-black px-4 py-2 rounded inline-block hover:bg-opacity-80 hover:scale-105 transition-transform duration-300 mx-2"
               >
                 View Figma
               </a>
