@@ -1,6 +1,23 @@
 import Navigation from "./Navigation";
+import { useState } from "react";
 
 function Header({ toggleVideoPlayback, isPlaying }) {
+  const [copyStatus, setCopyStatus] = useState(""); // To display copy feedback
+
+  const handleCopyEmail = () => {
+    const email = "hello@laust.ca";
+    navigator.clipboard
+      .writeText(email)
+      .then(() => {
+        setCopyStatus("COPIED");
+        setTimeout(() => setCopyStatus(""), 2000); // Clear the status after 2 seconds
+      })
+      .catch((err) => {
+        console.error("Could not copy text: ", err);
+        setCopyStatus("error");
+      });
+  };
+
   return (
     <div className="flex flex-col">
       {/* Top header with contact info and train button - always at top */}
@@ -9,11 +26,16 @@ function Header({ toggleVideoPlayback, isPlaying }) {
         <div className="flex items-center gap-4 tracking-wide">
           <div className="flex flex-col gap-1 text-sm">
             <a
-              href="mailto:hello@laust.ca"
-              aria-label="Email"
-              className="hover:scale-105 hover:text-primary transition-transform duration-300"
+              onClick={handleCopyEmail}
+              className="text-left hover:scale-105 hover:text-primary transition-transform duration-300 cursor-pointer flex items-center"
+              aria-label="Copy email to clipboard"
             >
               hello@laust.ca
+              {copyStatus && (
+                <span className="ml-2 text-xs text-primary opacity-90">
+                  {copyStatus}
+                </span>
+              )}
             </a>
             <a
               href="https://linkedin.com/in/laaustria"

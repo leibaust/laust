@@ -71,7 +71,7 @@ export const projects = [
       gallery: ["/work/figma1.png", "/work/movie.png"],
       previewgif: "/work/moov.gif",
     },
-    link: "https://example.com/sunset-showdown",
+    link: "https://daniellefelices.com/danielle-leibrandt-ian-movie-app/",
     github: "https://github.com/dfelices/danielle-leibrandt-ian-movie-app",
     figma:
       "https://www.figma.com/design/6SLr74GDyhZiLtIZ9X01ee/Movie-Database-Prototype-2024?node-id=0-1&t=QayONoX1pMVZaFGG-1",
@@ -164,7 +164,7 @@ export const projects = [
     link: "https://pawsandrelax.bcitwebdeveloper.ca/",
     figma:
       "https://www.figma.com/design/3fuxzvbt7udzKRtGkIiFxW/Paws-%26-Relax-Wireframe?node-id=0-1&t=MoGVUZZXB47uiLc8-1",
-    github: "https://github.com/htpwebdesign/paws-relax-theme",
+    github: "https://github.com/leibaust/paws-relax-theme",
   },
   // Add more projects
 ];
