@@ -1,6 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { projects } from "../../data/projects";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 function WorkDetailCard() {
   const { projectId } = useParams();
@@ -9,6 +9,29 @@ function WorkDetailCard() {
     isOpen: false,
     currentImage: 0,
   });
+
+  const galleryRef = useRef(null);
+  const animFrameRef = useRef(null);
+  const isPausedRef = useRef(false);
+
+  useEffect(() => {
+    const el = galleryRef.current;
+    if (!el) return;
+
+    const speed = 0.4;
+    const step = () => {
+      if (!isPausedRef.current) {
+        el.scrollTop += speed;
+        if (el.scrollTop + el.clientHeight >= el.scrollHeight) {
+          el.scrollTop = 0;
+        }
+      }
+      animFrameRef.current = requestAnimationFrame(step);
+    };
+
+    animFrameRef.current = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(animFrameRef.current);
+  }, [project]);
 
   // Handle lightbox keyboard navigation and close
   useEffect(() => {
@@ -194,20 +217,29 @@ function WorkDetailCard() {
         {project.images && project.images.gallery && (
           <div className="mt-8">
             <h2 className="text-xl mb-4">Gallery</h2>
-            <div className="grid grid-cols-1 gap-4">
-              {project.images.gallery.map((image, index) => (
-                <div
-                  key={index}
-                  className="aspect-video bg-tertiary rounded overflow-hidden drop-shadow-sm cursor-pointer transition-transform hover:scale-[1.02]"
-                  onClick={() => openLightbox(index)}
-                >
-                  <img
-                    src={image} // Vite will handle this
-                    alt={`${project.title} screenshot ${index + 1}`}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              ))}
+            <div
+              ref={galleryRef}
+              className="h-[480px] overflow-y-scroll custom-scrollbar"
+              onMouseEnter={() => { isPausedRef.current = true; }}
+              onMouseLeave={() => { isPausedRef.current = false; }}
+              onTouchStart={() => { isPausedRef.current = true; }}
+              onTouchEnd={() => { isPausedRef.current = false; }}
+            >
+              <div className="flex flex-col gap-4 pr-2">
+                {project.images.gallery.map((image, index) => (
+                  <div
+                    key={index}
+                    className="aspect-video bg-tertiary rounded overflow-hidden drop-shadow-sm cursor-pointer flex-shrink-0 transition-opacity hover:opacity-90"
+                    onClick={() => openLightbox(index)}
+                  >
+                    <img
+                      src={image}
+                      alt={`${project.title} screenshot ${index + 1}`}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         )}

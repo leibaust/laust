@@ -1,42 +1,40 @@
 export const projects = [
   {
-    id: "sunset-showdown",
-    title: "Sunset Showdown",
-    shortDescription: "A simple HTML5 Canvas/Javascript retro shooter game",
-    concept: `<p>Sunset Showdown is a retro-inspired, top-down shooter built with HTML Canvas and JavaScript. Players control a character that automatically fires at the nearest enemy, with the objective of surviving as long as possible while accumulating points by defeating enemies.<br /><br />
-    <li><b>Gameplay: </b>Automatic projectile firing with homing mechanics toward enemies.</li>
-    <li><b>Enemies: </b>Continuously spawning and bouncing off screen edges, adding dynamic challenge.</li>
-    <li><b>Difficulty Modes: </b>Easy, Medium, Hard, and Hell, influencing enemy spawn rates and projectile cooldowns.</li>
-    <li><b>Tracking: </b>Clear display of health, current score, and high score for easy player reference.</li></p>`,
+    id: "lode",
+    title: "LODE",
+    shortDescription: "A full-stack trucking operations platform",
+    concept: `<p>LODE is a full-stack operations platform built to replace legacy trucking software for a freight company, with a multi-tenant SaaS architecture designed to scale across future clients. It unifies dispatch, warehouse, driver workflows, and customer tracking in a single system.<br /><br />
+    <li><b>Problem: </b>Logistics staff were manually translating emails into old software, warehouse teams were hand-writing DIM sheets, and shipment tracking was entirely manual.</li>
+    <li><b>Vision: </b>A single platform covering the full freight lifecycle — from job creation through dispatch, warehouse intake, and final delivery POD.</li>
+    <li><b>Architecture: </b>Multi-tenant from day one, with every table scoped by tenant_id and Supabase RLS enforcing data isolation at the database layer.</li>
+    <li><b>Roles: </b>8 distinct user roles — Administrator, Management, Accounting, Logistics, Dispatcher, Driver, Warehouse Staff, and Customer — each with scoped access.</li></p>`,
 
-    design: `<p>Designed with simplicity and clarity in mind, utilizing HTML Canvas for graphics rendering. Visual elements include PNG sprites for the player and enemies, supported by a streamlined UI.<br /><br />
-    <li><b>Visual Design: </b>Clean and minimalistic aesthetic focused on gameplay clarity.</li>
-    <li><b>Interface: </b>Real-time display of player health, score, and high score.</li>
-    <li><b>Splash Screen: </b>Interactive difficulty level selection at the start of each game session.</li>
-    <li><b>Dynamic Gameplay: </b>Continuous real-time updates of the game board during play.</li>
-    <li><b>Audio Feedback: </b>Immersive sound effects and background music, activated by collision events.</li></p>`,
+    design: `<p>Designed as a dense, data-heavy operations tool with a dark interface that reduces eye strain during long shifts. The UI prioritizes clarity and speed over decoration.<br /><br />
+    <li><b>Theme: </b>Dark mode with an amber accent system — operators can personalize their accent color (Ember, Teal, Cobalt, Amber, Violet, Sage, White).</li>
+    <li><b>Dispatch Board: </b>Kanban-style column layout (Unassigned / Assigned / Completed) with inline driver assignment and job detail expansion.</li>
+    <li><b>PWA-first: </b>Built as an installable Progressive Web App — drivers save to homescreen for a full-screen, native-feeling mobile experience without an app store.</li>
+    <li><b>Density: </b>Dashboard surfaces driver availability, job counts, week-over-week stats, and system health in a single view.</li></p>`,
 
-    development: `<p>Developed using HTML5 Canvas and JavaScript to achieve responsive, smooth gameplay animations and interactions.<br /><br />
-    <li><b>Rendering: </b>Implemented using requestAnimationFrame for smooth, optimized animations.</li>
-    <li><b>Player Control: </b>Responsive player movement controlled via arrow keys.</li>
-    <li><b>Game Mechanics: </b>Automatic projectile targeting and timed enemy spawning.</li>
-    <li><b>Modular Code: </b>Structured functions handling entity updates, collision detection, and state management for maintainability.</li>
-    <li><b>Event Handling: </b>Event listeners managing user input and UI interactions efficiently.</li></p>`,
+    development: `<p>Built with React + Vite as a PWA, backed by Supabase for database, auth, real-time, and storage. Zustand handles client state.<br /><br />
+    <li><b>Stack: </b>React + Vite + Tailwind CSS (PWA), Zustand, Supabase (PostgreSQL + Auth + RLS + Storage), Google Maps API.</li>
+    <li><b>Two core systems: </b>Dispatch/Jobs (local delivery lifecycle) and Warehouse/Shipments (AWB-based freight tracking) — intersecting at key handoff points.</li>
+    <li><b>DIM Sheets: </b>Warehouse staff upload PDF DIM sheets directly into the platform, which are then attached to jobs or released to third-party drivers.</li>
+    <li><b>RLS Security: </b>Row Level Security enforces tenant isolation and role-based access at the database layer — security is not just UI-gated.</li>
+    <li><b>Real-time: </b>Supabase Realtime subscriptions keep the dispatch board and driver status live without polling.</li></p>`,
 
-    challenges: `<p>Several technical challenges arose during the development, each providing valuable learning opportunities:<br /><br />
-    <li><b>Difficulty Balancing: </b>Careful tuning of enemy spawn rates and projectile cooldowns to achieve engaging gameplay.</li>
-    <li><b>Collision Detection: </b>Initial performance issues were solved through optimized looping logic.</li>
-    <li><b>Audio Management: </b>Handled overlapping sounds by cloning audio elements for consistent playback.</li>
-    <li><b>Game Loop Control: </b>Resolved issues of stacked loops by properly canceling animation frames before game resets.</li>
-    <li><b>Player Movement: </b>Ensured smooth and seamless screen wrapping with precise coordinate calculations.</li></p>`,
-    technologies: ["HTML", "CSS", "JavaScript", "Canvas"],
+    challenges: `<p>Building a multi-role, multi-tenant operations platform presented significant architectural and UX challenges:<br /><br />
+    <li><b>Multi-tenancy from scratch: </b>Every query, every RLS policy, and every UI component had to be tenant-scoped from the first line of code — retrofitting this later would have been impossible.</li>
+    <li><b>Role-adaptive UI: </b>The same login flow serves 8 roles with entirely different views and permissions — designing a clean role-routing system without duplicating components took careful planning.</li>
+    <li><b>Two intersecting systems: </b>Jobs and Shipments are independent workflows that can link at multiple points (an import spawning a last-mile job, an export pickup creating a shipment) — modelling these relationships cleanly required multiple schema iterations.</li>
+    <li><b>PWA on mobile: </b>Getting a true full-screen, installable experience across Android and iOS without React Native required careful PWA manifest and service worker configuration.</li>
+    <li><b>Real-world constraints: </b>Building against the workflows of an actual freight company meant requirements shifted as we discovered how operations actually worked vs. how they were described.</li></p>`,
+    technologies: ["React.js", "Vite", "Tailwind CSS", "Supabase", "PostgreSQL", "Zustand", "PWA", "Google Maps API"],
     images: {
-      thumbnail: "/work/sunset.png",
-      gallery: ["/work/ss1.png", "/work/ss2.png"],
-      previewgif: "/work/sunsetpreview.gif",
+      thumbnail: "/work/lode-thumbnail.png",
+      gallery: ["/work/lode-dispatch.png", "/work/lode-dimsheets.png", "/work/lode-settings.png", "/work/lode-login.png"],
+      previewgif: "/work/lode-thumbnail.png",
     },
-    link: "https://laust.ca/projects/sunsetshowdown/",
-    github: "https://github.com/leibaust/js-game",
+    link: "https://trucking-topaz.vercel.app/",
   },
   {
     id: "moov",
@@ -77,48 +75,40 @@ export const projects = [
       "https://www.figma.com/design/6SLr74GDyhZiLtIZ9X01ee/Movie-Database-Prototype-2024?node-id=0-1&t=QayONoX1pMVZaFGG-1",
   },
   {
-    id: "portfolio",
-    title: "Portfolio",
-    shortDescription: "A React core, Tailwind styled portfolio website",
-    concept: `<p>A digital showcase reflecting my design philosophy and technical skills, emphasizing essential content and streamlined navigation.<br /><br />
-    <li><b>Purpose: </b>Showcase projects and demonstrate design and technical capabilities</li>
-    <li><b>Approach: </b>Minimalist navigation, removing unnecessary elements like dedicated contact pages</li></p>`,
+    id: "qorum",
+    title: "QORUM",
+    shortDescription: "A white-label Association Management System",
+    concept: `<p>QORUM is a reusable Association Management System (AMS) built to be deployed for any professional chapter or member organization. The first client is the SFPE Prairies Provinces Chapter — a fire protection engineering association spanning Alberta, Saskatchewan, and Manitoba.<br /><br />
+    <li><b>Vision: </b>Build once, reskin per client — each new organization gets their own Next.js frontend connected to a shared multi-tenant database, with full brand customization.</li>
+    <li><b>Scope: </b>Covers the full member lifecycle: signup, profile management, event registration, news publishing, email campaigns, and an admin console for chapter organizers.</li>
+    <li><b>Multi-tenancy: </b>Every table is scoped by org_id, with Supabase RLS enforcing data isolation so no organization can ever access another's data.</li></p>`,
 
-    design: `<p>A visually striking interface inspired by 1980s avant-garde magazine layouts, emphasizing typography and analog design influences.<br /><br />
-    <li><b>Typography: </b>Editorial body font paired with impactful display fonts (Bebas Neue, Modernline)</li>
-    <li><b>Visual Texture: </b>Strategic noise overlays adding depth and tactile feel</li>
-    <li><b>Layout Inspiration: </b>Square block elements referencing traditional print media design</li>
-    <li><b>Interactivity: </b>Floating, asymmetrical work cards encouraging exploration</li></p>`,
+    design: `<p>QORUM has two distinct visual identities — a clean, professional public-facing site for members, and a dense admin console for chapter organizers.<br /><br />
+    <li><b>Public site: </b>Light, editorial layout with the organization's brand colors and logo — fully customizable per client via the Admin Customization panel.</li>
+    <li><b>Member portal: </b>Warm, card-based dashboard showing upcoming events, membership status, quick links, and renewal prompts.</li>
+    <li><b>Admin console: </b>Sidebar-driven interface covering Members, Events, News, Email, Media, Reports, and Customization — designed for non-technical chapter admins.</li>
+    <li><b>Brand tokens: </b>Primary and accent colors, logo, email header styles, and footer text are all configurable per organization without touching code.</li></p>`,
 
-    development: `<p>Built using React and styled with Tailwind CSS, combining modern technical practices and creative visual execution.<br /><br />
-    <li><b>Animations: </b>Custom cursor tracking with GSAP, Framer Motion transitions for seamless navigation</li>
-    <li><b>Visual Elements: </b>Background video with playback controls, dynamic pseudo-random card positioning</li>
-    <li><b>Responsiveness: </b>Fully responsive layouts transforming entirely between mobile and desktop views</li>
-    <li><b>Architecture: </b>Reusable, component-based code structure separating UI from layout logic</li></p>`,
+    development: `<p>Built on Next.js 16 App Router with Tailwind CSS v4, backed by Supabase for database, auth, storage, and email delivered via Resend.<br /><br />
+    <li><b>Stack: </b>Next.js 16 (App Router, React Server Components), Tailwind CSS v4, Supabase (PostgreSQL + Auth + RLS + Storage), Resend, Vercel.</li>
+    <li><b>Events system: </b>Full event lifecycle — creation, ticket types (free/paid, member-only/public), registration flow with custom questions, registrant management, and post-event automated emails.</li>
+    <li><b>Email engine: </b>Rich campaign editor (Tiptap), merge tags, template library, list management with CSV/Excel import, scheduled send, and a Vercel Cron job that processes the send queue every 15 minutes.</li>
+    <li><b>Server-first: </b>Heavy use of React Server Components and Next.js Server Actions — client components are leaf nodes only, keeping the bundle small and pages fast.</li>
+    <li><b>Auth pattern: </b>Three Supabase client types (admin, server, browser) used strictly by context — service role never exposed to the browser.</li></p>`,
 
-    challenges: `<p>Technical challenges encountered and solved during development:<br /><br />
-    <li><b>Fluid Animations: </b>Managed viewport-based calculations for smooth animations across screen sizes</li>
-    <li><b>Floating Cards: </b>Precise mathematical positioning to prevent overlap and maintain natural arrangement</li>
-    <li><b>Custom Cursor: </b>Event handling and animation timing to ensure smooth, responsive interactions</li>
-    <li><b>Performance Optimization: </b>Balanced rich visuals (video/noise textures) with loading speed, especially on mobile</li>
-    <li><b>Cross-Browser Compatibility: </b>Implemented fallbacks and progressive enhancement for experimental CSS features</li></p>`,
-    technologies: [
-      "React.js",
-      "Tailwind CSS",
-      "Framer Motion",
-      "GSAP",
-      "Figma",
-      "Vite",
-    ],
+    challenges: `<p>Building a genuinely reusable multi-tenant SaaS product — not just a one-off site — introduced constraints that shaped every decision:<br /><br />
+    <li><b>RLS recursion: </b>Standard RLS policies caused infinite recursion when policies queried the members table to determine org context. Solved with SECURITY DEFINER helper functions (auth_member_org_id(), auth_is_admin()) that break the recursion cleanly.</li>
+    <li><b>Auth bootstrap problem: </b>New member signup needed to insert into the members table before RLS could determine their org — solved by using the service role client exclusively for that insert, then handing off to normal scoped clients.</li>
+    <li><b>Server component session propagation: </b>Next.js server components don't re-render on client-side auth state changes. Router.refresh() had to precede router.push() after login so the Nav server component picks up the new session correctly.</li>
+    <li><b>Email at scale: </b>Sending blast campaigns to full member lists required a proper queue — campaigns are marked as scheduled, then a Vercel Cron processes them in batches to avoid Resend rate limits.</li>
+    <li><b>White-label flexibility: </b>Every hardcoded color, string, and logo had to be replaced with org-level config pulled from the database — including email header backgrounds, footer text, and logo sizing.</li></p>`,
+    technologies: ["Next.js", "Tailwind CSS", "Supabase", "PostgreSQL", "Resend", "Vercel"],
     images: {
-      thumbnail: "/work/figma.png",
-      gallery: ["/work/figma.png", "/work/port1.png"],
-      previewgif: "/work/port.gif",
+      thumbnail: "/work/qorum-thumbnail.png",
+      gallery: ["/work/qorum-admin.png", "/work/qorum-portal.png", "/work/qorum-event.png"],
+      previewgif: "/work/qorum-thumbnail.png",
     },
-    link: "https://www.laust.ca",
-    github: "https://github.com/leibaust/laust",
-    figma:
-      "https://www.figma.com/design/tnjguW3FP2VJvXkK9se9dV/Portfolio-Wireframe-V2-2025?node-id=27-278&t=RVbwpZR0IUX7hOMZ-1",
+    link: "https://ams-rho-eight.vercel.app/",
   },
   {
     id: "paws",
