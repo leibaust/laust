@@ -30,9 +30,9 @@ export const projects = [
     <li><b>Real-world constraints: </b>Building against the workflows of an actual freight company meant requirements shifted as we discovered how operations actually worked vs. how they were described.</li></p>`,
     technologies: ["React.js", "Vite", "Tailwind CSS", "Supabase", "PostgreSQL", "Zustand", "PWA", "Google Maps API"],
     images: {
-      thumbnail: "/work/lode-thumbnail.png",
-      gallery: ["/work/lode-dispatch.png", "/work/lode-dimsheets.png", "/work/lode-settings.png", "/work/lode-login.png"],
-      previewgif: "/work/lode-thumbnail.png",
+      thumbnail: "/work/lode-login.png",
+      gallery: ["/work/lode-dashboard.png", "/work/lode-dispatch.png", "/work/lode-dimsheets.png", "/work/lode-settings.png"],
+      previewgif: "/work/lode-login.png",
     },
     link: "https://trucking-topaz.vercel.app/",
   },
