@@ -163,22 +163,27 @@ function WorkCard() {
       {hoveredProject && (
         <div
           ref={tooltipRef}
-          className="fixed pointer-events-none z-50 p-4 border border-tertiary shadow-lg w-64 h-64 flex flex-col justify-center items-center"
+          className="fixed pointer-events-none z-50 p-4 border border-tertiary shadow-lg w-64 h-64 flex flex-col justify-center items-center overflow-hidden"
           style={{
             left: `${tooltipPosition.x}px`,
             top: `${tooltipPosition.y}px`,
             transform: "translate(0, -50%)",
             transition: "none",
-            backgroundImage: hoveredProject.images?.previewgif
-              ? `url(${hoveredProject.images.previewgif})`
-              : "none",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
             backgroundColor: "rgba(17, 24, 39, 0.5)",
-            backgroundBlendMode: "overlay",
           }}
         >
-          <div className="p-3 text-center w-full">
+          {hoveredProject.images?.previewgif && (
+            <video
+              key={hoveredProject.id}
+              src={hoveredProject.images.previewgif}
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+          )}
+          <div className="p-3 text-center w-full relative z-10">
             <h3 className="text-primary text-xl font-bold mb-2">
               {hoveredProject.title}
             </h3>

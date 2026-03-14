@@ -5,62 +5,37 @@ import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
 import WorksPage from "./pages/WorksPage";
 import WorkDetailPage from "./pages/WorkDetailPage";
-import { useState, useRef, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import backgroundVideo from "./assets/bg.mp4";
 import overlayImage from "./assets/overlay.jpg";
 import Noise from "./components/ui/Noise";
 import Cursor from "./components/ui/Cursor";
+import ErrorBoundary from "./components/ErrorBoundary";
+import { VideoProvider, useVideo } from "./context/VideoContext";
 
-// Global video controller
-window.__videoController = {
-  isPlaying: true,
-  toggle: null, // Will be populated with the actual function
-};
-
-// Persistent background that stays alive regardless of route changes
 function PersistentBackground() {
-  const [isPlaying, setIsPlaying] = useState(true);
-  const videoRef = useRef(null);
+  const { videoRef } = useVideo();
+  const [isMobile, setIsMobile] = useState(false);
 
-  const toggleVideoPlayback = () => {
-    if (videoRef.current) {
-      if (isPlaying) {
-        videoRef.current.pause();
-      } else {
-        videoRef.current.play();
-      }
-      setIsPlaying(!isPlaying);
-
-      // Update global state
-      window.__videoController.isPlaying = !isPlaying;
-    }
-  };
-
-  // Register toggle function globally on mount
   useEffect(() => {
-    window.__videoController.toggle = toggleVideoPlayback;
-    window.__videoController.isPlaying = isPlaying;
-
-    return () => {
-      // Clean up on unmount
-      window.__videoController.toggle = null;
-    };
-  }, [isPlaying]);
+    setIsMobile(window.matchMedia("(max-width: 768px)").matches);
+  }, []);
 
   return (
     <div className="fixed inset-0 z-0">
-      {/* Background video */}
-      <video
-        ref={videoRef}
-        className="absolute top-0 left-0 w-full h-full object-cover filter brightness-40"
-        src={backgroundVideo}
-        autoPlay
-        loop
-        muted
-        playsInline
-      />
-
-      {/* Image overlay */}
+      {isMobile ? (
+        <div className="absolute top-0 left-0 w-full h-full" style={{ backgroundColor: "#333333" }} />
+      ) : (
+        <video
+          ref={videoRef}
+          className="absolute top-0 left-0 w-full h-full object-cover filter brightness-40"
+          src={backgroundVideo}
+          autoPlay
+          loop
+          muted
+          playsInline
+        />
+      )}
       <div
         className="absolute top-0 left-0 w-full h-full pointer-events-none"
         style={{ backgroundImage: `url(${overlayImage})`, opacity: 0.1 }}
@@ -69,19 +44,15 @@ function PersistentBackground() {
   );
 }
 
-// Create a wrapper component that handles animations
 function AnimatedRoutes() {
   const location = useLocation();
 
   return (
     <>
-      {/* Background stays outside AnimatePresence to be persistent */}
       <PersistentBackground />
 
-      {/* Cursor also stays outside for persistence */}
       <Cursor />
 
-      {/* Noise overlay - changed to fixed positioning */}
       <div className="fixed inset-0 pointer-events-none z-20">
         <Noise
           patternSize={250}
@@ -109,7 +80,11 @@ function AnimatedRoutes() {
 function App() {
   return (
     <BrowserRouter>
-      <AnimatedRoutes />
+      <ErrorBoundary>
+        <VideoProvider>
+          <AnimatedRoutes />
+        </VideoProvider>
+      </ErrorBoundary>
     </BrowserRouter>
   );
 }

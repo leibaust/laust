@@ -1,6 +1,8 @@
 import Navigation from "./Navigation";
+import { useVideo } from "../../context/VideoContext";
 
-function Header({ toggleVideoPlayback, isPlaying }) {
+function Header() {
+  const { isPlaying, toggle } = useVideo();
   return (
     <div className="flex flex-col">
       {/* Top header with contact info and train button - always at top */}
@@ -46,7 +48,7 @@ function Header({ toggleVideoPlayback, isPlaying }) {
           <button
             className="text-white px-4 py-2 rounded w-36 cursor-pointer hover:scale-105  transition-transform duration-300"
             aria-label="Stop background video"
-            onClick={toggleVideoPlayback}
+            onClick={toggle}
           >
             <span className="font-body">
               {isPlaying ? "Stop Train" : "Start Train"}

@@ -3,14 +3,17 @@
 @font-face {
   font-family: Bebas;
   src: url(./assets/fonts/BebasNeue-Regular.ttf);
+  font-display: swap;
 }
 @font-face {
   font-family: Modernline;
   src: url(./assets/fonts/modernline.otf);
+  font-display: swap;
 }
 @font-face {
   font-family: Editorial;
   src: url(./assets/fonts/editorial/PPEditorialNew-Ultralight-BF644b21500d0c0.otf);
+  font-display: swap;
 }
 
 @theme {

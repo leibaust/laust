@@ -1,6 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { projects } from "../../data/projects";
 import { useState, useEffect, useRef } from "react";
+import DOMPurify from "dompurify";
 
 function WorkDetailCard() {
   const { projectId } = useParams();
@@ -131,7 +132,7 @@ function WorkDetailCard() {
                 <h2>Concept & Vision</h2>
                 <div
                   className="text-lg mb-4 list-none"
-                  dangerouslySetInnerHTML={{ __html: project.concept }}
+                  dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(project.concept) }}
                 />
               </>
             )}
@@ -141,7 +142,7 @@ function WorkDetailCard() {
                 <h2>Design & Planning</h2>
                 <div
                   className="text-lg mb-4 list-none"
-                  dangerouslySetInnerHTML={{ __html: project.design }}
+                  dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(project.design) }}
                 />
               </>
             )}
@@ -150,7 +151,7 @@ function WorkDetailCard() {
                 <h2>Development & Implementation</h2>
                 <div
                   className="text-lg mb-4 list-none"
-                  dangerouslySetInnerHTML={{ __html: project.development }}
+                  dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(project.development) }}
                 />
               </>
             )}
@@ -159,7 +160,7 @@ function WorkDetailCard() {
                 <h2>Challenges & Learnings</h2>
                 <div
                   className="text-lg mb-4 list-none"
-                  dangerouslySetInnerHTML={{ __html: project.challenges }}
+                  dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(project.challenges) }}
                 />
               </>
             )}
