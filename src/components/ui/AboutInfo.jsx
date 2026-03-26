@@ -17,7 +17,7 @@ function AboutInfo() {
         come together to create something extraordinary. By joining a team of
         talented individuals, we can combine our strengths to take projects to
         the next level. My philosophy is simple: focus on what I do
-        best—designing intuitive, user-centric interfaces—and partner with other
+        best: designing intuitive, user-centric interfaces, and partnering with other
         experts to bring a shared vision to life. Together, we can build
         tailored solutions that are greater than the sum of their parts.
       </p>
