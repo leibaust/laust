@@ -190,6 +190,11 @@ function WorkDetailCard() {
                 View Live
               </a>
             )}
+            {project.id === "qorum" && (
+              <p className="text-sm text-darkbg/60 font-body mt-3 mx-2">
+                Test login — user: test@qorum.ca / pw: Qorum2026!
+              </p>
+            )}
             {project.github && (
               <a
                 href={project.github}

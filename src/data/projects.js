@@ -77,11 +77,8 @@ export const projects = [
   {
     id: "qorum",
     title: "QORUM",
-    shortDescription: "A white-label Association Management System",
-    concept: `<p>QORUM is a reusable Association Management System (AMS) built to be deployed for any professional chapter or member organization. The first client is the SFPE Prairies Provinces Chapter — a fire protection engineering association spanning Alberta, Saskatchewan, and Manitoba.<br /><br />
-    <li><b>Vision: </b>Build once, reskin per client — each new organization gets their own Next.js frontend connected to a shared multi-tenant database, with full brand customization.</li>
-    <li><b>Scope: </b>Covers the full member lifecycle: signup, profile management, event registration, news publishing, email campaigns, and an admin console for chapter organizers.</li>
-    <li><b>Multi-tenancy: </b>Every table is scoped by org_id, with Supabase RLS enforcing data isolation so no organization can ever access another's data.</li></p>`,
+    shortDescription: "A live multi-tenant SaaS association management platform — first deployed at qorum.ca for the SFPE Prairies Provinces Chapter.",
+    concept: `<p>Purpose-built SaaS for small professional associations, replacing spreadsheets with event management, member portals, email campaigns, and full org administration. Multi-tenancy serves multiple organizations from a single codebase with individual branding, Supabase RLS data isolation, and path-based routing at qorum.ca/[slug]/.</p>`,
 
     design: `<p>QORUM has two distinct visual identities — a clean, professional public-facing site for members, and a dense admin console for chapter organizers.<br /><br />
     <li><b>Public site: </b>Light, editorial layout with the organization's brand colors and logo — fully customizable per client via the Admin Customization panel.</li>
@@ -89,26 +86,20 @@ export const projects = [
     <li><b>Admin console: </b>Sidebar-driven interface covering Members, Events, News, Email, Media, Reports, and Customization — designed for non-technical chapter admins.</li>
     <li><b>Brand tokens: </b>Primary and accent colors, logo, email header styles, and footer text are all configurable per organization without touching code.</li></p>`,
 
-    development: `<p>Built on Next.js 16 App Router with Tailwind CSS v4, backed by Supabase for database, auth, storage, and email delivered via Resend.<br /><br />
-    <li><b>Stack: </b>Next.js 16 (App Router, React Server Components), Tailwind CSS v4, Supabase (PostgreSQL + Auth + RLS + Storage), Resend, Vercel.</li>
-    <li><b>Events system: </b>Full event lifecycle — creation, ticket types (free/paid, member-only/public), registration flow with custom questions, registrant management, and post-event automated emails.</li>
-    <li><b>Email engine: </b>Rich campaign editor (Tiptap), merge tags, template library, list management with CSV/Excel import, scheduled send, and a Vercel Cron job that processes the send queue every 15 minutes.</li>
-    <li><b>Server-first: </b>Heavy use of React Server Components and Next.js Server Actions — client components are leaf nodes only, keeping the bundle small and pages fast.</li>
-    <li><b>Auth pattern: </b>Three Supabase client types (admin, server, browser) used strictly by context — service role never exposed to the browser.</li></p>`,
+    development: `<p>Built on Next.js App Router with a multi-tenant shared DB architecture — Stripe billing (setup fee + subscription), Resend email system (campaigns, templates, post-event automations), Tiptap rich text editor, and a full admin dashboard with guided onboarding.<br /><br />
+    <li><b>Stack: </b>Next.js (App Router, React Server Components), Tailwind CSS, Supabase (PostgreSQL + Auth + RLS + Storage), Resend, Stripe, Vercel.</li>
+    <li><b>Events system: </b>Full event lifecycle — creation, ticket types (free/paid, member-only/public), registration flow with custom questions, registrant management, and post-event automated emails.</li></p>`,
 
-    challenges: `<p>Building a genuinely reusable multi-tenant SaaS product — not just a one-off site — introduced constraints that shaped every decision:<br /><br />
-    <li><b>RLS recursion: </b>Standard RLS policies caused infinite recursion when policies queried the members table to determine org context. Solved with SECURITY DEFINER helper functions (auth_member_org_id(), auth_is_admin()) that break the recursion cleanly.</li>
-    <li><b>Auth bootstrap problem: </b>New member signup needed to insert into the members table before RLS could determine their org — solved by using the service role client exclusively for that insert, then handing off to normal scoped clients.</li>
-    <li><b>Server component session propagation: </b>Next.js server components don't re-render on client-side auth state changes. Router.refresh() had to precede router.push() after login so the Nav server component picks up the new session correctly.</li>
-    <li><b>Email at scale: </b>Sending blast campaigns to full member lists required a proper queue — campaigns are marked as scheduled, then a Vercel Cron processes them in batches to avoid Resend rate limits.</li>
-    <li><b>White-label flexibility: </b>Every hardcoded color, string, and logo had to be replaced with org-level config pulled from the database — including email header backgrounds, footer text, and logo sizing.</li></p>`,
-    technologies: ["Next.js", "Tailwind CSS", "Supabase", "PostgreSQL", "Resend", "Vercel"],
+    challenges: `<p>Two key challenges shaped the architecture from day one:<br /><br />
+    <li><b>RLS recursion: </b>Standard RLS policies caused infinite recursion when policies queried the members table to determine org context. Solved with SECURITY DEFINER helper functions that break the recursion cleanly.</li>
+    <li><b>Flexible email system: </b>Designing a template system that works uniformly across campaigns, post-event automations, and transactional flows — with per-org branding baked in — required a unified template model rather than separate implementations.</li></p>`,
+    technologies: ["Next.js", "Supabase", "Resend", "Stripe", "Tiptap", "Tailwind CSS", "Vercel", "Luxon"],
     images: {
-      thumbnail: "/work/qorum-thumbnail.png",
+      thumbnail: "/work/qorum-home.png",
       gallery: ["/work/qorum-admin.png", "/work/qorum-portal.png", "/work/qorum-event.png"],
-      previewgif: "/work/qorum-thumbnail.png",
+      previewgif: "/work/qorum-home.png",
     },
-    link: "https://ams-rho-eight.vercel.app/",
+    link: "https://qorum.ca/",
   },
   {
     id: "paws",
