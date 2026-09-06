@@ -1,11 +1,10 @@
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import { AnimatePresence } from "framer-motion";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./components/layout/Layout";
 import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
 import WorksPage from "./pages/WorksPage";
 import WorkDetailPage from "./pages/WorkDetailPage";
-import { useRef, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import backgroundVideo from "./assets/bg.mp4";
 import overlayImage from "./assets/overlay.jpg";
 import Noise from "./components/ui/Noise";
@@ -45,8 +44,6 @@ function PersistentBackground() {
 }
 
 function AnimatedRoutes() {
-  const location = useLocation();
-
   return (
     <>
       <PersistentBackground />
@@ -63,16 +60,18 @@ function AnimatedRoutes() {
         />
       </div>
 
-      <AnimatePresence mode="wait" initial={false}>
-        <Routes location={location} key={location.pathname}>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<HomePage />} />
-            <Route path="about" element={<AboutPage />} />
-            <Route path="works" element={<WorksPage />} />
-            <Route path="works/:projectId" element={<WorkDetailPage />} />
-          </Route>
-        </Routes>
-      </AnimatePresence>
+      {/* Page transitions live in Layout, wrapped directly around the motion
+          element. AnimatePresence cannot read an exit animation through a
+          non-motion child such as <Routes />, so keying the transition here
+          left mode="wait" waiting forever and the next route never mounted. */}
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<HomePage />} />
+          <Route path="about" element={<AboutPage />} />
+          <Route path="works" element={<WorksPage />} />
+          <Route path="works/:projectId" element={<WorkDetailPage />} />
+        </Route>
+      </Routes>
     </>
   );
 }

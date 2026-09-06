@@ -71,3 +71,34 @@
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: rgba(0, 0, 0, 0.3);
 }
+
+/* Case study body copy.
+   Tailwind's reset zeroes every margin, so the rewritten project write-ups
+   (lead paragraphs followed by labelled lists) would otherwise run together
+   as one block of text. */
+.case-study p {
+  margin-bottom: 0.9rem;
+}
+
+.case-study ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin-bottom: 1.1rem;
+}
+
+.case-study ul:last-child,
+.case-study p:last-child {
+  margin-bottom: 0;
+}
+
+.case-study li {
+  line-height: 1.5;
+}
+
+.case-study code {
+  font-size: 0.9em;
+  padding: 0.05em 0.3em;
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.07);
+}

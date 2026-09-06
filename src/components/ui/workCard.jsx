@@ -2,6 +2,33 @@ import { Link } from "react-router-dom";
 import { projects } from "../../data/projects";
 import { useState, useRef, useEffect } from "react";
 
+// A <video> can only decode real video. Feeding it a .gif or .png fails
+// silently — the file downloads, the element stays blank — so pick the element
+// from the file type instead.
+const isVideo = (src) => /\.(mp4|webm|mov)$/i.test(src);
+
+/**
+ * Which corner of a card its title hangs from.
+ *
+ * Always the corner facing away from the middle of the stage, so the names
+ * push outward and the centre of the composition stays open. Derived from the
+ * slot rather than stored per project — move a card to another quadrant and its
+ * label follows.
+ */
+const cornerFor = ({ top, left }) =>
+  `${parseFloat(top) < 40 ? "top" : "bottom"}-${
+    parseFloat(left) < 40 ? "left" : "right"
+  }`;
+
+// The title's centre point is pinned to the corner itself, so roughly three
+// quarters of the word overhangs the square.
+const CORNER_ANCHORS = {
+  "top-left": { top: 0, left: 0 },
+  "top-right": { top: 0, left: "100%" },
+  "bottom-left": { top: "100%", left: 0 },
+  "bottom-right": { top: "100%", left: "100%" },
+};
+
 function WorkCard() {
   const [hoveredProject, setHoveredProject] = useState(null);
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
@@ -47,16 +74,17 @@ function WorkCard() {
     }
   }, [tooltipPosition, hoveredProject]);
 
-  // Predefined positions for random placement
+  // Card placement inside the 80vh stage. Each slot sits clearly in one
+  // quadrant so its label has open space to hang into — see cornerFor().
   const positions = [
-    { top: "5%", left: "0%" },
-    { top: "0%", left: "70%" },
-    { top: "50%", left: "-10%" },
-    { top: "45%", left: "80%" },
-    { top: "70%", left: "30%" },
-    { top: "75%", left: "70%" },
-    { top: "30%", left: "40%" },
-    { top: "60%", left: "45%" },
+    { top: "10%", left: "0%" },
+    { top: "6%", left: "72%" },
+    { top: "58%", left: "2%" },
+    { top: "62%", left: "70%" },
+    { top: "8%", left: "36%" },
+    { top: "72%", left: "36%" },
+    { top: "34%", left: "0%" },
+    { top: "36%", left: "74%" },
   ];
 
   return (
@@ -127,11 +155,13 @@ function WorkCard() {
           // Assign different floating animations based on index
           const floatClass = `float-animation-${(index % 4) + 1}`;
 
+          const anchor = CORNER_ANCHORS[cornerFor(position)];
+
           return (
             <Link
               key={project.id}
               to={`/works/${project.id}`}
-              className={`absolute cursor-pointer overflow-hidden transition-transform hover:scale-105 w-48 h-48 ${floatClass}`}
+              className={`absolute cursor-pointer transition-transform hover:scale-105 w-48 h-48 ${floatClass}`}
               style={{
                 top: position.top,
                 left: position.left,
@@ -141,19 +171,40 @@ function WorkCard() {
               onMouseLeave={() => setHoveredProject(null)}
               onMouseMove={handleMouseMove}
             >
-              {project.images && project.images.thumbnail ? (
-                <img
-                  src={project.images.thumbnail}
-                  alt={project.title}
-                  className="h-full w-full object-cover"
-                />
-              ) : (
-                <div className="flex h-full w-full items-center justify-center bg-tertiary">
-                  <span className="text-lg font-bold">
-                    {project.title.charAt(0)}
-                  </span>
-                </div>
-              )}
+              {/* The thumbnail clips to the square; the title deliberately
+                  does not, so overflow-hidden lives here rather than on the
+                  link itself. */}
+              <div className="h-full w-full overflow-hidden">
+                {project.images && project.images.thumbnail ? (
+                  <img
+                    src={project.images.thumbnail}
+                    alt={project.title}
+                    className="h-full w-full object-cover"
+                  />
+                ) : (
+                  <div className="flex h-full w-full items-center justify-center bg-tertiary">
+                    <span className="text-lg font-bold">
+                      {project.title.charAt(0)}
+                    </span>
+                  </div>
+                )}
+              </div>
+
+              {/* Title, centred on the outward corner. aria-hidden because the
+                  thumbnail's alt text already names the project, and
+                  pointer-events-none so a name overhanging a neighbouring card
+                  cannot swallow its clicks. */}
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute select-none whitespace-nowrap font-body uppercase leading-none tracking-wide text-white"
+                style={{
+                  ...anchor,
+                  transform: "translate(-50%, -50%)",
+                  fontSize: "clamp(1.75rem, 3.6vw, 4rem)",
+                }}
+              >
+                {project.title}
+              </span>
             </Link>
           );
         })}
@@ -172,17 +223,37 @@ function WorkCard() {
             backgroundColor: "rgba(17, 24, 39, 0.5)",
           }}
         >
-          {hoveredProject.images?.previewgif && (
-            <video
-              key={hoveredProject.id}
-              src={hoveredProject.images.previewgif}
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="absolute inset-0 w-full h-full object-cover"
-            />
-          )}
+          {hoveredProject.images?.preview &&
+            (isVideo(hoveredProject.images.preview) ? (
+              <video
+                key={hoveredProject.id}
+                src={hoveredProject.images.preview}
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="none"
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+            ) : (
+              <img
+                key={hoveredProject.id}
+                src={hoveredProject.images.preview}
+                alt=""
+                aria-hidden="true"
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+            ))}
+
+          {/* Scrim. The preview media is absolutely positioned over the whole
+              tooltip, so it covers the container's own background colour — the
+              title and description need their own layer to stay legible over a
+              bright screenshot. */}
+          <div
+            className="absolute inset-0 bg-black/65 pointer-events-none"
+            aria-hidden="true"
+          />
+
           <div className="p-3 text-center w-full relative z-10">
             <h3 className="text-primary text-xl font-bold mb-2">
               {hoveredProject.title}

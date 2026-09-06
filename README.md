@@ -45,9 +45,9 @@ The aesthetic is inspired by 1980s avant-garde print media: bold display typogra
 
 | Project | Stack | Description |
 |---|---|---|
+| QORUM | Next.js, Supabase, Resend | Multi-tenant association management SaaS |
 | LODE | React, Vite, Supabase, PWA | Trucking logistics and load management platform |
 | moo.v | React, TMDb API | Minimal movie discovery platform |
-| QORUM | Next.js, Supabase, Resend | Community Q&A and discussion platform |
 | Paws & Relax | WordPress, WooCommerce | Custom theme for a pet massage business |
 
 ---
@@ -79,6 +79,76 @@ Brand color: `#e0ff4f` (neon lime yellow)
 ---
 
 ## Changelog
+
+### V2.2 — September 2026
+
+**Fixes**
+- **Route transitions were blocking navigation.** `AnimatePresence mode="wait"`
+  wrapped `<Routes>`, while the `motion.div` owning the `exit` variant sat two
+  levels deeper inside `Layout`. `mode="wait"` holds the outgoing view until it
+  receives an exit-complete signal, which a non-motion child never sends — so
+  clicking About or Works changed the URL but never rendered the page. Moved
+  `AnimatePresence` into `Layout`, directly around the `motion.div`.
+- `Header`, `Footer`, and `Navigation` no longer remount on every route change,
+  since the transition key moved off `<Routes>`.
+- **The incoming page flashed before animating in.** Keying `<Routes>` had been
+  freezing the outgoing subtree as a side effect; keying the wrapper instead
+  left a live `<Outlet />` inside a wrapper that stays mounted for the length of
+  its exit animation, so the new page rendered into the *outgoing* wrapper at
+  full opacity, slid away, then animated in again. A `FrozenOutlet` now captures
+  the outlet element on mount, pinning each wrapper to the route it started
+  with. Note: the tab title now updates when the incoming page mounts, roughly
+  0.5s after the URL changes.
+- **Hover previews rendered nothing.** All four project tooltips fed `.gif` /
+  `.png` files into a `<video>` element, which can only decode real video — the
+  file downloaded, the element stayed blank, and nothing errored. Hovering the
+  moo.v card pulled 14.76 MB to display an empty box. `workCard` now selects
+  `<video>` or `<img>` from the file extension, and the two projects with real
+  footage point at the MP4s that were already sitting unreferenced in
+  `public/work/`.
+- Video previews use `preload="none"` — nothing downloads until hover.
+- Renamed the `previewgif` field to `preview`, since it is no longer a GIF.
+- Removed a placeholder `link` on moo.v (`example.com/sunset-showdown`, left
+  over from a deleted project) that rendered a dead "View Live" button.
+
+**Content**
+- Works page reordered to QORUM, LODE, moo.v, Paws & Relax.
+- All four case studies rewritten for a hiring audience — leading with scope,
+  status, and ownership rather than process narrative. Section headings changed
+  to Overview / Design & UX / What I Built / Hard Problems.
+- Metadata and JSON-LD now cover both Vancouver, BC and Toronto, ON.
+
+**Works page**
+- **Corner-pinned project titles.** Each name is set in Editorial Ultralight and
+  centred on the corner of its card facing away from the middle of the
+  composition, so roughly three quarters of the word overhangs the square. The
+  corner is derived from the card's slot rather than hard-coded per project.
+  Card positions retuned to give each name clear space. Desktop only.
+- **Tooltip contrast fixed.** The tooltip's background colour sat behind the
+  preview media, which covers the whole box — so bright screenshots left the
+  title and description with no scrim. Added a scrim layer between media and
+  text; worst case now measures 6.2:1 for the title and 7.0:1 for body copy.
+- Case study body copy now has scoped spacing; Tailwind's reset had zeroed every
+  margin, so structured write-ups ran together as one block.
+
+**SEO**
+- Added a full static meta baseline to `index.html` — description, canonical,
+  Open Graph, Twitter Card, robots — so crawlers see it without executing the
+  bundle. The served HTML was previously a 530-byte shell with no description,
+  which is why search results showed no snippet.
+- New `useSeo()` hook replaces the per-page `<meta>` JSX. It rewrites the
+  existing head tags on route change rather than rendering new ones: React 19
+  hoists metadata into `<head>` but does not deduplicate it, so declarative tags
+  layered over static ones produce duplicates.
+- Per-project titles, descriptions, and `og:image` on `/works/:projectId`.
+- Added JSON-LD `Person` structured data.
+- Added real `robots.txt` and `sitemap.xml`. Both previously returned the HTML
+  page with a `200`, because the SPA rewrite catches any path that isn't a file.
+- Canonical tags point at the apex domain.
+
+**Removed**
+- Unused `useRef` import and the redundant `useLocation` / `location` prop in
+  `App.jsx`.
 
 ### V2.1 — March 2026
 

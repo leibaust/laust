@@ -4,8 +4,75 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Leibrandt Austria</title>
     <meta name="google" content="notranslate" />
+
+    <!--
+      Static SEO baseline. These tags are what crawlers and link unfurlers see
+      before any JavaScript runs, so they must be present in the served HTML.
+      useSeo() rewrites their content client-side on route change.
+    -->
+    <title>Leibrandt Austria | Front-End &amp; UX Developer Portfolio</title>
+    <meta
+      name="description"
+      content="Portfolio of Leibrandt Austria, a front-end and UX developer in Vancouver and Toronto, building fast, design-led web apps in React, Tailwind, and Supabase."
+    />
+    <meta
+      name="keywords"
+      content="Leibrandt Austria, front-end developer, UX developer, UI developer, web developer, React developer, portfolio, creative coding, design-focused dev"
+    />
+    <meta name="author" content="Leibrandt Austria" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+    <link rel="canonical" href="https://laust.ca/" />
+
+    <!-- Open Graph -->
+    <meta property="og:site_name" content="Leibrandt Austria" />
+    <meta property="og:locale" content="en_CA" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://laust.ca/" />
+    <meta property="og:title" content="Leibrandt Austria | Front-End &amp; UX Developer Portfolio" />
+    <meta
+      property="og:description"
+      content="Portfolio of Leibrandt Austria, a front-end and UX developer in Vancouver and Toronto, building fast, design-led web apps in React, Tailwind, and Supabase."
+    />
+    <meta property="og:image" content="https://laust.ca/work/port1.png" />
+    <meta property="og:image:alt" content="Leibrandt Austria portfolio" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Leibrandt Austria | Front-End &amp; UX Developer Portfolio" />
+    <meta
+      name="twitter:description"
+      content="Portfolio of Leibrandt Austria, a front-end and UX developer in Vancouver and Toronto, building fast, design-led web apps in React, Tailwind, and Supabase."
+    />
+    <meta name="twitter:image" content="https://laust.ca/work/port1.png" />
+
+    <!-- Structured data: helps Google associate the site with the person. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Leibrandt Austria",
+        "url": "https://laust.ca/",
+        "image": "https://laust.ca/work/port1.png",
+        "jobTitle": "Front-End & UX Developer",
+        "workLocation": [
+          { "@type": "Place", "name": "Vancouver, BC, Canada" },
+          { "@type": "Place", "name": "Toronto, ON, Canada" }
+        ],
+        "email": "mailto:hello@laust.ca",
+        "sameAs": [
+          "https://linkedin.com/in/laaustria",
+          "https://github.com/leibaust"
+        ],
+        "knowsAbout": [
+          "Front-end development",
+          "UI/UX design",
+          "React",
+          "Tailwind CSS",
+          "Supabase"
+        ]
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>

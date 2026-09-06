@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://laust.ca/sitemap.xml

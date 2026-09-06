@@ -1,138 +1,200 @@
 export const projects = [
   {
+    id: "qorum",
+    title: "QORUM",
+    shortDescription:
+      "Multi-tenant SaaS for professional associations, live in production at qorum.ca",
+    concept: `<p>QORUM is an association management platform — event registration, member records, email campaigns, and site administration in one product. It runs in production at qorum.ca, where the SFPE Prairies Provinces Chapter uses it to run a membership and event programme that previously lived in spreadsheets and inboxes.</p>
+    <p>I built it solo, end to end: product design, interface, database schema, and application code. A single codebase serves every client organisation, each with its own branding and its own isolated data.</p>
+    <ul>
+    <li><b>Status: </b>Live, with a real organisation running day-to-day operations on it.</li>
+    <li><b>Scope: </b>Around 25 routes across three access levels — public, member, and admin.</li>
+    <li><b>Model: </b>Multi-tenant from the schema up. New client means a new organisation record, not a new deployment.</li></ul>`,
+
+    design: `<p>The product is really three interfaces with different jobs, and most of the design work was deciding how much they should resemble each other.</p>
+    <ul>
+    <li><b>Public site: </b>Editorial and light, carrying each organisation's logo and brand colours. This is the page a prospective member judges the chapter by, so it reads as the client's site rather than as software.</li>
+    <li><b>Member portal: </b>Card-based dashboard leading with what a member actually returns for — upcoming events, membership status, and renewal prompts.</li>
+    <li><b>Admin console: </b>Sidebar navigation across Members, Events, News, Email, Media, Reports, and Customisation. Denser than the other two surfaces, because the people using it are working, not browsing.</li>
+    <li><b>Built for non-technical admins: </b>Chapter organisers are volunteers, not operators. Destructive actions confirm, empty states explain what to do next, and content is edited through a rich-text editor rather than raw HTML.</li>
+    <li><b>Theming without code: </b>Brand colours, logo, email header styling, and footer text are configuration, not a fork. A new client is reskinned through the admin panel.</li></ul>`,
+
+    development: `<p>Next.js App Router with React Server Components, on a shared Postgres database where every row is scoped to an organisation.</p>
+    <ul>
+    <li><b>Front end: </b>Next.js 16 App Router, React Server Components, Tailwind CSS v4 with brand tokens driven per organisation, Tiptap for rich text, Luxon for timezone-correct event scheduling.</li>
+    <li><b>Events: </b>The full lifecycle — creation, ticket types (free or paid, member-only or public), a registration flow with per-event custom questions, registrant management, and automated post-event email.</li>
+    <li><b>Email: </b>Campaigns, subscriber lists, reusable templates, and transactional sends through Resend, all rendering with the sending organisation's branding.</li>
+    <li><b>Data layer: </b>Supabase for Postgres, Auth, and Storage, with Row Level Security enforcing tenant isolation in the database rather than in application code.</li>
+    <li><b>Admin surface: </b>Media library, reports, homepage widget configuration, and editable About and Contact pages, so the client can run the site without me.</li></ul>`,
+
+    challenges: `<p>Two problems shaped the architecture, and both had to be solved before the product could work at all.</p>
+    <ul>
+    <li><b>Recursive security policies: </b>Row Level Security policies needed to know which organisation the current user belongs to, which meant querying the members table — but that table's own policy asked the same question, so Postgres recursed infinitely. Solved with <code>SECURITY DEFINER</code> helper functions that resolve org and admin status outside the policy evaluation, breaking the cycle without weakening isolation.</li>
+    <li><b>One template model, three delivery paths: </b>Campaigns, post-event automations, and transactional mail all needed per-organisation branding. Building them separately would have meant maintaining three near-identical rendering paths, so they share a single template model and differ only in what triggers a send.</li>
+    <li><b>Multi-tenancy is an interface problem too: </b>Isolating data is the easy half. The harder half is an admin surface where a volunteer can rebrand an entire site without ever seeing that other tenants exist.</li></ul>`,
+    technologies: [
+      "Next.js",
+      "React",
+      "Tailwind CSS",
+      "Supabase",
+      "PostgreSQL",
+      "Stripe",
+      "Resend",
+      "Vercel",
+    ],
+    images: {
+      thumbnail: "/work/qorum-home.png",
+      gallery: [
+        "/work/qorum-admin.png",
+        "/work/qorum-portal.png",
+        "/work/qorum-event.png",
+      ],
+      preview: "/work/qorum-home.png",
+    },
+    link: "https://qorum.ca/",
+  },
+  {
     id: "lode",
     title: "LODE",
-    shortDescription: "A full-stack trucking operations platform",
-    concept: `<p>LODE is a full-stack operations platform built to replace legacy trucking software for a freight company, with a multi-tenant SaaS architecture designed to scale across future clients. It unifies dispatch, warehouse, driver workflows, and customer tracking in a single system.<br /><br />
-    <li><b>Problem: </b>Logistics staff were manually translating emails into old software, warehouse teams were hand-writing DIM sheets, and shipment tracking was entirely manual.</li>
-    <li><b>Vision: </b>A single platform covering the full freight lifecycle, from job creation through dispatch, warehouse intake, and final delivery POD.</li>
-    <li><b>Architecture: </b>Multi-tenant from day one, with every table scoped by tenant_id and Supabase RLS enforcing data isolation at the database layer.</li>
-    <li><b>Roles: </b>8 distinct user roles (Administrator, Management, Accounting, Logistics, Dispatcher, Driver, Warehouse Staff, and Customer), each with scoped access.</li></p>`,
+    shortDescription:
+      "An operations platform replacing legacy dispatch software at a freight company",
+    concept: `<p>LODE replaces the legacy software a freight company ran its business on. It covers the whole operation — dispatch, warehouse intake, driver workflows on the road, and a public tracking page for customers — in one system, built to be resold to other carriers later.</p>
+    <p>The brief came from watching how the company actually worked. Logistics staff were retyping customer emails into a decades-old system, warehouse teams hand-wrote dimension sheets and physically carried them to the office, and shipment status was updated by hand or not at all.</p>
+    <ul>
+    <li><b>Users: </b>Eight roles, from dispatchers and warehouse staff to drivers on phones and customers who never log in.</li>
+    <li><b>Scope: </b>Two operational systems — local delivery jobs and AWB freight shipments — that hand off to each other at several points.</li>
+    <li><b>Architecture: </b>Multi-tenant from the first migration, so the second customer does not require a rewrite.</li></ul>`,
 
-    design: `<p>Designed as a dense, data-heavy operations tool with a dark interface that reduces eye strain during long shifts. The UI prioritizes clarity and speed over decoration.<br /><br />
-    <li><b>Theme: </b>Dark mode with an amber accent system; operators can personalize their accent color (Ember, Teal, Cobalt, Amber, Violet, Sage, White).</li>
-    <li><b>Dispatch Board: </b>Kanban-style column layout (Unassigned / Assigned / Completed) with inline driver assignment and job detail expansion.</li>
-    <li><b>PWA-first: </b>Built as an installable Progressive Web App, so drivers can save it to their homescreen for a full-screen, native-feeling mobile experience without an app store.</li>
-    <li><b>Density: </b>Dashboard surfaces driver availability, job counts, week-over-week stats, and system health in a single view.</li></p>`,
+    design: `<p>A dense operations tool, designed for people who stare at it for a whole shift rather than visit it occasionally. Clarity and speed matter more than personality here, and almost every decision followed from that.</p>
+    <ul>
+    <li><b>Dark by default: </b>Dispatchers work long shifts in front of this screen. The dark interface is an ergonomic decision, not a stylistic one, and operators can set their own accent colour from seven options.</li>
+    <li><b>Dispatch board: </b>A three-column board — Unassigned, Assigned, Completed — with driver assignment and job detail inline, so a dispatcher never loses the overview to see a detail.</li>
+    <li><b>One login, eight interfaces: </b>A driver on a phone at a loading dock and an accountant reviewing billing share an auth system and see almost nothing in common. The UI adapts to the role rather than hiding buttons the user cannot press.</li>
+    <li><b>Mobile as a first-class surface: </b>Built as an installable PWA so drivers add it to a homescreen and get a full-screen app with no browser chrome and no app store.</li>
+    <li><b>Density that earns its place: </b>The dashboard puts driver availability, job counts, week-over-week movement, and system health in a single view, because that is the view a manager checks first.</li></ul>`,
 
-    development: `<p>Built with React + Vite as a PWA, backed by Supabase for database, auth, real-time, and storage. Zustand handles client state.<br /><br />
-    <li><b>Stack: </b>React + Vite + Tailwind CSS (PWA), Zustand, Supabase (PostgreSQL + Auth + RLS + Storage), Google Maps API.</li>
-    <li><b>Two core systems: </b>Dispatch/Jobs (local delivery lifecycle) and Warehouse/Shipments (AWB-based freight tracking), intersecting at key handoff points.</li>
-    <li><b>DIM Sheets: </b>Warehouse staff upload PDF DIM sheets directly into the platform, which are then attached to jobs or released to third-party drivers.</li>
-    <li><b>RLS Security: </b>Row Level Security enforces tenant isolation and role-based access at the database layer. Security is not just UI-gated.</li>
-    <li><b>Real-time: </b>Supabase Realtime subscriptions keep the dispatch board and driver status live without polling.</li></p>`,
+    development: `<p>React and Vite as an installable PWA, with Supabase providing Postgres, auth, realtime, and file storage. Zustand handles client state.</p>
+    <ul>
+    <li><b>Front end: </b>React, Vite, Tailwind CSS, Zustand for state, PWA manifest and service worker for installability, Google Maps for the live driver map.</li>
+    <li><b>Dispatch and jobs: </b>Job creation from a customer request through to assignment, driver status updates, on-screen signature capture, and delivery photos attached to the job record.</li>
+    <li><b>Warehouse and shipments: </b>AWB barcode scanning into warehouse locations, customs status tracking, dimension sheets captured in-app and generated as PDFs, and a release flow for third-party drivers.</li>
+    <li><b>Realtime: </b>Supabase subscriptions keep the dispatch board and driver statuses current without polling.</li>
+    <li><b>Public tracking: </b>Customers check status and download proof of delivery through a token-scoped page with no account and no login.</li>
+    <li><b>Security at the database: </b>Row Level Security scopes every query by tenant and role, so a driver cannot read another driver's jobs even with a hand-written request.</li></ul>`,
 
-    challenges: `<p>Building a multi-role, multi-tenant operations platform presented significant architectural and UX challenges:<br /><br />
-    <li><b>Multi-tenancy from scratch: </b>Every query, every RLS policy, and every UI component had to be tenant-scoped from the first line of code. Retrofitting this later would have been impossible.</li>
-    <li><b>Role-adaptive UI: </b>The same login flow serves 8 roles with entirely different views and permissions, so designing a clean role-routing system without duplicating components took careful planning.</li>
-    <li><b>Two intersecting systems: </b>Jobs and Shipments are independent workflows that can link at multiple points (an import spawning a last-mile job, an export pickup creating a shipment), and modelling these relationships cleanly required multiple schema iterations.</li>
-    <li><b>PWA on mobile: </b>Getting a true full-screen, installable experience across Android and iOS without React Native required careful PWA manifest and service worker configuration.</li>
-    <li><b>Real-world constraints: </b>Building against the workflows of an actual freight company meant requirements shifted as we discovered how operations actually worked vs. how they were described.</li></p>`,
-    technologies: ["React.js", "Vite", "Tailwind CSS", "Supabase", "PostgreSQL", "Zustand", "PWA", "Google Maps API"],
+    challenges: `<p>Building against a live business meant the hard parts were rarely the ones I expected.</p>
+    <ul>
+    <li><b>Multi-tenancy has no retrofit: </b>Every table, policy, and query had to be tenant-scoped from the first line. Adding it later would have meant rewriting the data layer, so it went in before there was a second customer to justify it.</li>
+    <li><b>Eight roles without eight codebases: </b>The same routes serve wildly different permissions and views. Getting that from one component tree, rather than duplicating screens per role, took several passes at the routing and permission model.</li>
+    <li><b>Two systems that touch: </b>Jobs and shipments are independent workflows that link at multiple points — an import spawning a last-mile delivery, an export pickup creating a shipment. Modelling those relationships without making either system depend on the other took several schema revisions.</li>
+    <li><b>Requirements that moved: </b>What the office described and what the warehouse actually did were not the same process. A lot of the work was discovering the real workflow and reshaping the interface around it.</li></ul>`,
+    technologies: [
+      "React",
+      "Vite",
+      "Tailwind CSS",
+      "Supabase",
+      "PostgreSQL",
+      "Zustand",
+      "PWA",
+      "Google Maps API",
+    ],
     images: {
       thumbnail: "/work/lode-login.png",
-      gallery: ["/work/lode-dashboard.png", "/work/lode-dispatch.png", "/work/lode-dimsheets.png", "/work/lode-settings.png"],
-      previewgif: "/work/lode-login.png",
+      gallery: [
+        "/work/lode-dashboard.png",
+        "/work/lode-dispatch.png",
+        "/work/lode-dimsheets.png",
+        "/work/lode-settings.png",
+      ],
+      preview: "/work/lode-login.png",
     },
     link: "https://trucking-topaz.vercel.app/",
   },
   {
     id: "moov",
     title: "moo.v",
-    shortDescription: "A responsive React web application",
-    concept: `<p>A React-based movie discovery platform designed to break away from traditional movie-library aesthetics, emphasizing minimalism and visual engagement.<br /><br />
-  <li><b>Vision: </b>Minimal, visually-driven interface prioritizing movies themselves</li>
-  <li><b>Approach: </b>Reduce information overload with intuitive, progressive content reveal</li></p>`,
+    shortDescription:
+      "A movie discovery interface built with the TMDb API, in a team of three",
+    concept: `<p>A movie discovery app built with two other developers, aiming for something closer to a well-set gallery than a database front end. Most film libraries lead with metadata; moo.v leads with the posters and reveals detail as you reach for it.</p>
+    <ul>
+    <li><b>Team: </b>Three developers. I owned the interactive movie cards, search, and the favourites system.</li>
+    <li><b>Premise: </b>Show less by default. Runtime, rating, and synopsis appear on hover or tap rather than competing with the artwork.</li></ul>`,
 
-    design: `<p>Responsive UI/UX design emphasizing minimalism, usability, and interactivity.<br /><br />
-  <li><b>Process: </b>Iterative Figma designs with user feedback</li>
-  <li><b>Aesthetics: </b>Clean style, neutral palette with brown accents</li>
-  <li><b>Typography: </b>Modern sans-serif headings, readable body fonts</li>
-  <li><b>Interactivity: </b>Interactive movie cards with progressive hover/tap reveals</li>
-  <li><b>Consistency: </b>Comprehensive component library for design uniformity</li></p>`,
+    design: `<p>Designed in Figma before any components were written, then refined against feedback from people outside the team.</p>
+    <ul>
+    <li><b>Component library: </b>A shared Figma library so three developers building in parallel produced one consistent interface rather than three dialects of it.</li>
+    <li><b>Progressive reveal: </b>Cards carry only the poster and title at rest. Detail surfaces on interaction, which keeps a dense grid readable.</li>
+    <li><b>Restraint: </b>Neutral palette with brown accents, sans-serif headings, and generous spacing, so the artwork supplies the colour.</li>
+    <li><b>Touch and pointer parity: </b>Hover reveals needed a tap equivalent that did not trap mobile users in a state they could not exit.</li></ul>`,
 
-    development: `<p>Collaborative React app integrating TMDb API for interactive movie browsing.<br /><br />
-  <li><b>Role: </b>Developed interactive movie cards, real-time search, and favorites management with React Context</li>
-  <li><b>Technologies: </b>React, React Router, localStorage, CSS Grid/Flexbox, React Transition Groups</li>
-  <li><b>Features: </b>Responsive layouts, keyboard navigation, smooth transitions, custom pagination</li>
-  <li><b>Best Practices: </b>Clean, maintainable code with clear documentation for future collaboration</li></p>`,
+    development: `<p>React with React Router against the TMDb API. My work covered the card interactions, search, and client-side persistence.</p>
+    <ul>
+    <li><b>Interactive cards: </b>The hover and tap reveal behaviour, including the transitions between states and the touch fallback.</li>
+    <li><b>Search: </b>Live search against TMDb with debounced input, loading and error states, and custom pagination for large result sets.</li>
+    <li><b>Favourites: </b>Global favourites state via React Context, persisted to localStorage so a list survives a refresh without a backend.</li>
+    <li><b>Accessibility: </b>Keyboard navigation through the grid and card states, so the interface does not depend on a mouse.</li>
+    <li><b>Working in parallel: </b>Documented component interfaces so three people could build against each other's work without blocking.</li></ul>`,
 
-    challenges: `<p>Valuable React and API integration challenges overcome through the project:<br /><br />
-  <li><b>Responsive Components: </b>Consistent behavior across devices and screen sizes</li>
-  <li><b>API Integration: </b>Managed asynchronous API calls, search debouncing, error handling, and loading states</li>
-  <li><b>State Management: </b>Complex global states managed effectively using React Context</li>
-  <li><b>Performance Optimization: </b>Improved performance via conditional rendering and useEffect cleanup</li>
-  <li><b>Key Learnings: </b>React Hooks, responsive design practices, and effective API integration patterns</li></p>`,
-    technologies: ["HTML/CSS/Javascript", "API", "PHP", "React.js", "Figma"],
+    challenges: `<p>The interesting problems were about interaction state rather than the API itself.</p>
+    <ul>
+    <li><b>Hover has no touch equivalent: </b>A reveal that feels natural with a pointer becomes a trap on a phone. The card state machine had to work for both without a separate mobile build.</li>
+    <li><b>Search that does not thrash: </b>Every keystroke firing a request made the UI stutter and wasted quota. Debouncing plus cancelling superseded requests fixed both.</li>
+    <li><b>Shared state across a grid: </b>Favourites had to stay in sync across every card, the detail view, and the favourites page. Context solved it, but deciding what belonged in global state and what stayed local took some unpicking.</li>
+    <li><b>Cleanup: </b>Async calls resolving after unmount produced state updates on dead components. Effect cleanup and abortable requests removed a whole class of warnings.</li></ul>`,
+    technologies: [
+      "React",
+      "React Router",
+      "TMDb API",
+      "JavaScript",
+      "PHP",
+      "Figma",
+    ],
     images: {
       thumbnail: "/work/movie.png",
       gallery: ["/work/figma1.png", "/work/movie.png"],
-      previewgif: "/work/moov.gif",
+      preview: "/work/moov.mp4",
     },
-    link: "https://example.com/sunset-showdown",
     github: "https://github.com/dfelices/danielle-leibrandt-ian-movie-app",
     figma:
       "https://www.figma.com/design/6SLr74GDyhZiLtIZ9X01ee/Movie-Database-Prototype-2024?node-id=0-1&t=QayONoX1pMVZaFGG-1",
   },
   {
-    id: "qorum",
-    title: "QORUM",
-    shortDescription: "A live multi-tenant SaaS association management platform, first deployed at qorum.ca for the SFPE Prairies Provinces Chapter.",
-    concept: `<p>Purpose-built SaaS for small professional associations, replacing spreadsheets with event management, member portals, email campaigns, and full org administration. Multi-tenancy serves multiple organizations from a single codebase with individual branding, Supabase RLS data isolation, and path-based routing at qorum.ca/[slug]/.</p>`,
-
-    design: `<p>QORUM has two distinct visual identities: a clean, professional public-facing site for members, and a dense admin console for chapter organizers.<br /><br />
-    <li><b>Public site: </b>Light, editorial layout with the organization's brand colors and logo, fully customizable per client via the Admin Customization panel.</li>
-    <li><b>Member portal: </b>Warm, card-based dashboard showing upcoming events, membership status, quick links, and renewal prompts.</li>
-    <li><b>Admin console: </b>Sidebar-driven interface covering Members, Events, News, Email, Media, Reports, and Customization, designed for non-technical chapter admins.</li>
-    <li><b>Brand tokens: </b>Primary and accent colors, logo, email header styles, and footer text are all configurable per organization without touching code.</li></p>`,
-
-    development: `<p>Built on Next.js App Router with a multi-tenant shared DB architecture, including Stripe billing (setup fee + subscription), Resend email system (campaigns, templates, post-event automations), Tiptap rich text editor, and a full admin dashboard with guided onboarding.<br /><br />
-    <li><b>Stack: </b>Next.js (App Router, React Server Components), Tailwind CSS, Supabase (PostgreSQL + Auth + RLS + Storage), Resend, Stripe, Vercel.</li>
-    <li><b>Events system: </b>Full event lifecycle covering creation, ticket types (free/paid, member-only/public), registration flow with custom questions, registrant management, and post-event automated emails.</li></p>`,
-
-    challenges: `<p>Two key challenges shaped the architecture from day one:<br /><br />
-    <li><b>RLS recursion: </b>Standard RLS policies caused infinite recursion when policies queried the members table to determine org context. Solved with SECURITY DEFINER helper functions that break the recursion cleanly.</li>
-    <li><b>Flexible email system: </b>Designing a template system that works uniformly across campaigns, post-event automations, and transactional flows, with per-org branding baked in, required a unified template model rather than separate implementations.</li></p>`,
-    technologies: ["Next.js", "Supabase", "Resend", "Stripe", "Tiptap", "Tailwind CSS", "Vercel", "Luxon"],
-    images: {
-      thumbnail: "/work/qorum-home.png",
-      gallery: ["/work/qorum-admin.png", "/work/qorum-portal.png", "/work/qorum-event.png"],
-      previewgif: "/work/qorum-home.png",
-    },
-    link: "https://qorum.ca/",
-  },
-  {
     id: "paws",
     title: "Paws & Relax",
-    shortDescription: "A Wordpress website for a pet massage business",
-    concept: `<p>A fully custom WordPress theme designed from scratch for a dog massage business, aimed at creating a warm and inviting digital experience reflective of the spa's nurturing physical atmosphere. As the lead UI/UX designer, I carefully curated a soothing and professional aesthetic.<br /><br />
-    <li><b>Vision: </b>A calming, welcoming online presence emphasizing a seamless journey from discovering services to booking appointments.</li>
-    <li><b>Color Palette: </b>Earthy tones including terracotta, sage green, and soft neutral backgrounds to evoke tranquility and natural wellness.</li></p>`,
+    shortDescription:
+      "Brand identity and a custom WordPress theme for a pet massage studio",
+    concept: `<p>A dog massage studio with a calm, tactile physical space and no web presence to match it. I led design and built the theme from an empty directory — no page builder, no purchased template.</p>
+    <ul>
+    <li><b>Role: </b>Lead UI/UX designer, and developer on the theme and its custom blocks.</li>
+    <li><b>Goal: </b>Carry the feel of the room onto the screen, and get visitors from "what is canine massage" to a booked appointment without friction.</li>
+    <li><b>Identity: </b>Earthy palette of terracotta, sage, and warm neutrals, with a custom SVG logo drawn for the brand.</li></ul>`,
 
-    design: `<p>As the primary UI/UX designer, I led the comprehensive design process starting from initial research through detailed Figma wireframes and mockups. The design prioritized usability, modularity, and consistency across the website.<br /><br />
-    <li><b>Typography: </b>Montserrat for clarity and readability paired with Grown for distinctive, stylish headings.</li>
-    <li><b>Responsive Design: </b>Ensured seamless user experiences across all devices, from mobile to desktop.</li>
-    <li><b>Brand Identity: </b>Developed a custom SVG logo capturing the nurturing spirit of the brand.</li>
-    <li><b>Information Architecture: </b>Structured content intuitively, guiding users effortlessly from service discovery to booking.</li>
-    <li><b>Visual Hierarchy: </b>Strategically placed elements and clear call-to-action points to maximize engagement and conversions.</li>
-    <li><b>Block-Based Design: </b>Custom modular blocks that enabled easy content updates while maintaining consistent aesthetics.</li></p>`,
+    design: `<p>Research and wireframes in Figma first, then high-fidelity mockups, then a component inventory that became the theme's block library.</p>
+    <ul>
+    <li><b>Typography: </b>Montserrat for body copy and interface text, paired with Grown for headings to carry personality without costing legibility.</li>
+    <li><b>Information architecture: </b>Structured around the decision a visitor is actually making, moving from what the service is, to who provides it, to booking.</li>
+    <li><b>Visual hierarchy: </b>Calls to action placed where the page has already answered the question that precedes them, rather than repeated uniformly down the page.</li>
+    <li><b>Modular blocks: </b>Designed as a kit of reusable sections, so the owner can rearrange pages without the design drifting.</li>
+    <li><b>Responsive: </b>Laid out mobile-first, since most visitors arrive on a phone looking for hours, location, or a booking link.</li></ul>`,
 
-    development: `<p>My dual role as designer and developer enabled informed design choices that aligned with practical development considerations. In development, I contributed directly to building key functional elements.<br /><br />
-    <li><b>Custom Blocks: </b>Created custom WordPress blocks for displaying critical company details such as address, email, and phone number using the Block API.</li>
-    <li><b>Interactive Animations: </b>Implemented the Animate On Scroll (AOS) library to enhance user engagement subtly.</li>
-    <li><b>Front Page Template: </b>Developed strategically arranged content blocks to promote user engagement and drive conversions.</li>
-    <li><b>Specialized Templates: </b>Crafted templates for diverse content types, including services, team profiles, and testimonials.</li>
-    <li><b>Maintainability: </b>Followed WordPress best practices to ensure clean, modular, and maintainable code structure.</li></p>`,
+    development: `<p>A custom WordPress theme built on the block editor, designed so a non-technical owner can maintain the site without breaking it.</p>
+    <ul>
+    <li><b>Custom blocks: </b>Built with the WordPress Block API for business details — address, phone, email — so contact information is edited in one place and stays consistent everywhere it appears.</li>
+    <li><b>Templates: </b>Purpose-built templates for services, team profiles, and testimonials, each with its own content model.</li>
+    <li><b>Front page: </b>A block-composed landing page arranged to lead toward booking rather than to list everything the business does.</li>
+    <li><b>Commerce: </b>WooCommerce customised for appointment booking, restyled so checkout does not look like it belongs to a different site.</li>
+    <li><b>Motion: </b>Scroll-triggered reveals kept subtle enough to guide attention without becoming the point.</li></ul>`,
 
-    challenges: `<p>This project presented several significant technical and design challenges that enhanced my professional growth:<br /><br />
-    <li><b>Font Optimization: </b>Addressed font loading inconsistencies through optimization techniques, including selecting proper web formats and caching strategies.</li>
-    <li><b>Block Editor Customization: </b>Gained deep expertise in WordPress Block API to balance customization flexibility and design integrity.</li>
-    <li><b>Responsive Navigation: </b>Developed intuitive navigation systems suitable for all screen sizes, leveraging progressive enhancement techniques.</li>
-    <li><b>WooCommerce Integration: </b>Customized the booking system to align with specific business needs, ensuring consistent branding throughout the booking process.</li>
-    <li><b>Cross-Discipline Insight: </b>Strengthened my understanding of the vital intersection between design considerations and development feasibility.</li></p>`,
+    challenges: `<p>Most of the difficulty came from the gap between a design that looks right and a theme a client can safely edit.</p>
+    <ul>
+    <li><b>Freedom versus consistency: </b>The block editor lets a client change anything, including things that break the design. Deciding which controls to expose and which to lock down was the central design decision of the build.</li>
+    <li><b>Font loading: </b>The display face flashed and shifted layout on load. Fixing it meant proper web formats, sensible fallbacks, and caching rather than accepting the jump.</li>
+    <li><b>Navigation across breakpoints: </b>Getting one navigation pattern to work from a narrow phone to a wide desktop, without a separate mobile menu that drifts out of sync.</li>
+    <li><b>Designing what I had to build: </b>Doing both roles meant every design decision arrived with its implementation cost attached — which killed a few ideas early and made the rest cheaper to build.</li></ul>`,
     technologies: [
-      "HTML/CSS/Javascript",
-      "Wordpress",
+      "WordPress",
+      "PHP",
+      "JavaScript",
       "Figma",
       "WooCommerce",
       "Google API",
@@ -140,7 +202,7 @@ export const projects = [
     images: {
       thumbnail: "/work/paws.png",
       gallery: ["/work/paws1.png", "/work/paws2.png"],
-      previewgif: "/work/paws.gif",
+      preview: "/work/paws.mp4",
     },
     link: "https://pawsandrelax.bcitwebdeveloper.ca/",
     figma:

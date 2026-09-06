@@ -129,9 +129,9 @@ function WorkDetailCard() {
           <div className="max-h-[400px] overflow-y-auto pr-4 custom-scrollbar">
             {project.concept && (
               <>
-                <h2>Concept & Vision</h2>
+                <h2>Overview</h2>
                 <div
-                  className="text-lg mb-4 list-none"
+                  className="text-lg mb-4 list-none case-study"
                   dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(project.concept) }}
                 />
               </>
@@ -139,27 +139,27 @@ function WorkDetailCard() {
 
             {project.design && (
               <>
-                <h2>Design & Planning</h2>
+                <h2>Design & UX</h2>
                 <div
-                  className="text-lg mb-4 list-none"
+                  className="text-lg mb-4 list-none case-study"
                   dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(project.design) }}
                 />
               </>
             )}
             {project.development && (
               <>
-                <h2>Development & Implementation</h2>
+                <h2>What I Built</h2>
                 <div
-                  className="text-lg mb-4 list-none"
+                  className="text-lg mb-4 list-none case-study"
                   dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(project.development) }}
                 />
               </>
             )}
             {project.challenges && (
               <>
-                <h2>Challenges & Learnings</h2>
+                <h2>Hard Problems</h2>
                 <div
-                  className="text-lg mb-4 list-none"
+                  className="text-lg mb-4 list-none case-study"
                   dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(project.challenges) }}
                 />
               </>
