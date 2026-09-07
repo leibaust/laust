@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { projects } from "../../data/projects";
 import { useState, useRef, useEffect } from "react";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 
 // A <video> can only decode real video. Feeding it a .gif or .png fails
 // silently — the file downloads, the element stays blank — so pick the element
@@ -29,10 +30,58 @@ const CORNER_ANCHORS = {
   "bottom-right": { top: "100%", left: "100%" },
 };
 
+// How far each layer drifts from the mouse, in pixels, at full deflection
+// (cursor at the stage's edge). The title is the "closer" layer and moves
+// further than the thumbnail beneath it — that differential is what reads as
+// space between the two, not the absolute distance either one travels.
+const THUMBNAIL_PARALLAX_PX = 7;
+const TITLE_PARALLAX_PX = 22;
+
+// The thumbnail pans by THUMBNAIL_PARALLAX_PX inside a frame that clips it, so
+// it has to be scaled up first — otherwise panning would uncover a sliver of
+// empty space at the trailing edge. 1.08 comfortably covers a 7px pan on a
+// 192px card.
+const THUMBNAIL_PARALLAX_SCALE = 1.08;
+
 function WorkCard() {
   const [hoveredProject, setHoveredProject] = useState(null);
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
   const tooltipRef = useRef(null);
+  const stageRef = useRef(null);
+
+  // Raw cursor position over the desktop stage, normalized to -1..1 on each
+  // axis (0 = stage centre). Smoothed with the same spring feel as the custom
+  // cursor so the parallax settles rather than snapping to the pointer.
+  const stageX = useMotionValue(0);
+  const stageY = useMotionValue(0);
+  const springX = useSpring(stageX, { stiffness: 50, damping: 20, mass: 1 });
+  const springY = useSpring(stageY, { stiffness: 50, damping: 20, mass: 1 });
+
+  // Layer 1 (thumbnail): small pan + the scale needed to cover it.
+  const thumbnailTransform = useTransform([springX, springY], ([x, y]) =>
+    `translate3d(${x * THUMBNAIL_PARALLAX_PX}px, ${y * THUMBNAIL_PARALLAX_PX}px, 0) scale(${THUMBNAIL_PARALLAX_SCALE})`
+  );
+
+  // Layer 2 (title): larger drift, composed with the corner-anchor centering
+  // translate that already lives on this element.
+  const titleTransform = useTransform([springX, springY], ([x, y]) =>
+    `translate(-50%, -50%) translate3d(${x * TITLE_PARALLAX_PX}px, ${y * TITLE_PARALLAX_PX}px, 0)`
+  );
+
+  const handleStageMouseMove = (e) => {
+    const stage = stageRef.current;
+    if (!stage) return;
+    const rect = stage.getBoundingClientRect();
+    stageX.set(((e.clientX - rect.left) / rect.width) * 2 - 1);
+    stageY.set(((e.clientY - rect.top) / rect.height) * 2 - 1);
+  };
+
+  // Drift back to centre once the cursor leaves the stage, rather than
+  // leaving the layers parked off to one side.
+  const handleStageMouseLeave = () => {
+    stageX.set(0);
+    stageY.set(0);
+  };
 
   // Handle mouse movement on card to update tooltip position
   const handleMouseMove = (e) => {
@@ -118,7 +167,12 @@ function WorkCard() {
       </div>
 
       {/* Desktop layout (random positioning) */}
-      <div className="hidden sm:block relative h-[80vh] w-full">
+      <div
+        ref={stageRef}
+        className="hidden sm:block relative h-[80vh] w-full"
+        onMouseMove={handleStageMouseMove}
+        onMouseLeave={handleStageMouseLeave}
+      >
         <style jsx>{`
           @keyframes float {
             0% {
@@ -176,17 +230,21 @@ function WorkCard() {
                   link itself. */}
               <div className="h-full w-full overflow-hidden">
                 {project.images && project.images.thumbnail ? (
-                  <img
+                  <motion.img
                     src={project.images.thumbnail}
                     alt={project.title}
                     className="h-full w-full object-cover"
+                    style={{ transform: thumbnailTransform }}
                   />
                 ) : (
-                  <div className="flex h-full w-full items-center justify-center bg-tertiary">
+                  <motion.div
+                    className="flex h-full w-full items-center justify-center bg-tertiary"
+                    style={{ transform: thumbnailTransform }}
+                  >
                     <span className="text-lg font-bold">
                       {project.title.charAt(0)}
                     </span>
-                  </div>
+                  </motion.div>
                 )}
               </div>
 
@@ -194,17 +252,22 @@ function WorkCard() {
                   thumbnail's alt text already names the project, and
                   pointer-events-none so a name overhanging a neighbouring card
                   cannot swallow its clicks. */}
-              <span
+              <motion.span
                 aria-hidden="true"
                 className="pointer-events-none absolute select-none whitespace-nowrap font-body uppercase leading-none tracking-wide text-white"
                 style={{
                   ...anchor,
-                  transform: "translate(-50%, -50%)",
+                  transform: titleTransform,
                   fontSize: "clamp(1.75rem, 3.6vw, 4rem)",
+                  // A soft drop shadow separates the title from the thumbnail
+                  // it overhangs — this stage sits inside mix-blend-difference,
+                  // so the shadow's own color gets inverted along with
+                  // everything else here; tuned by eye against that blend.
+                  filter: "drop-shadow(0 4px 6px rgba(0, 0, 0, 0.6))",
                 }}
               >
                 {project.title}
-              </span>
+              </motion.span>
             </Link>
           );
         })}

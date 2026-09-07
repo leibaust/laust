@@ -116,7 +116,13 @@ Brand color: `#e0ff4f` (neon lime yellow)
 - All four case studies rewritten for a hiring audience — leading with scope,
   status, and ownership rather than process narrative. Section headings changed
   to Overview / Design & UX / What I Built / Hard Problems.
-- Metadata and JSON-LD now cover both Vancouver, BC and Toronto, ON.
+- About page bio rewritten with owner-supplied copy pairing prior video-
+  production (Thinkific) and freight-logistics experience with the current
+  front-end/UX focus, and naming QORUM directly as shipped, in-production
+  work. Revised once more later in the same session for two small wording
+  changes.
+- Metadata, JSON-LD, and now the visible About page bio all cover both
+  Vancouver, BC and Toronto, ON.
 
 **Works page**
 - **Corner-pinned project titles.** Each name is set in Editorial Ultralight and
@@ -130,6 +136,35 @@ Brand color: `#e0ff4f` (neon lime yellow)
   text; worst case now measures 6.2:1 for the title and 7.0:1 for body copy.
 - Case study body copy now has scoped spacing; Tailwind's reset had zeroed every
   margin, so structured write-ups ran together as one block.
+- **Mouse-driven parallax** between each card's thumbnail and its corner-pinned
+  title. Both drift independently based on cursor position over the whole works
+  canvas, on both axes, with the title moving roughly 3× further than the
+  thumbnail — that differential is what reads as depth. Driven by a Framer
+  Motion spring; eases back to centre when the cursor leaves the canvas. The
+  existing float animation is untouched, since it runs on a different element.
+
+**Landing page & About page**
+- **Landing name parallax.** The name and subtitle read as one lockup rather
+  than two independent layers, so — unlike the Works cards — they drift
+  together as a single slight movement (`±10px`) against the fixed background
+  video, tracked across the full viewport.
+- **About page parallax**, corrected after feedback. The first pass panned the
+  photo *inside* its frame (the Works-thumbnail treatment verbatim); moving
+  the image but not the frame around it read as a windowed crop rather than
+  depth, and nothing else on the page responded to the cursor. Rebuilt as two
+  nested layers on the same cursor position: the grey content card drifts
+  `±6px`, and the photo's frame — a child of that card — drifts a further
+  `±16px` *on top of* the card's own drift, composing through normal DOM
+  nesting. The photo no longer scales; it moves as one rigid frame, image
+  included, so there's no clipped edge to cover and no hover-capability gate
+  needed. Body copy, tech-stack icons, and the FAQ stay static.
+- **Subtle drop shadows** on the nearer layer in both places, to reinforce the
+  depth and help legibility: the Works title gets a soft `drop-shadow`, and
+  the About photo gets a tuned `box-shadow` (replacing the earlier `shadow-xl`
+  Tailwind default). The Works title sits inside `mix-blend-difference`, which
+  inverts the shadow's colour along with everything else there — checked
+  visually rather than assumed, and it holds up. Neither shadow moves with the
+  parallax; both stay fixed.
 
 **SEO**
 - Added a full static meta baseline to `index.html` — description, canonical,

@@ -1,10 +1,13 @@
 # laust.ca — Technical Audit
 
 Audit of the portfolio codebase at commit `9d93926`, verified against the live
-site at [laust.ca](https://laust.ca) on 2026-09-06. No redesign is proposed here
-— every item is behaviour, payload, or tooling. The one user-visible difference
-is that hover previews now actually appear, which is finding 2 working rather
-than a design change.
+site at [laust.ca](https://laust.ca), starting 2026-09-06. The original pass was
+scoped to behaviour, payload, and tooling with no redesign in view; the
+numbered findings below reflect that scope. The session continued past the
+initial audit into visible changes requested directly by the site owner —
+corner-pinned project titles, mouse-driven parallax, and a full rewrite of the
+case study copy — which are not numbered findings but are recorded in the
+**Changelog** at the end, in the order they happened.
 
 Findings are ordered by impact. Each one states how it was verified.
 
@@ -484,8 +487,7 @@ previews as working `<video>` elements. Both are now inaccurate. `BRIEF.md` and
 
 ## Changes applied in this pass
 
-Findings **1, 2, 3, 13, 14, 15, 16** are fixed. Everything else is reported, not
-changed.
+Findings **1, 2, 3, 13, 14, 15, 16** are fixed. Beyond the numbered findings, this session also added corner-pinned project titles with mouse-driven parallax, fixed the tooltip's contrast, and rewrote all four case studies for a hiring audience — none of these were in the original numbered list, since they came from later requests in the same session rather than the initial audit. See the changelog below for detail. Everything else in the numbered findings is reported, not changed.
 
 | File | Change |
 |---|---|
@@ -501,6 +503,12 @@ changed.
 | `src/pages/WorkDetailPage.jsx` | Same, plus per-project title, description, and `og:image` |
 | `public/robots.txt` | **New.** Allows all, points to the sitemap |
 | `public/sitemap.xml` | **New.** All 7 URLs |
+| `src/components/ui/workCard.jsx` (2nd pass); soft drop-shadow on the title | Corner-pinned titles + mouse-driven parallax added; card positions retuned; `overflow-hidden` moved to a thumbnail-only wrapper |
+| `src/index.css` | Scoped `.case-study` spacing for the rewritten copy |
+| `src/components/ui/WorkDetailCard.jsx` | Section headings renamed (Overview / Design & UX / What I Built / Hard Problems) |
+| `src/components/ui/AboutInfo.jsx` | Bio copy rewritten with owner-supplied text |
+| `src/components/ui/NameCard.jsx` | Slight mouse-driven parallax on the name lockup |
+| `src/pages/AboutPage.jsx`; soft box-shadow on the photo | Nested mouse-driven parallax: content card drifts, photo frame drifts further on top of it (corrected from an initial image-panning approach) |
 
 ### Why a hook rather than JSX tags
 
@@ -520,13 +528,16 @@ and `og:image` all update per route — including per project on
 ## Suggested order
 
 1. ~~Findings 1, 2, 3 — navigation, previews, dead link~~ ✅ done.
-2. **Deploy.** Navigation, previews, and the SEO baseline are all worth shipping
-   now. Then request indexing in Search Console and submit the sitemap.
-3. Findings 4, 5, 6 — re-encode the video, shrink the overlay, delete the
+2. ~~Corner-pinned titles, parallax, tooltip contrast, case study rewrite~~ ✅ done.
+3. **Deploy.** Everything above is worth shipping in one pass. Then request
+   indexing in Search Console and submit the sitemap.
+4. **Record QORUM and LODE preview clips** (finding 2a) — the two strongest
+   projects are the two with no motion preview.
+5. Findings 4, 5, 6 — re-encode the video, shrink the overlay, delete the
    34.12 MB of dead files. This is where the megabytes are.
-4. Finding 9 — the noise loop, for battery and CPU.
-5. Findings 17 and 19 — the `.htaccess` redirect and cache headers.
-6. The rest as cleanup.
+6. Finding 9 — the noise loop, for battery and CPU.
+7. Findings 17 and 19 — the `.htaccess` redirect and cache headers.
+8. The rest as cleanup.
 
 ---
 
@@ -629,6 +640,177 @@ field was renamed `preview`.
 Also removed a placeholder `link` on moo.v — `https://example.com/sunset-showdown`,
 left over from a deleted project — that rendered a "View Live" button going
 nowhere.
+
+### Added: corner-pinned project titles on the works canvas
+
+Each project name is now set in Editorial Ultralight and centred on the corner
+of its card that faces away from the middle of the composition — the corner is
+derived from the card's own slot (`cornerFor()`), not stored per project, so
+moving a card to a different quadrant moves its label with it. Roughly three
+quarters of the word overhangs the square rather than sitting inside it.
+
+Card positions were retuned to give each label clear space, and the works
+stage's `overflow-hidden` moved from the card link down onto a thumbnail-only
+wrapper, since the title deliberately needs to spill outside the square.
+
+**Verified:** on the built bundle, all four labels measured `offsetFromCornerPx: 0`
+against their card's outward corner, with the expected corner assignment for
+each (QORUM top-left, LODE top-right, moo.v bottom-left, Paws & Relax
+bottom-right). Confirmed at 800px, 1280px, and 1600px with no off-screen
+labels, and confirmed the mobile grid is untouched (desktop-only by design).
+
+### Fixed: hover tooltip had no scrim, so bright screenshots washed out the text
+
+The tooltip's dark background sat *behind* the preview media, which is
+absolutely positioned to cover the whole tooltip — so a bright screenshot (like
+QORUM's white marketing page) had no scrim under the neon title and white body
+text at all. This is the contrast problem the site owner flagged directly.
+
+Added a dedicated scrim layer between the media and the text (`bg-black/65`).
+**Verified:** worst case (a pure-white screenshot under the scrim) now measures
+**6.2:1** for the neon title and **7.0:1** for body copy — both clear WCAG AA's
+4.5:1 threshold for normal text.
+
+### Rewritten: all four case studies, for a hiring audience rather than a critique
+
+Section headings changed from Concept & Vision / Design & Planning /
+Development & Implementation / Challenges & Learnings to **Overview / Design &
+UX / What I Built / Hard Problems**. Content was rewritten to lead with scope,
+status, and ownership rather than design intent, and the challenges sections
+now describe concrete engineering problems (QORUM's RLS recursion fix, LODE's
+eight-role permission model) instead of personal growth narrative. Detail was
+pulled from the project's own `ref/` briefs that had never made it onto the
+site.
+
+Tailwind's reset had zeroed every margin, so the restructured copy (lead
+paragraph followed by a labelled list) rendered as one unbroken block. Added
+scoped `.case-study` spacing in `index.css` to fix it.
+
+**Not fixed, left for the owner:** the `<b>` labels inside each list item are
+not visibly bold, because only the Ultralight weight of PP Editorial New is
+registered — the browser synthesises a fake bold from an ultralight face,
+which barely reads. The Ultrabold file already exists in the repo, unused.
+Registering it would fix the labels, but `h2 { font-weight: bold }` elsewhere
+in the CSS means it would also change every heading site-wide, so this is a
+design call rather than a bug fix.
+
+### Added: mouse-driven parallax between the thumbnail and its title
+
+The two layers on each work card — the thumbnail (layer 1) and the
+corner-pinned title (layer 2) — now drift independently based on cursor
+position over the whole works canvas, on both axes, so movement is diagonal
+wherever the cursor is rather than only vertical. The title drifts about 3×
+further than the thumbnail beneath it; that differential, not the absolute
+distance, is what reads as depth. Driven by a shared Framer Motion spring
+(same feel as the existing custom cursor) so it settles rather than snapping,
+and eases back to centre when the cursor leaves the canvas. The existing float
+animation is untouched — it lives on the card wrapper via CSS keyframes, while
+the parallax drives the image and title inside it via a separate `transform`.
+
+**Verification took a detour worth recording.** Two independent test methods
+(synthetic `dispatchEvent`, and the browser pane's `hover` action) produced
+contradictory, apparently sign-flipped readings. Rather than patch based on
+guesswork, the motion values were exposed directly and driven with fixed test
+inputs, bypassing event simulation entirely — this isolated the fault to the
+spring's *output* never advancing, while its *input* updated normally. Root
+cause: this environment's browser pane reports `document.hidden: true`, which
+suspends `requestAnimationFrame`, the mechanism Framer Motion's spring runs on
+— the same limitation already identified during the page-transition fix.
+Re-tested with the same rAF shim used then (injected into the built HTML
+ahead of the bundle, for testing only), and the output matched hand
+calculation to the decimal in all four directions — left, right, and both
+diagonals. Debug hooks were removed before the final build, which was diffed
+clean.
+
+### Rewritten: About page bio copy
+
+Replaced with owner-supplied copy pairing prior video-production and freight-
+logistics experience with the current front-end/UX focus, and naming QORUM
+directly as shipped, in-production work. Both cities (Vancouver and Toronto)
+now appear in the visible body copy, not just metadata — closing the gap
+flagged earlier in the session, where the JSON-LD and meta descriptions
+already covered both but the on-page text still read Vancouver only.
+
+**Verified:** on the built bundle, the text overflows its scrollable container
+by only 38px at a 1280px viewport (functionally invisible), confirming the
+new copy fits the space about as tightly as the original despite covering more
+ground. Mobile shows more scroll, but that's pre-existing — the container was
+already a fixed-height, scroll-on-overflow box before this edit (same pattern
+as the FAQ box below it), and word count is comparable to the copy it
+replaced.
+
+**Revised once more** in the same session — two small wording changes
+("and I wouldn't have it any other way" in place of "and that's the point";
+the Thinkific sentence reworded to "on the ground floor before they became as
+big as they are now"). Second paragraph unchanged. Same length, same fit.
+
+### Added, then corrected: mouse-driven parallax on the landing name and the About page
+
+Extended the works-canvas technique to the two other pages with a clear
+candidate for it, but not identically — each got the layering that actually
+fits its content.
+
+- **Landing page:** the name and subtitle read as one lockup, not two
+  independent layers the way a Works card's thumbnail and overhanging title
+  do. Splitting them into separate drift rates risked reading as
+  misalignment rather than depth, so the whole block moves as a single slight
+  drift (`±10px`) against the fixed background video — foreground text over a
+  static backdrop, tracked across the full landing viewport.
+- **About page — first attempt (corrected below):** the profile photo initially
+  got the Works-thumbnail treatment verbatim — the image panned *inside* its
+  frame, with the frame itself scaled up to cover the pan. The site owner
+  flagged this as wrong: the frame should be what moves, not the photo inside
+  it, and the grey content card around the whole page should drift too. Both
+  are fair — a photo panning inside a static frame reads as a windowed crop
+  effect, not depth, and a single moving element with nothing else on the page
+  responding to the cursor doesn't read as a layered scene.
+- **About page — corrected:** now two nested layers on a shared cursor
+  position. The grey content card drifts `±6px`; the profile photo's frame —
+  a child of that card — drifts a further `±16px` **on top of** the card's own
+  drift, since the two transforms compose through normal DOM nesting rather
+  than needing to be summed manually. That composition is what makes it read
+  as genuine depth: page → card → photo, each layer moving more than its
+  parent. The photo no longer scales at all — it moves as one rigid frame,
+  image included, so there is no clipped edge to cover and nothing left to
+  gate behind hover support (the earlier `matchMedia("(hover: hover)")` check
+  existed solely to avoid a permanent crop from the old scale-based approach,
+  which no longer applies). Body copy, tech-stack icons, and the FAQ still stay
+  static — the card's own drift is enough ambient motion without also panning
+  paragraph text against its own scroll.
+
+**Verified the correction on the built bundle:** dispatching a mouse move to
+the far corner of the stage and reading both elements' transforms directly —
+the card's own transform (`5.86px, -5.82px`) and the photo frame's own
+transform (`15.63px, -15.63px`) are each independently correct for their
+constants, and the photo's **on-screen** position moved by their sum
+(`21.49px, -21.35px`), confirming the nesting composes rather than one
+overriding the other. Also confirmed the `<figure>` element itself now carries
+the background image directly (zero children, no `overflow-hidden`) — there is
+no separate inner layer left panning independently inside it.
+
+### Added: drop shadows on the nearer parallax layers
+
+Requested as a follow-up once the layering above was corrected: a subtle
+shadow on the layer that's meant to read as closer, both to reinforce the
+depth cue and to help legibility.
+
+- **Works title.** `filter: drop-shadow(0 4px 6px rgba(0,0,0,0.6))` on the
+  corner-pinned title span. This stage sits inside `mix-blend-difference`
+  (`WorksPage.jsx`'s wrapper `div`), so the shadow's own rendered color gets
+  inverted along with everything else there — worth flagging since a blend
+  mode can make an ordinary shadow render unpredictably. Checked visually
+  rather than assumed: it reads as a soft dark lift behind the letters against
+  both the dark canvas and the lighter thumbnails (QORUM), with no colour
+  artifacts from the blend.
+- **About page photo.** Replaced the pre-existing `shadow-xl` Tailwind
+  utility — `0 20px 25px -5px rgba(0,0,0,0.1)`, already fairly diffuse — with
+  an inline `boxShadow: "0 18px 30px -10px rgba(0,0,0,0.35)"` for more
+  deliberate control over the value. The About page has no blend mode, so this
+  one behaves exactly as written.
+
+Neither shadow moves with the parallax itself — both are fixed, so the effect
+stays exactly as subtle as asked rather than adding a second axis of motion on
+top of the drift that's already there.
 
 ### Audited, not yet changed
 

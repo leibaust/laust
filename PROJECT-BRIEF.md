@@ -53,10 +53,10 @@ index.html                     Static SEO baseline + JSON-LD, mount point
                 └── AnimatePresence mode="wait"
                     └── motion.div  keyed on pathname, owns the transition
                         └── FrozenOutlet  pins the route captured at mount
-                        ├── HomePage        NameCard
-                        ├── AboutPage       TechStack · AboutInfo · Faq · photo
-                        ├── WorksPage       WorkCard (floating grid + tooltip)
-                        └── WorkDetailPage  WorkDetailCard (gallery + lightbox)
+                            ├── HomePage        NameCard (parallax name lockup)
+                            ├── AboutPage       TechStack · AboutInfo · Faq · photo (parallax)
+                            ├── WorksPage       WorkCard (floating grid + tooltip, parallax)
+                            └── WorkDetailPage  WorkDetailCard (gallery + lightbox)
 ```
 
 ### Directory layout
@@ -155,8 +155,8 @@ Hostinger web root.
 
 ## Recent changes — 2026-09-06
 
-Four fixes landed in this pass. Full detail, including the measured backlog, is
-in `OPTIMIZATION-AUDIT.md`.
+A running log of one extended session, roughly in order. Full detail, including
+the measured backlog, is in `OPTIMIZATION-AUDIT.md`.
 
 **Route transitions were blocking navigation.** `AnimatePresence mode="wait"`
 wrapped `<Routes>`, but the `motion.div` owning the `exit` variant lived two
@@ -198,6 +198,21 @@ worst case measures 6.2:1 for the neon title and 7.0:1 for body copy.
 
 **Open:** QORUM and LODE have no motion preview. See finding 2a in the audit.
 
+**Mouse-driven parallax added between the thumbnail and its corner-pinned
+title.** The two layers drift independently based on cursor position over the
+whole works canvas, on both axes, so movement is diagonal wherever the cursor
+is. The title drifts about 3× further than the thumbnail — that differential
+reads as depth. Driven by a Framer Motion spring, matching the feel of the
+existing custom cursor; eases back to centre when the cursor leaves the canvas.
+The existing float animation is untouched, since it lives on a different
+element than the new transforms. Verifying this took a detour: this session's
+browser tooling runs with `document.hidden: true`, which suspends
+`requestAnimationFrame` — the same limitation hit during the page-transition
+fix — so the spring's *output* looked frozen even though its *input* updated
+correctly. Confirmed by exposing the motion values directly and re-testing with
+the same rAF shim used earlier; the output matched hand calculation to the
+decimal in all four directions.
+
 **The site had no meta description in its served HTML.** `index.html` was
 530 bytes; all metadata was rendered by React 19 post-hydration, so Google's
 result was a bare title with no snippet. Now split in two: a complete static tag
@@ -218,8 +233,43 @@ the working MP4s sat unreferenced in `public/work/`. The tooltip now picks
 A placeholder `link` on moo.v that rendered a dead "View Live" button was
 removed at the same time.
 
-**Locations.** Metadata and JSON-LD now cover both Vancouver, BC and Toronto,
-ON. Note that the visible about-page copy still reads Vancouver only.
+**Locations.** Metadata, JSON-LD, and now the visible About page bio all cover
+both Vancouver and Toronto — closed in a later pass of the same session (see
+below), so the gap this note originally flagged no longer exists.
+
+**About page bio rewritten** with owner-supplied copy pairing prior video-
+production (Thinkific) and freight-logistics experience with the current
+front-end/UX focus, naming QORUM directly as shipped, in-production work.
+Revised once more later in the same session for two small wording changes.
+
+**Mouse-driven parallax extended to the landing name and the About page**,
+using the works-canvas technique but scoped differently per page. The landing
+name reads as one lockup rather than two independent layers, so it drifts as
+a single slight movement (`±10px`) against the fixed background video, rather
+than splitting into two rates the way a Works card does — that split would
+have risked reading as misalignment rather than depth.
+
+The About page went through a correction. It first got the Works-thumbnail
+treatment verbatim — the photo panned *inside* its frame, scaled up to cover
+the pan. The site owner flagged this as backwards: the frame should move, not
+the image within it, and the grey content card around the whole page should
+drift too, not just the photo. Rebuilt as two nested layers on the same cursor
+position: the content card drifts `±6px`, and the photo's frame — a child of
+that card — drifts a further `±16px` *on top of* the card's own drift, since
+the transforms compose through normal DOM nesting. The photo no longer scales
+at all; it moves as one rigid frame, so there's no clipped edge to cover and
+no hover-capability gate needed (the earlier `matchMedia` check existed only
+to guard the old scale-based crop, which no longer exists). Body copy, icons,
+and the FAQ stay static.
+
+**Subtle drop shadows added on the nearer parallax layer in both places** —
+the Works title (`filter: drop-shadow(0 4px 6px rgba(0,0,0,0.6))`) and the
+About photo (`boxShadow: 0 18px 30px -10px rgba(0,0,0,0.35)`, replacing the
+pre-existing `shadow-xl`). The Works title sits inside `mix-blend-difference`
+(`WorksPage.jsx`'s wrapper), which inverts the shadow's rendered colour along
+with everything else there — checked visually rather than assumed, and it
+reads as a clean dark lift with no colour artifacts. Neither shadow moves with
+the parallax itself; both stay fixed so the effect stays as subtle as asked.
 
 Still open and measured: a 19.19 MB background video that mobile downloads
 despite the guard, a 3.74 MB overlay rendered at 10% opacity, 34.12 MB of
