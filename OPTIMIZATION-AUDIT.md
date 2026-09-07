@@ -1,10 +1,13 @@
 # laust.ca — Technical Audit
 
 Audit of the portfolio codebase at commit `9d93926`, verified against the live
-site at [laust.ca](https://laust.ca) on 2026-09-06. No redesign is proposed here
-— every item is behaviour, payload, or tooling. The one user-visible difference
-is that hover previews now actually appear, which is finding 2 working rather
-than a design change.
+site at [laust.ca](https://laust.ca), starting 2026-09-06. The original pass was
+scoped to behaviour, payload, and tooling with no redesign in view; the
+numbered findings below reflect that scope. The session continued past the
+initial audit into visible changes requested directly by the site owner —
+corner-pinned project titles, mouse-driven parallax, and a full rewrite of the
+case study copy — which are not numbered findings but are recorded in the
+**Changelog** at the end, in the order they happened.
 
 Findings are ordered by impact. Each one states how it was verified.
 
@@ -484,8 +487,7 @@ previews as working `<video>` elements. Both are now inaccurate. `BRIEF.md` and
 
 ## Changes applied in this pass
 
-Findings **1, 2, 3, 13, 14, 15, 16** are fixed. Everything else is reported, not
-changed.
+Findings **1, 2, 3, 13, 14, 15, 16** are fixed. Beyond the numbered findings, this session also added corner-pinned project titles with mouse-driven parallax, fixed the tooltip's contrast, and rewrote all four case studies for a hiring audience — none of these were in the original numbered list, since they came from later requests in the same session rather than the initial audit. See the changelog below for detail. Everything else in the numbered findings is reported, not changed.
 
 | File | Change |
 |---|---|
@@ -501,6 +503,9 @@ changed.
 | `src/pages/WorkDetailPage.jsx` | Same, plus per-project title, description, and `og:image` |
 | `public/robots.txt` | **New.** Allows all, points to the sitemap |
 | `public/sitemap.xml` | **New.** All 7 URLs |
+| `src/components/ui/workCard.jsx` (2nd pass) | Corner-pinned titles + mouse-driven parallax added; card positions retuned; `overflow-hidden` moved to a thumbnail-only wrapper |
+| `src/index.css` | Scoped `.case-study` spacing for the rewritten copy |
+| `src/components/ui/WorkDetailCard.jsx` | Section headings renamed (Overview / Design & UX / What I Built / Hard Problems) |
 
 ### Why a hook rather than JSX tags
 
@@ -520,13 +525,16 @@ and `og:image` all update per route — including per project on
 ## Suggested order
 
 1. ~~Findings 1, 2, 3 — navigation, previews, dead link~~ ✅ done.
-2. **Deploy.** Navigation, previews, and the SEO baseline are all worth shipping
-   now. Then request indexing in Search Console and submit the sitemap.
-3. Findings 4, 5, 6 — re-encode the video, shrink the overlay, delete the
+2. ~~Corner-pinned titles, parallax, tooltip contrast, case study rewrite~~ ✅ done.
+3. **Deploy.** Everything above is worth shipping in one pass. Then request
+   indexing in Search Console and submit the sitemap.
+4. **Record QORUM and LODE preview clips** (finding 2a) — the two strongest
+   projects are the two with no motion preview.
+5. Findings 4, 5, 6 — re-encode the video, shrink the overlay, delete the
    34.12 MB of dead files. This is where the megabytes are.
-4. Finding 9 — the noise loop, for battery and CPU.
-5. Findings 17 and 19 — the `.htaccess` redirect and cache headers.
-6. The rest as cleanup.
+6. Finding 9 — the noise loop, for battery and CPU.
+7. Findings 17 and 19 — the `.htaccess` redirect and cache headers.
+8. The rest as cleanup.
 
 ---
 
@@ -629,6 +637,87 @@ field was renamed `preview`.
 Also removed a placeholder `link` on moo.v — `https://example.com/sunset-showdown`,
 left over from a deleted project — that rendered a "View Live" button going
 nowhere.
+
+### Added: corner-pinned project titles on the works canvas
+
+Each project name is now set in Editorial Ultralight and centred on the corner
+of its card that faces away from the middle of the composition — the corner is
+derived from the card's own slot (`cornerFor()`), not stored per project, so
+moving a card to a different quadrant moves its label with it. Roughly three
+quarters of the word overhangs the square rather than sitting inside it.
+
+Card positions were retuned to give each label clear space, and the works
+stage's `overflow-hidden` moved from the card link down onto a thumbnail-only
+wrapper, since the title deliberately needs to spill outside the square.
+
+**Verified:** on the built bundle, all four labels measured `offsetFromCornerPx: 0`
+against their card's outward corner, with the expected corner assignment for
+each (QORUM top-left, LODE top-right, moo.v bottom-left, Paws & Relax
+bottom-right). Confirmed at 800px, 1280px, and 1600px with no off-screen
+labels, and confirmed the mobile grid is untouched (desktop-only by design).
+
+### Fixed: hover tooltip had no scrim, so bright screenshots washed out the text
+
+The tooltip's dark background sat *behind* the preview media, which is
+absolutely positioned to cover the whole tooltip — so a bright screenshot (like
+QORUM's white marketing page) had no scrim under the neon title and white body
+text at all. This is the contrast problem the site owner flagged directly.
+
+Added a dedicated scrim layer between the media and the text (`bg-black/65`).
+**Verified:** worst case (a pure-white screenshot under the scrim) now measures
+**6.2:1** for the neon title and **7.0:1** for body copy — both clear WCAG AA's
+4.5:1 threshold for normal text.
+
+### Rewritten: all four case studies, for a hiring audience rather than a critique
+
+Section headings changed from Concept & Vision / Design & Planning /
+Development & Implementation / Challenges & Learnings to **Overview / Design &
+UX / What I Built / Hard Problems**. Content was rewritten to lead with scope,
+status, and ownership rather than design intent, and the challenges sections
+now describe concrete engineering problems (QORUM's RLS recursion fix, LODE's
+eight-role permission model) instead of personal growth narrative. Detail was
+pulled from the project's own `ref/` briefs that had never made it onto the
+site.
+
+Tailwind's reset had zeroed every margin, so the restructured copy (lead
+paragraph followed by a labelled list) rendered as one unbroken block. Added
+scoped `.case-study` spacing in `index.css` to fix it.
+
+**Not fixed, left for the owner:** the `<b>` labels inside each list item are
+not visibly bold, because only the Ultralight weight of PP Editorial New is
+registered — the browser synthesises a fake bold from an ultralight face,
+which barely reads. The Ultrabold file already exists in the repo, unused.
+Registering it would fix the labels, but `h2 { font-weight: bold }` elsewhere
+in the CSS means it would also change every heading site-wide, so this is a
+design call rather than a bug fix.
+
+### Added: mouse-driven parallax between the thumbnail and its title
+
+The two layers on each work card — the thumbnail (layer 1) and the
+corner-pinned title (layer 2) — now drift independently based on cursor
+position over the whole works canvas, on both axes, so movement is diagonal
+wherever the cursor is rather than only vertical. The title drifts about 3×
+further than the thumbnail beneath it; that differential, not the absolute
+distance, is what reads as depth. Driven by a shared Framer Motion spring
+(same feel as the existing custom cursor) so it settles rather than snapping,
+and eases back to centre when the cursor leaves the canvas. The existing float
+animation is untouched — it lives on the card wrapper via CSS keyframes, while
+the parallax drives the image and title inside it via a separate `transform`.
+
+**Verification took a detour worth recording.** Two independent test methods
+(synthetic `dispatchEvent`, and the browser pane's `hover` action) produced
+contradictory, apparently sign-flipped readings. Rather than patch based on
+guesswork, the motion values were exposed directly and driven with fixed test
+inputs, bypassing event simulation entirely — this isolated the fault to the
+spring's *output* never advancing, while its *input* updated normally. Root
+cause: this environment's browser pane reports `document.hidden: true`, which
+suspends `requestAnimationFrame`, the mechanism Framer Motion's spring runs on
+— the same limitation already identified during the page-transition fix.
+Re-tested with the same rAF shim used then (injected into the built HTML
+ahead of the bundle, for testing only), and the output matched hand
+calculation to the decimal in all four directions — left, right, and both
+diagonals. Debug hooks were removed before the final build, which was diffed
+clean.
 
 ### Audited, not yet changed
 

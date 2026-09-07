@@ -130,6 +130,12 @@ Brand color: `#e0ff4f` (neon lime yellow)
   text; worst case now measures 6.2:1 for the title and 7.0:1 for body copy.
 - Case study body copy now has scoped spacing; Tailwind's reset had zeroed every
   margin, so structured write-ups ran together as one block.
+- **Mouse-driven parallax** between each card's thumbnail and its corner-pinned
+  title. Both drift independently based on cursor position over the whole works
+  canvas, on both axes, with the title moving roughly 3× further than the
+  thumbnail — that differential is what reads as depth. Driven by a Framer
+  Motion spring; eases back to centre when the cursor leaves the canvas. The
+  existing float animation is untouched, since it runs on a different element.
 
 **SEO**
 - Added a full static meta baseline to `index.html` — description, canonical,

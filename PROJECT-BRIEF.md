@@ -155,8 +155,8 @@ Hostinger web root.
 
 ## Recent changes — 2026-09-06
 
-Four fixes landed in this pass. Full detail, including the measured backlog, is
-in `OPTIMIZATION-AUDIT.md`.
+A running log of one extended session, roughly in order. Full detail, including
+the measured backlog, is in `OPTIMIZATION-AUDIT.md`.
 
 **Route transitions were blocking navigation.** `AnimatePresence mode="wait"`
 wrapped `<Routes>`, but the `motion.div` owning the `exit` variant lived two
@@ -197,6 +197,21 @@ the title at all. A dedicated scrim layer now sits between media and text;
 worst case measures 6.2:1 for the neon title and 7.0:1 for body copy.
 
 **Open:** QORUM and LODE have no motion preview. See finding 2a in the audit.
+
+**Mouse-driven parallax added between the thumbnail and its corner-pinned
+title.** The two layers drift independently based on cursor position over the
+whole works canvas, on both axes, so movement is diagonal wherever the cursor
+is. The title drifts about 3× further than the thumbnail — that differential
+reads as depth. Driven by a Framer Motion spring, matching the feel of the
+existing custom cursor; eases back to centre when the cursor leaves the canvas.
+The existing float animation is untouched, since it lives on a different
+element than the new transforms. Verifying this took a detour: this session's
+browser tooling runs with `document.hidden: true`, which suspends
+`requestAnimationFrame` — the same limitation hit during the page-transition
+fix — so the spring's *output* looked frozen even though its *input* updated
+correctly. Confirmed by exposing the motion values directly and re-testing with
+the same rAF shim used earlier; the output matched hand calculation to the
+decimal in all four directions.
 
 **The site had no meta description in its served HTML.** `index.html` was
 530 bytes; all metadata was rendered by React 19 post-hydration, so Google's
