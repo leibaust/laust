@@ -158,6 +158,13 @@ Brand color: `#e0ff4f` (neon lime yellow)
   nesting. The photo no longer scales; it moves as one rigid frame, image
   included, so there's no clipped edge to cover and no hover-capability gate
   needed. Body copy, tech-stack icons, and the FAQ stay static.
+- **Subtle drop shadows** on the nearer layer in both places, to reinforce the
+  depth and help legibility: the Works title gets a soft `drop-shadow`, and
+  the About photo gets a tuned `box-shadow` (replacing the earlier `shadow-xl`
+  Tailwind default). The Works title sits inside `mix-blend-difference`, which
+  inverts the shadow's colour along with everything else there — checked
+  visually rather than assumed, and it holds up. Neither shadow moves with the
+  parallax; both stay fixed.
 
 **SEO**
 - Added a full static meta baseline to `index.html` — description, canonical,

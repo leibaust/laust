@@ -83,14 +83,17 @@ function AboutPage() {
         {/* Right column */}
         <div className="space-y-6">
           {/* Profile image. The whole frame drifts as one rigid unit, on top
-              of the card's own drift — the photo itself is static within it. */}
+              of the card's own drift — the photo itself is static within it.
+              A soft shadow lifts it off the grey card beneath, reinforcing
+              that it's the nearer of the two parallax layers. */}
           <motion.figure
-            className="w-full md:max-w-md h-[300px] bg-primary shadow-xl relative"
+            className="w-full md:max-w-md h-[300px] bg-primary relative"
             style={{
               backgroundImage: `url(${profileImage})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
               transform: photoFrameTransform,
+              boxShadow: "0 18px 30px -10px rgba(0, 0, 0, 0.35)",
             }}
             aria-label="Profile picture"
           />

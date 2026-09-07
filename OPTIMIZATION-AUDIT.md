@@ -503,12 +503,12 @@ Findings **1, 2, 3, 13, 14, 15, 16** are fixed. Beyond the numbered findings, th
 | `src/pages/WorkDetailPage.jsx` | Same, plus per-project title, description, and `og:image` |
 | `public/robots.txt` | **New.** Allows all, points to the sitemap |
 | `public/sitemap.xml` | **New.** All 7 URLs |
-| `src/components/ui/workCard.jsx` (2nd pass) | Corner-pinned titles + mouse-driven parallax added; card positions retuned; `overflow-hidden` moved to a thumbnail-only wrapper |
+| `src/components/ui/workCard.jsx` (2nd pass); soft drop-shadow on the title | Corner-pinned titles + mouse-driven parallax added; card positions retuned; `overflow-hidden` moved to a thumbnail-only wrapper |
 | `src/index.css` | Scoped `.case-study` spacing for the rewritten copy |
 | `src/components/ui/WorkDetailCard.jsx` | Section headings renamed (Overview / Design & UX / What I Built / Hard Problems) |
 | `src/components/ui/AboutInfo.jsx` | Bio copy rewritten with owner-supplied text |
 | `src/components/ui/NameCard.jsx` | Slight mouse-driven parallax on the name lockup |
-| `src/pages/AboutPage.jsx` | Nested mouse-driven parallax: content card drifts, photo frame drifts further on top of it (corrected from an initial image-panning approach) |
+| `src/pages/AboutPage.jsx`; soft box-shadow on the photo | Nested mouse-driven parallax: content card drifts, photo frame drifts further on top of it (corrected from an initial image-panning approach) |
 
 ### Why a hook rather than JSX tags
 
@@ -787,6 +787,30 @@ constants, and the photo's **on-screen** position moved by their sum
 overriding the other. Also confirmed the `<figure>` element itself now carries
 the background image directly (zero children, no `overflow-hidden`) — there is
 no separate inner layer left panning independently inside it.
+
+### Added: drop shadows on the nearer parallax layers
+
+Requested as a follow-up once the layering above was corrected: a subtle
+shadow on the layer that's meant to read as closer, both to reinforce the
+depth cue and to help legibility.
+
+- **Works title.** `filter: drop-shadow(0 4px 6px rgba(0,0,0,0.6))` on the
+  corner-pinned title span. This stage sits inside `mix-blend-difference`
+  (`WorksPage.jsx`'s wrapper `div`), so the shadow's own rendered color gets
+  inverted along with everything else there — worth flagging since a blend
+  mode can make an ordinary shadow render unpredictably. Checked visually
+  rather than assumed: it reads as a soft dark lift behind the letters against
+  both the dark canvas and the lighter thumbnails (QORUM), with no colour
+  artifacts from the blend.
+- **About page photo.** Replaced the pre-existing `shadow-xl` Tailwind
+  utility — `0 20px 25px -5px rgba(0,0,0,0.1)`, already fairly diffuse — with
+  an inline `boxShadow: "0 18px 30px -10px rgba(0,0,0,0.35)"` for more
+  deliberate control over the value. The About page has no blend mode, so this
+  one behaves exactly as written.
+
+Neither shadow moves with the parallax itself — both are fixed, so the effect
+stays exactly as subtle as asked rather than adding a second axis of motion on
+top of the drift that's already there.
 
 ### Audited, not yet changed
 

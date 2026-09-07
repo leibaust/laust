@@ -262,6 +262,15 @@ no hover-capability gate needed (the earlier `matchMedia` check existed only
 to guard the old scale-based crop, which no longer exists). Body copy, icons,
 and the FAQ stay static.
 
+**Subtle drop shadows added on the nearer parallax layer in both places** —
+the Works title (`filter: drop-shadow(0 4px 6px rgba(0,0,0,0.6))`) and the
+About photo (`boxShadow: 0 18px 30px -10px rgba(0,0,0,0.35)`, replacing the
+pre-existing `shadow-xl`). The Works title sits inside `mix-blend-difference`
+(`WorksPage.jsx`'s wrapper), which inverts the shadow's rendered colour along
+with everything else there — checked visually rather than assumed, and it
+reads as a clean dark lift with no colour artifacts. Neither shadow moves with
+the parallax itself; both stay fixed so the effect stays as subtle as asked.
+
 Still open and measured: a 19.19 MB background video that mobile downloads
 despite the guard, a 3.74 MB overlay rendered at 10% opacity, 34.12 MB of
 unreferenced files in `public/work/`, and a noise canvas running 62,500

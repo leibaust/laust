@@ -259,6 +259,11 @@ function WorkCard() {
                   ...anchor,
                   transform: titleTransform,
                   fontSize: "clamp(1.75rem, 3.6vw, 4rem)",
+                  // A soft drop shadow separates the title from the thumbnail
+                  // it overhangs — this stage sits inside mix-blend-difference,
+                  // so the shadow's own color gets inverted along with
+                  // everything else here; tuned by eye against that blend.
+                  filter: "drop-shadow(0 4px 6px rgba(0, 0, 0, 0.6))",
                 }}
               >
                 {project.title}
