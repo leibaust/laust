@@ -506,6 +506,9 @@ Findings **1, 2, 3, 13, 14, 15, 16** are fixed. Beyond the numbered findings, th
 | `src/components/ui/workCard.jsx` (2nd pass) | Corner-pinned titles + mouse-driven parallax added; card positions retuned; `overflow-hidden` moved to a thumbnail-only wrapper |
 | `src/index.css` | Scoped `.case-study` spacing for the rewritten copy |
 | `src/components/ui/WorkDetailCard.jsx` | Section headings renamed (Overview / Design & UX / What I Built / Hard Problems) |
+| `src/components/ui/AboutInfo.jsx` | Bio copy rewritten with owner-supplied text |
+| `src/components/ui/NameCard.jsx` | Slight mouse-driven parallax on the name lockup |
+| `src/pages/AboutPage.jsx` | Mouse-driven parallax + hover-capability gate on the profile photo |
 
 ### Why a hook rather than JSX tags
 
@@ -718,6 +721,56 @@ ahead of the bundle, for testing only), and the output matched hand
 calculation to the decimal in all four directions — left, right, and both
 diagonals. Debug hooks were removed before the final build, which was diffed
 clean.
+
+### Rewritten: About page bio copy
+
+Replaced with owner-supplied copy pairing prior video-production and freight-
+logistics experience with the current front-end/UX focus, and naming QORUM
+directly as shipped, in-production work. Both cities (Vancouver and Toronto)
+now appear in the visible body copy, not just metadata — closing the gap
+flagged earlier in the session, where the JSON-LD and meta descriptions
+already covered both but the on-page text still read Vancouver only.
+
+**Verified:** on the built bundle, the text overflows its scrollable container
+by only 38px at a 1280px viewport (functionally invisible), confirming the
+new copy fits the space about as tightly as the original despite covering more
+ground. Mobile shows more scroll, but that's pre-existing — the container was
+already a fixed-height, scroll-on-overflow box before this edit (same pattern
+as the FAQ box below it), and word count is comparable to the copy it
+replaced.
+
+### Added: mouse-driven parallax on the landing name and the About page photo
+
+Extended the works-canvas technique to the two other pages with a clear
+candidate for it, but not identically — each got the layering that actually
+fits its content.
+
+- **Landing page:** the name and subtitle read as one lockup, not two
+  independent layers the way a Works card's thumbnail and overhanging title
+  do. Splitting them into separate drift rates risked reading as
+  misalignment rather than depth, so the whole block moves as a single slight
+  drift (`±10px`) against the fixed background video — foreground text over a
+  static backdrop, tracked across the full landing viewport.
+- **About page:** the profile photo is the natural equivalent of a Works
+  thumbnail, so it got the identical technique — pan up to `±8px`, scaled to
+  `1.1×` to cover the pan without uncovering an edge, tracked over the page's
+  content section. Body copy, tech-stack icons, and the FAQ were deliberately
+  left static: panning paragraph text would fight its own scroll and add
+  motion where it isn't wanted.
+
+**Caught before shipping:** the photo's scale is only useful on a device that
+can actually hover — on touch, it would have been a permanent, pointless 10%
+crop with no interaction to justify it, unlike the Works thumbnails (which
+sidestep this entirely by being desktop-only markup, invisible on mobile).
+Gated behind `matchMedia("(hover: hover) and (pointer: fine)")`, read once on
+mount. **Verified** both paths on the built bundle by forcing `matchMedia`
+before the bundle loaded: hover-capable renders `scale(1.1)` at rest and pans
+correctly on mouse move (`translate` sign and magnitude matched hand
+calculation exactly, as with the Works verification); hover-incapable renders
+`scale(1)` — the photo's original, unmodified framing, byte-identical to
+pre-parallax behaviour. Also confirmed the photo's containing `<figure>` frame
+never moves (`getBoundingClientRect()` identical before/after) — only the
+image layer inside it pans, so the grid layout is unaffected.
 
 ### Audited, not yet changed
 

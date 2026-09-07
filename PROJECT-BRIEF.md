@@ -53,10 +53,10 @@ index.html                     Static SEO baseline + JSON-LD, mount point
                 └── AnimatePresence mode="wait"
                     └── motion.div  keyed on pathname, owns the transition
                         └── FrozenOutlet  pins the route captured at mount
-                        ├── HomePage        NameCard
-                        ├── AboutPage       TechStack · AboutInfo · Faq · photo
-                        ├── WorksPage       WorkCard (floating grid + tooltip)
-                        └── WorkDetailPage  WorkDetailCard (gallery + lightbox)
+                            ├── HomePage        NameCard (parallax name lockup)
+                            ├── AboutPage       TechStack · AboutInfo · Faq · photo (parallax)
+                            ├── WorksPage       WorkCard (floating grid + tooltip, parallax)
+                            └── WorkDetailPage  WorkDetailCard (gallery + lightbox)
 ```
 
 ### Directory layout
@@ -233,8 +233,26 @@ the working MP4s sat unreferenced in `public/work/`. The tooltip now picks
 A placeholder `link` on moo.v that rendered a dead "View Live" button was
 removed at the same time.
 
-**Locations.** Metadata and JSON-LD now cover both Vancouver, BC and Toronto,
-ON. Note that the visible about-page copy still reads Vancouver only.
+**Locations.** Metadata, JSON-LD, and now the visible About page bio all cover
+both Vancouver and Toronto — closed in a later pass of the same session (see
+below), so the gap this note originally flagged no longer exists.
+
+**About page bio rewritten** with owner-supplied copy pairing prior video-
+production (Thinkific) and freight-logistics experience with the current
+front-end/UX focus, naming QORUM directly as shipped, in-production work.
+
+**Mouse-driven parallax extended to the landing name and the About page
+photo**, using the works-canvas technique but scoped differently per page.
+The landing name reads as one lockup rather than two independent layers, so
+it drifts as a single slight movement (`±10px`) against the fixed background
+video, rather than splitting into two rates the way a Works card does — that
+split would have risked reading as misalignment rather than depth. The About
+page photo is the natural equivalent of a Works thumbnail, so it got the
+identical pan-and-scale treatment (`±8px`, `1.1×`), gated behind
+`matchMedia("(hover: hover) and (pointer: fine)")` so touch devices — which
+can never trigger the pan — get the photo's original, unscaled framing
+instead of a permanent, pointless crop. Body copy, icons, and the FAQ were
+deliberately left static.
 
 Still open and measured: a 19.19 MB background video that mobile downloads
 despite the guard, a 3.74 MB overlay rendered at 10% opacity, 34.12 MB of

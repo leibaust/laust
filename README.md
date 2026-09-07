@@ -116,7 +116,11 @@ Brand color: `#e0ff4f` (neon lime yellow)
 - All four case studies rewritten for a hiring audience — leading with scope,
   status, and ownership rather than process narrative. Section headings changed
   to Overview / Design & UX / What I Built / Hard Problems.
-- Metadata and JSON-LD now cover both Vancouver, BC and Toronto, ON.
+- About page bio rewritten with owner-supplied copy pairing prior video-
+  production (Thinkific) and freight-logistics experience with the current
+  front-end/UX focus, and naming QORUM directly as shipped, in-production work.
+- Metadata, JSON-LD, and now the visible About page bio all cover both
+  Vancouver, BC and Toronto, ON.
 
 **Works page**
 - **Corner-pinned project titles.** Each name is set in Editorial Ultralight and
@@ -136,6 +140,18 @@ Brand color: `#e0ff4f` (neon lime yellow)
   thumbnail — that differential is what reads as depth. Driven by a Framer
   Motion spring; eases back to centre when the cursor leaves the canvas. The
   existing float animation is untouched, since it runs on a different element.
+
+**Landing page & About page**
+- **Landing name parallax.** The name and subtitle read as one lockup rather
+  than two independent layers, so — unlike the Works cards — they drift
+  together as a single slight movement (`±10px`) against the fixed background
+  video, tracked across the full viewport.
+- **About page photo parallax.** The profile photo gets the same pan-and-scale
+  technique as the Works thumbnails (`±8px`, `1.1×`), gated behind
+  `matchMedia("(hover: hover) and (pointer: fine)")` so touch devices — which
+  can never trigger the pan — get the photo's original, unscaled framing
+  instead of a permanent crop. Body copy, tech-stack icons, and the FAQ stay
+  static.
 
 **SEO**
 - Added a full static meta baseline to `index.html` — description, canonical,
