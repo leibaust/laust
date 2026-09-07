@@ -118,7 +118,9 @@ Brand color: `#e0ff4f` (neon lime yellow)
   to Overview / Design & UX / What I Built / Hard Problems.
 - About page bio rewritten with owner-supplied copy pairing prior video-
   production (Thinkific) and freight-logistics experience with the current
-  front-end/UX focus, and naming QORUM directly as shipped, in-production work.
+  front-end/UX focus, and naming QORUM directly as shipped, in-production
+  work. Revised once more later in the same session for two small wording
+  changes.
 - Metadata, JSON-LD, and now the visible About page bio all cover both
   Vancouver, BC and Toronto, ON.
 
@@ -146,12 +148,16 @@ Brand color: `#e0ff4f` (neon lime yellow)
   than two independent layers, so — unlike the Works cards — they drift
   together as a single slight movement (`±10px`) against the fixed background
   video, tracked across the full viewport.
-- **About page photo parallax.** The profile photo gets the same pan-and-scale
-  technique as the Works thumbnails (`±8px`, `1.1×`), gated behind
-  `matchMedia("(hover: hover) and (pointer: fine)")` so touch devices — which
-  can never trigger the pan — get the photo's original, unscaled framing
-  instead of a permanent crop. Body copy, tech-stack icons, and the FAQ stay
-  static.
+- **About page parallax**, corrected after feedback. The first pass panned the
+  photo *inside* its frame (the Works-thumbnail treatment verbatim); moving
+  the image but not the frame around it read as a windowed crop rather than
+  depth, and nothing else on the page responded to the cursor. Rebuilt as two
+  nested layers on the same cursor position: the grey content card drifts
+  `±6px`, and the photo's frame — a child of that card — drifts a further
+  `±16px` *on top of* the card's own drift, composing through normal DOM
+  nesting. The photo no longer scales; it moves as one rigid frame, image
+  included, so there's no clipped edge to cover and no hover-capability gate
+  needed. Body copy, tech-stack icons, and the FAQ stay static.
 
 **SEO**
 - Added a full static meta baseline to `index.html` — description, canonical,

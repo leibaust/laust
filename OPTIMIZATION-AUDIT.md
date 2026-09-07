@@ -508,7 +508,7 @@ Findings **1, 2, 3, 13, 14, 15, 16** are fixed. Beyond the numbered findings, th
 | `src/components/ui/WorkDetailCard.jsx` | Section headings renamed (Overview / Design & UX / What I Built / Hard Problems) |
 | `src/components/ui/AboutInfo.jsx` | Bio copy rewritten with owner-supplied text |
 | `src/components/ui/NameCard.jsx` | Slight mouse-driven parallax on the name lockup |
-| `src/pages/AboutPage.jsx` | Mouse-driven parallax + hover-capability gate on the profile photo |
+| `src/pages/AboutPage.jsx` | Nested mouse-driven parallax: content card drifts, photo frame drifts further on top of it (corrected from an initial image-panning approach) |
 
 ### Why a hook rather than JSX tags
 
@@ -739,7 +739,12 @@ already a fixed-height, scroll-on-overflow box before this edit (same pattern
 as the FAQ box below it), and word count is comparable to the copy it
 replaced.
 
-### Added: mouse-driven parallax on the landing name and the About page photo
+**Revised once more** in the same session — two small wording changes
+("and I wouldn't have it any other way" in place of "and that's the point";
+the Thinkific sentence reworded to "on the ground floor before they became as
+big as they are now"). Second paragraph unchanged. Same length, same fit.
+
+### Added, then corrected: mouse-driven parallax on the landing name and the About page
 
 Extended the works-canvas technique to the two other pages with a clear
 candidate for it, but not identically — each got the layering that actually
@@ -751,26 +756,37 @@ fits its content.
   misalignment rather than depth, so the whole block moves as a single slight
   drift (`±10px`) against the fixed background video — foreground text over a
   static backdrop, tracked across the full landing viewport.
-- **About page:** the profile photo is the natural equivalent of a Works
-  thumbnail, so it got the identical technique — pan up to `±8px`, scaled to
-  `1.1×` to cover the pan without uncovering an edge, tracked over the page's
-  content section. Body copy, tech-stack icons, and the FAQ were deliberately
-  left static: panning paragraph text would fight its own scroll and add
-  motion where it isn't wanted.
+- **About page — first attempt (corrected below):** the profile photo initially
+  got the Works-thumbnail treatment verbatim — the image panned *inside* its
+  frame, with the frame itself scaled up to cover the pan. The site owner
+  flagged this as wrong: the frame should be what moves, not the photo inside
+  it, and the grey content card around the whole page should drift too. Both
+  are fair — a photo panning inside a static frame reads as a windowed crop
+  effect, not depth, and a single moving element with nothing else on the page
+  responding to the cursor doesn't read as a layered scene.
+- **About page — corrected:** now two nested layers on a shared cursor
+  position. The grey content card drifts `±6px`; the profile photo's frame —
+  a child of that card — drifts a further `±16px` **on top of** the card's own
+  drift, since the two transforms compose through normal DOM nesting rather
+  than needing to be summed manually. That composition is what makes it read
+  as genuine depth: page → card → photo, each layer moving more than its
+  parent. The photo no longer scales at all — it moves as one rigid frame,
+  image included, so there is no clipped edge to cover and nothing left to
+  gate behind hover support (the earlier `matchMedia("(hover: hover)")` check
+  existed solely to avoid a permanent crop from the old scale-based approach,
+  which no longer applies). Body copy, tech-stack icons, and the FAQ still stay
+  static — the card's own drift is enough ambient motion without also panning
+  paragraph text against its own scroll.
 
-**Caught before shipping:** the photo's scale is only useful on a device that
-can actually hover — on touch, it would have been a permanent, pointless 10%
-crop with no interaction to justify it, unlike the Works thumbnails (which
-sidestep this entirely by being desktop-only markup, invisible on mobile).
-Gated behind `matchMedia("(hover: hover) and (pointer: fine)")`, read once on
-mount. **Verified** both paths on the built bundle by forcing `matchMedia`
-before the bundle loaded: hover-capable renders `scale(1.1)` at rest and pans
-correctly on mouse move (`translate` sign and magnitude matched hand
-calculation exactly, as with the Works verification); hover-incapable renders
-`scale(1)` — the photo's original, unmodified framing, byte-identical to
-pre-parallax behaviour. Also confirmed the photo's containing `<figure>` frame
-never moves (`getBoundingClientRect()` identical before/after) — only the
-image layer inside it pans, so the grid layout is unaffected.
+**Verified the correction on the built bundle:** dispatching a mouse move to
+the far corner of the stage and reading both elements' transforms directly —
+the card's own transform (`5.86px, -5.82px`) and the photo frame's own
+transform (`15.63px, -15.63px`) are each independently correct for their
+constants, and the photo's **on-screen** position moved by their sum
+(`21.49px, -21.35px`), confirming the nesting composes rather than one
+overriding the other. Also confirmed the `<figure>` element itself now carries
+the background image directly (zero children, no `overflow-hidden`) — there is
+no separate inner layer left panning independently inside it.
 
 ### Audited, not yet changed
 

@@ -4,13 +4,13 @@ function AboutInfo() {
       <h2 className="text-3xl">HI, I'M LEIBRANDT,</h2>
       <p>
         a front-end developer and UI/UX designer splitting time between
-        Vancouver and Toronto. My path hasn't been a straight line, and that's
-        the point. I spent years producing video at Thinkific back when it was
-        a small startup, well before it went public. Then I worked in freight
-        logistics, dealing directly with customers and drivers whenever a
-        shipment went sideways, which taught me to stay calm under real
-        pressure. I've also shot weddings and events on the side, for the
-        creative itch that never really left.
+        Vancouver and Toronto. My path hasn't been a straight line, and I
+        wouldn't have it any other way. I spent years producing video at
+        Thinkific, on the ground floor before they became as big as they are
+        now. Then I worked in freight logistics, dealing directly with
+        customers and drivers whenever a shipment went sideways, which taught
+        me to stay calm under real pressure. I've also shot weddings and
+        events on the side, for the creative itch that never really left.
       </p>
       <br />
       <p>

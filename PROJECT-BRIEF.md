@@ -240,19 +240,27 @@ below), so the gap this note originally flagged no longer exists.
 **About page bio rewritten** with owner-supplied copy pairing prior video-
 production (Thinkific) and freight-logistics experience with the current
 front-end/UX focus, naming QORUM directly as shipped, in-production work.
+Revised once more later in the same session for two small wording changes.
 
-**Mouse-driven parallax extended to the landing name and the About page
-photo**, using the works-canvas technique but scoped differently per page.
-The landing name reads as one lockup rather than two independent layers, so
-it drifts as a single slight movement (`±10px`) against the fixed background
-video, rather than splitting into two rates the way a Works card does — that
-split would have risked reading as misalignment rather than depth. The About
-page photo is the natural equivalent of a Works thumbnail, so it got the
-identical pan-and-scale treatment (`±8px`, `1.1×`), gated behind
-`matchMedia("(hover: hover) and (pointer: fine)")` so touch devices — which
-can never trigger the pan — get the photo's original, unscaled framing
-instead of a permanent, pointless crop. Body copy, icons, and the FAQ were
-deliberately left static.
+**Mouse-driven parallax extended to the landing name and the About page**,
+using the works-canvas technique but scoped differently per page. The landing
+name reads as one lockup rather than two independent layers, so it drifts as
+a single slight movement (`±10px`) against the fixed background video, rather
+than splitting into two rates the way a Works card does — that split would
+have risked reading as misalignment rather than depth.
+
+The About page went through a correction. It first got the Works-thumbnail
+treatment verbatim — the photo panned *inside* its frame, scaled up to cover
+the pan. The site owner flagged this as backwards: the frame should move, not
+the image within it, and the grey content card around the whole page should
+drift too, not just the photo. Rebuilt as two nested layers on the same cursor
+position: the content card drifts `±6px`, and the photo's frame — a child of
+that card — drifts a further `±16px` *on top of* the card's own drift, since
+the transforms compose through normal DOM nesting. The photo no longer scales
+at all; it moves as one rigid frame, so there's no clipped edge to cover and
+no hover-capability gate needed (the earlier `matchMedia` check existed only
+to guard the old scale-based crop, which no longer exists). Body copy, icons,
+and the FAQ stay static.
 
 Still open and measured: a 19.19 MB background video that mobile downloads
 despite the guard, a 3.74 MB overlay rendered at 10% opacity, 34.12 MB of
